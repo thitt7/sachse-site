@@ -2,13 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import clientPromise from '../../lib/mongodb'
 import getNewAlerts from './(scrapers)/getAlerts'
 
-export type Alert = {
-    title: string,
-    type: string,
-    content: string,
-    createdAt: string
-}
-
 const Alerts = async (req: NextApiRequest, res: NextApiResponse) => {
     const client = await clientPromise;
     const db = client.db("sachse-site");
