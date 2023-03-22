@@ -55,9 +55,9 @@ const getNewAlerts = async () => {
 
     if (!await isUpToDate(bulkArr)) {
         console.log('updating...')
-        // populateBulkArr(bulkArr).then(async (arr) => {
-        //     await bulkWrite(arr)
-        // })
+        populateBulkArr(bulkArr).then(async (arr) => {
+            await bulkWrite(arr)
+        })
     } 
 
 }
@@ -85,13 +85,14 @@ const scrape = async (a: Alert): Promise<Alert> => {
     return a
 }
 
-/* check if db needs to be updated or not */
+/* check if db needs to be updated */
 const isUpToDate = async (arr: Alert[]): Promise<boolean> => {
     const client = await clientPromise;
     const db = client.db("sachse-site");
     const alerts = await db.collection('alerts');
+    let oldAlert = []
 
-    let oldAlert = await alerts
+    oldAlert = await alerts
         .find()
         .sort({ createdAt: -1 })
         .limit(1)
@@ -99,10 +100,12 @@ const isUpToDate = async (arr: Alert[]): Promise<boolean> => {
 
     const newAlert = await scrape(arr[0])
 
-    console.log('old alert is', oldAlert[0].URL)
-    console.log('new alert is', newAlert.URL)
-
-    return newAlert.URL == oldAlert[0].URL
+    if (oldAlert[0] == undefined) {
+        return false
+    }
+    else {
+        return newAlert.URL == oldAlert[0].URL
+    }
 }
 
 /* Perform bulk write operation to db with scraped data */
@@ -110,7 +113,6 @@ async function bulkWrite(items: Alert[]) {
     const client = await clientPromise;
     const db = client.db("sachse-site");
     const alerts = await db.collection('alerts');
-    // console.log('items is equal to: ',items)
 
     const ops = items.map((item: Alert) => ({
         updateOne: {
