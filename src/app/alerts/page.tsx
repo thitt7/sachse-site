@@ -7,15 +7,14 @@ export default async function Alerts () {
     
     return (
         <>
-            <ul>
-                {alertResponse.map((alert: any, i: number) => {
+            {alertResponse.map((alert: any, i: number) => {
                 return (
-                    <Link href={`/alerts/${alert._id}`}>
-                        <li key={i}>{alert.body}</li>
-                    </Link>
+                    <div className="alert-card">
+                        <Link href={`/alerts/${alert._id}`} />
+                        <li key={i} dangerouslySetInnerHTML={{ __html: alert.body }}></li>
+                    </div>
                 )
             })}
-            </ul>
         </>
     )
 

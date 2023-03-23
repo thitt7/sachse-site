@@ -11,8 +11,6 @@ const Alerts = async (req: NextApiRequest, res: NextApiResponse) => {
         case "POST":
           break;
         case "GET":
-        //   const allPosts = await db.collection("examples").find({}).toArray();
-
           getNewAlerts()
 
           const alertRes = await alerts

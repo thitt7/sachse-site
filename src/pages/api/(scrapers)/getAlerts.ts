@@ -36,7 +36,6 @@ const getNewAlerts = async () => {
     const db = client.db("sachse-site");
     const alerts = await db.collection('alerts');
 
-    // let bulkArr: Alert[] = []
     let bulkArr: Alert[] = []
     
     /* Iterate through all numbered pages until failure */
