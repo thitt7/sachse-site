@@ -1,35 +1,23 @@
 import React from "react";
-import AlertCard from "./alertCard";
-import Observer from "./Observer";
-import styles from '../../styles/alerts.module.scss'
+import Client from "./Client";
 
-let alertArr: string[]
-let limit: number = 10
-let page: number, offset: string = ''
 
 export default async function Alerts () {
-
+    let limit: number = 10
+    let page: number = 0
+    let offset: number = 0
+    let alertArr: any
     alertArr = await getAlerts(page, limit, offset)
     
     return (
-        <div className={styles.container}>
-            {alertArr.map((alert: any, i: number) => {
-                return (
-                    <AlertCard alert={alert} i={i} key={i}/>
-                )
-            })}
-            <Observer/>
-        </div>
+        <Client Arr={alertArr}>
+
+        </Client>
     )
 
 }
 
-export const pushAlerts = async () => {
-    console.log('pushing alerts...')
-    // alertArr.push(await getAlerts(1, 10, alertArr.slice(-1).toString()))
-}
-
-async function getAlerts(page: number, limit: number, offset: string) {
+export async function getAlerts(page: number, limit: number, offset: number) {
     const res = await fetch(`http://localhost:${process.env.PORT}/api/alerts?page=${page}&limit=${limit}&offset=${offset}`, { 
         next: { revalidate: 5 }
     });

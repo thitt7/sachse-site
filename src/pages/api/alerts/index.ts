@@ -13,7 +13,7 @@ const Alerts = async (req: NextApiRequest, res: NextApiResponse) => {
         case "POST":
           break;
         case "GET":
-          // getNewAlerts()
+          getNewAlerts()
 
           const alertRes = await alerts
             .find( )

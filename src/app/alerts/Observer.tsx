@@ -2,24 +2,19 @@
 
 import React from "react";
 import { InView } from 'react-intersection-observer';
-import { pushAlerts } from "./page";
+import { pushAlerts } from "./Client";
 
-const Observer = () => {
-    // const { ref, inView, entry } = useInView({
-    //     /* Optional options */
-    //     threshold: .75,
-    //   });
+const Observer = ({arr}: {arr: string[]}) => {
 
     return (
         <>
             <InView onChange={(inView, entry) => {
                 console.log('entry:', entry)
-                pushAlerts()
+                pushAlerts(arr)
             }}>
                 {({ inView, ref, entry }) => (
                     <div ref={ref}>
                         <h2>{`Header inside viewport ${inView}.`}</h2>
-                        <h3>{`Entry inside viewport ${entry}.`}</h3>
                     </div>
                 )}
             </InView>
