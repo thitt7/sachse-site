@@ -8,6 +8,12 @@ body {
     background: rgb(231, 235, 240);
 }
 
+.progress {
+  padding: 35px 35px 0;
+  display: flex;
+  justify-content: center;
+}
+
 :root {
     --max-width: 1100px;
     --border-radius: 12px;

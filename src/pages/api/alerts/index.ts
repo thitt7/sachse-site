@@ -19,6 +19,7 @@ const Alerts = async (req: NextApiRequest, res: NextApiResponse) => {
             .find( )
             // .find( { createdAt: { $lt: new Date('2021-03-01') } } )
             .sort({ createdAt: -1 })
+            .skip(Number(offset))
             .limit(Number(limit))
             .toArray()
 

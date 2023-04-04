@@ -1,16 +1,16 @@
 'use client';
 import { InView } from 'react-intersection-observer';
 import AlertCard from "./alertCard";
+import CircularProgress from '@mui/material/CircularProgress';
 // import Observer from "./Observer";
-// import { getAlerts } from './page';
 import styles from '../../styles/alerts.module.scss'
 
 import React, { useState, useEffect } from "react";
 
 const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => {
     const [alerts, setAlerts] = useState(Arr)
+    const [isLoading, setIsLoading] = useState(false)
     const [example, setExample] = useState([3, 4, 9, 7, 0, 1, 8, 3, 6, 2])
-    console.log('alert state is: ', alerts)
 
     return (
         <>
@@ -21,21 +21,18 @@ const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => 
                 )
             })}
         </div>
-        <p>Example index: {example[0]}</p>
-        {/* <Observer arr={alerts}/> */}
+        {/* <div className='progress'><CircularProgress /></div> */}
+        {isLoading == true ? <div className='progress'><CircularProgress /></div> : <></>}
         <InView onChange={async (inView, entry) => {
                 console.log('entry:', entry)
-                const updatedAlerts = await pushAlerts(alerts)
                 if (entry.isIntersecting) {
+                    setIsLoading(true)
+                    const updatedAlerts = await pushAlerts(alerts)
                     setAlerts(updatedAlerts)
                     setExample((example: any) => example + 1)
+                    setIsLoading(false)
                 }
             }}>
-                {({ inView, ref, entry }) => (
-                    <div ref={ref}>
-                        <h2>{`Header inside viewport ${inView}.`}</h2>
-                    </div>
-                )}
         </InView>
         </>
     )
