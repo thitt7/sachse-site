@@ -1,6 +1,15 @@
+@use "variables" as *;
+
+@mixin remove-scrollbar {
+    &::-webkit-scrollbar {display: none;}
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
 .container {
-    max-width: 1500px;
+    max-width: 1300px;
     margin: auto;
+    padding: 20px;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -14,7 +23,8 @@
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-around;
-    padding: 70px 25px 25px;
+    padding: 70px 25px 0;
+    max-height: 500px;
     .type {
         position: absolute;
         top: 0;
@@ -24,8 +34,17 @@
         flex-flow: row wrap;
         justify-content: center;
         padding: 15px;
+        font: 400 20px/1 $font-primary;
+        .MuiAlert-icon {
+            justify-content: center;
+        }
     }
     [class*="MuiCardContent"] {
         padding: 0;
+        overflow-y: scroll;
+        @include remove-scrollbar;
+    }
+    button {
+        margin: 15px auto;
     }
 }

@@ -41,7 +41,7 @@ const AlertCard: React.FC<Props> = ({alert, i}: Props) => {
                     <p dangerouslySetInnerHTML={{ __html: alert.body }}></p>
                     <p className="date">{new Date(alert.createdAt).toLocaleString()}</p>
                 </CardContent>
-                <Button size="small">Learn More</Button>
+                <Button size="small">Read More</Button>
             </Card>
         </>
     )

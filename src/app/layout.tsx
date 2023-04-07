@@ -1,3 +1,5 @@
+import Header from './header'
+
 import '../styles/globals.scss'
 
 export default function RootLayout({
@@ -9,7 +11,7 @@ export default function RootLayout({
     <html lang="en">
       <head />
       <body>
-        <nav>This is an example nav</nav>
+        <Header />
         {children}
       </body>
     </html>

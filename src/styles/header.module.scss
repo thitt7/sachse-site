@@ -1,0 +1,34 @@
+@use "variables" as *;
+
+@mixin flex ($direction, $flow) {
+    display: flex;
+    flex-flow: $direction $flow;
+}
+
+.main {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(249, 255, 255, 0.7);
+
+    .header{
+        position: relative;
+        @include flex(row,wrap);
+
+        a {
+            padding: 15px 10px;
+            color: $font-color;
+        }
+
+        .category {
+            flex-basis: 50%;
+            @include flex(row,wrap);
+            align-items: center;
+        }
+
+        .settings {
+            flex-basis: 50%;
+            @include flex(row,wrap);
+        }
+    }
+}
