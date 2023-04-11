@@ -106,7 +106,7 @@ const Header = (props: Props) => {
                 }}
                 sx={{
                   display: { xs: 'block', sm: 'none' },
-                  '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                  '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '100%' },
                 }}
               >
                 {drawer}

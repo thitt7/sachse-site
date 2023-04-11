@@ -16,7 +16,12 @@ body {
 }
 
 header {
-  nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  nav[class*="Mui"] {
+    position: static;
+    background-color: none;
     background: rgba(249, 255, 255, 0.85);
      * {color: $font-color;}
   }
