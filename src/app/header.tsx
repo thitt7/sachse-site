@@ -1,7 +1,7 @@
 'use client'
 
-import Link from 'next/link'
-import styles from '../styles/header.module.scss'
+import Link from 'next/link';
+import styles from '../styles/header.module.scss';
 
 import React, { useState, useEffect } from "react";
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -9,12 +9,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import CssBaseline from '@mui/material/CssBaseline';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Fab from '@mui/material/Fab';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Fade from '@mui/material/Fade';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
@@ -31,47 +26,10 @@ interface Props {
      * You won't need it on your project.
      */
     window?: () => Window;
-    children: React.ReactElement;
   }
 
   const drawerWidth = 240;
   const navItems = ['Alerts', 'News', 'Events'];
-
-function ScrollTop(props: Props) {
-    const { children, window } = props;
-    // Note that you normally won't need to set the window ref as useScrollTrigger
-    // will default to window.
-    // This is only being set here because the demo is in an iframe.
-    const trigger = useScrollTrigger({
-      target: window ? window() : undefined,
-      disableHysteresis: true,
-      threshold: 100,
-    });
-  
-    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-      const anchor = (
-        (event.target as HTMLDivElement).ownerDocument || document
-      ).querySelector('#back-to-top-anchor');
-  
-      if (anchor) {
-        anchor.scrollIntoView({
-          block: 'center',
-        });
-      }
-    };
-  
-    return (
-      <Fade in={trigger}>
-        <Box
-          onClick={handleClick}
-          role="presentation"
-          sx={{ position: 'fixed', bottom: 16, right: 16 }}
-        >
-          {children}
-        </Box>
-      </Fade>
-    );
-  }
 
 const Header = (props: Props) => {
     const mobile = useMediaQuery('(max-width:860px)');
@@ -81,7 +39,7 @@ const Header = (props: Props) => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
   
     const handleDrawerToggle = () => {
-      setMobileOpen((prevState) => !prevState);
+      setMobileOpen((prevState: any) => !prevState);
     };
   
     const drawer = (
@@ -105,53 +63,57 @@ const Header = (props: Props) => {
     const container = window !== undefined ? () => window().document.body : undefined;
   
     return (
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar component="nav">
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-            >
-              Sachse Community Site
-            </Typography>
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              {navItems.map((item) => (
-                <Button key={item} sx={{ color: '#fff' }}>
-                  {item}
-                </Button>
-              ))}
+      <header>
+          <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <AppBar component="nav">
+              <Toolbar>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={handleDrawerToggle}
+                  sx={{ mr: 2, display: { sm: 'none' } }}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography
+                  variant="h6"
+                  component="div"
+                  sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                >
+                  <Link href={`/`}>Sachse Community Site</Link>
+                </Typography>
+                <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                  {navItems.map((item) => (
+                    <Link href={`/${item.toLowerCase()}`}>
+                        <Button key={item} sx={{ color: '#fff' }}>
+                          {item}
+                        </Button>
+                    </Link>
+                  ))}
+                </Box>
+              </Toolbar>
+            </AppBar>
+            <Box component="nav">
+              <Drawer
+                container={container}
+                variant="temporary"
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                ModalProps={{
+                  keepMounted: true, // Better open performance on mobile.
+                }}
+                sx={{
+                  display: { xs: 'block', sm: 'none' },
+                  '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                }}
+              >
+                {drawer}
+              </Drawer>
             </Box>
-          </Toolbar>
-        </AppBar>
-        <Box component="nav">
-          <Drawer
-            container={container}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-            sx={{
-              display: { xs: 'block', sm: 'none' },
-              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Box>
-      </Box>
+          </Box>
+      </header>
     );
 }
 

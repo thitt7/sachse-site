@@ -5,7 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 // import Observer from "./Observer";
 import styles from '../../styles/alerts.module.scss'
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => {
     const [alerts, setAlerts] = useState(Arr)

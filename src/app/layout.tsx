@@ -1,4 +1,5 @@
 import Header from './header'
+import ScrollTop from './scrolltop';
 
 import '../styles/globals.scss'
 
@@ -12,6 +13,7 @@ export default function RootLayout({
       <head />
       <body>
         <Header />
+        <ScrollTop/>
         {children}
       </body>
     </html>
