@@ -1,38 +1,22 @@
 'use client'
 
-import React, { useState, useEffect } from "react";
 import { Fab, Fade } from "@mui/material";
 import Box from '@mui/material/Box';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 
-interface Props {
-    
-    window?: () => Window;
-  }
-
-const ScrollTop = (props: Props) => {
-    const { window } = props;
-    // Note that you normally won't need to set the window ref as useScrollTrigger
-    // will default to window.
-    // This is only being set here because the demo is in an iframe.
+const ScrollTop = () => {
     const trigger = useScrollTrigger({
-      target: window ? window() : undefined,
       disableHysteresis: true,
       threshold: 100,
     });
   
-    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
       const anchor = (
-        (event.target as HTMLDivElement).ownerDocument || document
+        (event.target as HTMLElement).ownerDocument || document
       ).querySelector('header');
   
-      if (anchor) {
-        anchor.scrollIntoView({
-          block: 'center',
-          behavior: 'smooth'
-        });
-      }
+      if (anchor) {window.scrollTo(0,0);}
     };
   
     return (
