@@ -1,0 +1,34 @@
+@use "variables" as *;
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    nav[class*="Mui"] {
+      position: static;
+      background-color: none;
+      background: rgba(249, 255, 255, 0.85);
+       * {color: $font-color;}
+    }
+    [class*="MuiToolbar"] {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-end;
+    }
+  }
+
+[class*="Mui"] {
+    &.hamburger-drawer { 
+        // margin-top: 64px;
+        [class*="backdrop"] {
+            background-color: initial;
+        }
+        [class*="MuiDrawer-paper"] {
+            position: relative;
+            justify-content: center;
+            opacity: 0.9;
+            height: 100%;
+        }
+
+    }
+}

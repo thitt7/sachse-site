@@ -17,7 +17,7 @@ export default async function Alerts () {
 
 }
 
-export async function getAlerts(page: number, limit: number, offset: number) {
+const getAlerts = async (page: number, limit: number, offset: number) => {
     const res = await fetch(`http://localhost:${process.env.PORT}/api/alerts?page=${page}&limit=${limit}&offset=${offset}`, { 
         next: { revalidate: 5 }
     });

@@ -1,4 +1,5 @@
 @use "variables" as *;
+@use "header";
 
 * {
     box-sizing: border-box;
@@ -17,18 +18,6 @@ body {
     background: rgb(231, 235, 240);
     font-family: $font-primary;
     letter-spacing: 1.2;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  nav[class*="Mui"] {
-    position: static;
-    background-color: none;
-    background: rgba(249, 255, 255, 0.85);
-     * {color: $font-color;}
-  }
 }
 
 [class*="Mui"] {

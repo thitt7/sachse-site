@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import styles from '../styles/header.module.scss';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -28,7 +28,6 @@ interface Props {
     window?: () => Window;
   }
 
-  const drawerWidth = 240;
   const navItems = ['Alerts', 'News', 'Events'];
 
 const Header = (props: Props) => {
@@ -36,6 +35,7 @@ const Header = (props: Props) => {
     const desktop = useMediaQuery('(min-width:860px)');
 
     const { window } = props;
+    const headerHeight = document.querySelector('header')?.offsetHeight
     const [mobileOpen, setMobileOpen] = React.useState(false);
   
     const handleDrawerToggle = () => {
@@ -44,10 +44,6 @@ const Header = (props: Props) => {
   
     const drawer = (
       <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-        <Typography variant="h6" sx={{ my: 2 }}>
-          Sachse Community Site
-        </Typography>
-        <Divider />
         <List>
           {navItems.map((item) => (
             <ListItem key={item} disablePadding>
@@ -64,7 +60,7 @@ const Header = (props: Props) => {
   
     return (
       <header>
-          <Box sx={{ display: 'flex' }}>
+          <Box className="nav" sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar component="nav">
               <Toolbar>
@@ -97,14 +93,15 @@ const Header = (props: Props) => {
             </AppBar>
             <Box component="nav">
               <Drawer
+                className="hamburger-drawer"
                 container={container}
                 variant="temporary"
+                anchor="bottom"
                 open={mobileOpen}
                 onClose={handleDrawerToggle}
-                ModalProps={{
-                  keepMounted: true, // Better open performance on mobile.
-                }}
+                ModalProps={{ keepMounted: true, }}
                 sx={{
+                  top: `${headerHeight}px`,
                   display: { xs: 'block', sm: 'none' },
                   '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '100%' },
                 }}

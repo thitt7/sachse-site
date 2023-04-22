@@ -2,7 +2,6 @@
 import { InView } from 'react-intersection-observer';
 import AlertCard from "./alertCard";
 import CircularProgress from '@mui/material/CircularProgress';
-// import Observer from "./Observer";
 import styles from '../../styles/alerts.module.scss'
 
 import React, { useState } from "react";
@@ -39,11 +38,10 @@ const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => 
 
 }
 
-export async function getAlerts(page: number, limit: number, offset: number) {
+const getAlerts = async (page: number, limit: number, offset: number) => {
     const res = await fetch(`http://localhost:3000/api/alerts?page=${page}&limit=${limit}&offset=${offset}`);
-    console.log('client side fetch: ', `http://localhost:${process.env.PORT}/api/alerts?page=${page}&limit=${limit}&offset=${offset}`)
     return res.json();
-  }
+}
 
 export const pushAlerts = async (Arr: string[]): Promise<string[]> => {
     console.log('pushing alerts...')

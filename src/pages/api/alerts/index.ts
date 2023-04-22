@@ -1,6 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import clientPromise from '../../../lib/mongodb'
-import getNewAlerts from '../(scrapers)/getAlerts'
+import type { NextApiRequest, NextApiResponse } from 'next';
+import clientPromise from '../../../lib/mongodb';
+import getNewAlerts from '../(scrapers)/getAlerts';
 
 const Alerts = async (req: NextApiRequest, res: NextApiResponse) => {
     const client = await clientPromise;

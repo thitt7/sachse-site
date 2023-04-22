@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../lib/mongodb';
 import getNews from '../(scrapers)/getNews';
 
-const Alerts = async (req: NextApiRequest, res: NextApiResponse) => {
+const News = async (req: NextApiRequest, res: NextApiResponse) => {
     const client = await clientPromise;
     const db = client.db("sachse-site");
     const alerts = await db.collection('alerts');
@@ -29,4 +29,4 @@ const Alerts = async (req: NextApiRequest, res: NextApiResponse) => {
 
 }
 
-export default Alerts
+export default News
