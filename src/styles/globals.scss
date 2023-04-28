@@ -72,6 +72,12 @@ body {
     --card-rgb: 180, 185, 188;
     --card-border-rgb: 131, 134, 135;
   }
+
+  @media (max-width: 790px) {
+    [class*="MuiToolbar"] {
+      padding: 0;
+    }
+  }
   
 //   @media (prefers-color-scheme: dark) {
 //     :root {

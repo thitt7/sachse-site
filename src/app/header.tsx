@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link';
+import Hamburger, { handleHamburgerClick } from './hamburger';
 import styles from '../styles/header.module.scss';
 
 import React, { useState, useRef } from "react";
@@ -10,47 +11,45 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 
 interface Props {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
     window?: () => Window;
   }
 
-  const navItems = ['Alerts', 'News', 'Events'];
+  const navItems = ['Alerts', 'News', 'Events', 'Trash'];
 
 const Header = (props: Props) => {
     const mobile = useMediaQuery('(max-width:860px)');
     const desktop = useMediaQuery('(min-width:860px)');
 
     const { window } = props;
-    const headerHeight = document.querySelector('header')?.offsetHeight
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+    // const headerHeight = document.querySelector('header')?.offsetHeight
+    const [mobileOpen, setMobileOpen] = useState(false);
   
-    const handleDrawerToggle = () => {
+    const handleDrawerToggle = (e: React.MouseEvent) => {
+      console.log('in drawer handler')
       setMobileOpen((prevState: any) => !prevState);
+      // handleHamburgerClick(e)
     };
   
     const drawer = (
       <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
         <List>
           {navItems.map((item) => (
+            <Link href={`/${item.toLowerCase()}`}>
             <ListItem key={item} disablePadding>
               <ListItemButton sx={{ textAlign: 'center' }}>
                 <ListItemText primary={item} />
               </ListItemButton>
             </ListItem>
+            </Link>
           ))}
         </List>
       </Box>
@@ -65,13 +64,11 @@ const Header = (props: Props) => {
             <AppBar component="nav">
               <Toolbar>
                 <IconButton
-                  color="inherit"
+                  disableRipple
                   aria-label="open drawer"
-                  edge="start"
                   onClick={handleDrawerToggle}
-                  sx={{ mr: 2, display: { sm: 'none' } }}
                 >
-                  <MenuIcon />
+                  <Hamburger/>
                 </IconButton>
                 <Typography
                   variant="h6"
@@ -101,7 +98,7 @@ const Header = (props: Props) => {
                 onClose={handleDrawerToggle}
                 ModalProps={{ keepMounted: true, }}
                 sx={{
-                  top: `${headerHeight}px`,
+                  // top: `${headerHeight}px`,
                   display: { xs: 'block', sm: 'none' },
                   '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '100%' },
                 }}

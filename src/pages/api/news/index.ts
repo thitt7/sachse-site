@@ -5,7 +5,7 @@ import getNews from '../(scrapers)/getNews';
 const News = async (req: NextApiRequest, res: NextApiResponse) => {
     const client = await clientPromise;
     const db = client.db("sachse-site");
-    const alerts = await db.collection('alerts');
+    const alerts = await db.collection('news');
 
     const {page, limit, offset} = req.query
 

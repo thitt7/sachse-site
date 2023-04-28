@@ -11,7 +11,6 @@ export default async function Alerts () {
     
     return (
         <Client Arr={alertArr}>
-
         </Client>
     )
 
