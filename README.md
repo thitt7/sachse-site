@@ -9,8 +9,9 @@ This is a project I've chosen to take on to enrich the city that I live in: Sach
 - React
 - HTML5/CSS3
 - SCSS
-- Cheerio
 - Node.js
+- Cheerio
+- Puppeteer
 - Next.js
 - MongoDB
 
