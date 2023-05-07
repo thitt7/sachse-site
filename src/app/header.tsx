@@ -26,8 +26,9 @@ interface Props {
   const navItems = ['Alerts', 'News', 'Events', 'Trash'];
 
 const Header = (props: Props) => {
-    const mobile = useMediaQuery('(max-width:860px)');
-    const desktop = useMediaQuery('(min-width:860px)');
+    const isMobile = useMediaQuery('(max-width:480px)');
+    const isTablet = useMediaQuery('(max-width:768px)');
+    const isDesktop = useMediaQuery('(min-width:768px)');
 
     const { window } = props;
     // const headerHeight = document.querySelector('header')?.offsetHeight
@@ -36,7 +37,6 @@ const Header = (props: Props) => {
     const handleDrawerToggle = (e: React.MouseEvent) => {
       console.log('in drawer handler')
       setMobileOpen((prevState: any) => !prevState);
-      // handleHamburgerClick(e)
     };
   
     const drawer = (
@@ -63,13 +63,16 @@ const Header = (props: Props) => {
             <CssBaseline />
             <AppBar component="nav">
               <Toolbar>
-                <IconButton
+                  {isTablet ? 
+                  <IconButton
                   disableRipple
                   aria-label="open drawer"
                   onClick={handleDrawerToggle}
-                >
+                  >
                   <Hamburger/>
-                </IconButton>
+                  </IconButton> 
+                  : 
+                  <></>}
                 <Typography
                   variant="h6"
                   component="div"
@@ -99,7 +102,6 @@ const Header = (props: Props) => {
                 ModalProps={{ keepMounted: true, }}
                 sx={{
                   // top: `${headerHeight}px`,
-                  display: { xs: 'block', sm: 'none' },
                   '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '100%' },
                 }}
               >

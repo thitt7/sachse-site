@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useState} from "react"
+import React, {useState, useRef} from "react"
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -45,12 +45,30 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
     const [value, setValue] = React.useState<PlaceType | null>(null);
     const [inputValue, setInputValue] = React.useState('');
     const [options, setOptions] = React.useState<readonly PlaceType[]>([]);
-    const [addressInput, setAddressInput] = useState()
-    const loaded = React.useRef(false);
+    const plswork = useRef('')
+    const loaded = useRef(false);
 
-    const handleAddressInput = (e: React.ChangeEvent) => {
+    const handleAddressInput = async (e: React.SyntheticEvent, newInputValue: string) => {
         console.log(e)
-        // setAddressInput()
+        console.log('oninputchange event')
+        setInputValue(newInputValue);
+        plswork.current = newInputValue
+        console.log('new value: ', plswork.current)
+    }
+
+    const handleAddressSelect = async (e: React.SyntheticEvent) => {
+      console.log('in click event')
+      console.log(e)
+      console.log('inputvalue: ', inputValue)
+      console.log('value: ', value)
+      const res = await fetch ('http://localhost:3000/api/trash', {
+          method: 'POST', 
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(plswork.current),
+          cache: 'default'
+        });
     }
   
     if (typeof window !== 'undefined' && !loaded.current) {
@@ -65,7 +83,7 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
       loaded.current = true;
     }
   
-    const fetch = React.useMemo(
+    const mapFetch = React.useMemo(
       () =>
         debounce(
           (
@@ -99,7 +117,7 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
         return undefined;
       }
   
-      fetch({ input: inputValue }, (results?: readonly PlaceType[]) => {
+      mapFetch({ input: inputValue }, (results?: readonly PlaceType[]) => {
         if (active) {
           let newOptions: readonly PlaceType[] = [];
   
@@ -118,11 +136,11 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
       return () => {
         active = false;
       };
-    }, [value, inputValue, fetch]);
+    }, [value, inputValue, mapFetch]);
   
     return (
       <Autocomplete
-        id="google-map-demo"
+        id="gmap-input"
         sx={{ width: 300 }}
         getOptionLabel={(option) =>
           typeof option === 'string' ? option : option.description
@@ -133,16 +151,13 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
         includeInputInList
         filterSelectedOptions
         value={value}
-        noOptionsText="No locations"
         onChange={(event: any, newValue: PlaceType | null) => {
           setOptions(newValue ? [newValue, ...options] : options);
           setValue(newValue);
         }}
-        onInputChange={(event, newInputValue) => {
-          setInputValue(newInputValue);
-        }}
+        onInputChange={handleAddressInput}
         renderInput={(params) => (
-          <TextField onChange={handleAddressInput} {...params} label="Add a location" fullWidth />
+          <TextField {...params} label="Enter Address" fullWidth />
         )}
         renderOption={(props, option) => {
           const matches =
@@ -154,8 +169,9 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
           );
   
           return (
+            <div onClick={handleAddressSelect}>
             <li {...props}>
-              <Grid container alignItems="center">
+              <Grid container alignItems="center" className="meep">
                 <Grid item sx={{ display: 'flex', width: 44 }}>
                   <LocationOnIcon sx={{ color: 'text.secondary' }} />
                 </Grid>
@@ -175,6 +191,7 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
                 </Grid>
               </Grid>
             </li>
+            </div>
           );
         }}
       />

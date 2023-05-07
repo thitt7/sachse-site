@@ -28,6 +28,12 @@ body {
   color: $font-color;
 }
 
+[class*="MuiAutocomplete-noOptions"] {display: none;}
+
+[class*="MuiAutocomplete-endAdornment"] {
+  [class*="popupIndicator"] {display: none;}
+}
+
 .progress {
   padding: 35px 35px 0;
   display: flex;
@@ -71,12 +77,6 @@ body {
     --callout-border-rgb: 172, 175, 176;
     --card-rgb: 180, 185, 188;
     --card-border-rgb: 131, 134, 135;
-  }
-
-  @media (max-width: 790px) {
-    [class*="MuiToolbar"] {
-      padding: 0;
-    }
   }
   
 //   @media (prefers-color-scheme: dark) {

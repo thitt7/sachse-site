@@ -20,6 +20,14 @@ header {
             flex: 0 1 50px;
             margin: 5px;
         }
+
+        @media (max-width: $tablet) {padding: 0;}
+
+
+        [class*="MuiTypography-h6"], [class*="MuiBox-root"] {
+        @media (max-width: $tablet) {display: none;}
+        @media (min-width: $tablet) {display: block;}
+        }
     }
   }
 
@@ -100,61 +108,3 @@ header {
     }
 
   }
-
-
-//   #hamburger {
-//     width: 60px;
-//     height: 45px;
-//     position: relative;
-//     transform: rotate(0deg);
-//     transition: .5s ease-in-out;
-//     cursor: pointer;
-
-//     span {
-//         display: block;
-//         position: absolute;
-//         height: 20%;
-//         width: 100%;
-//         background: #d3531a;
-//         border-radius: 9px;
-//         opacity: 1;
-//         left: 0;
-//         transform: rotate(0deg);
-//         transition: .25s ease-in-out;
-
-//         &:nth-child(1) {
-//             top: 0px;
-//             transform-origin: left center;
-//         }
-          
-//         &:nth-child(2) {
-//             top: 18px;
-//             transform-origin: left center;
-//         }
-          
-//         &:nth-child(3) {
-//             top: 36px;
-//             transform-origin: left center;
-//         }
-//     }
-
-//     &.open {
-//         span:nth-child(1) {
-//             transform: rotate(45deg);
-//             top: -3px;
-//             left: 8px;
-//         }
-          
-//         span:nth-child(2) {
-//             width: 0%;
-//             opacity: 0;
-//         }
-          
-//         span:nth-child(3) {
-//             transform: rotate(-45deg);
-//             top: 39px;
-//             left: 8px;
-//         }
-//     }
-
-//   }

@@ -6,7 +6,7 @@ const Trash = () => {
     
     return (
         <>
-            <h1>trashy trash trash</h1>
+            <h2>Please enter your address below or allow us to use your location</h2>
             <MapsInput/>
         </>
     )
