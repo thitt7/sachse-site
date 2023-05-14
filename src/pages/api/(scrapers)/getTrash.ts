@@ -5,24 +5,16 @@ const pageObject = {
     url: 'https://support.newedgeservices.com/cwd/',
     formSelector: 'input[id*="mui"]',
     suggestionSelector: '.MuiAutocomplete-popper ul',
-    resultSelector: '',
-    calendarSelector: ''
-}
-
-const waitForSuggestion = async (address: string, page: Page) => {
-    const ev = await page.$$eval('.MuiAutocomplete-popper ul li', els => {
-        els.map((e) => {
-            console.log(e)
-            return e.innerText
-        })
-    });
-    console.log(ev)
-
-    return
+    resultSelector: '.MuiAutocomplete-popper ul li:first-of-type',
+    table: {
+        head: '.MuiAccordion-root thead tr th',
+        rows: '.MuiAccordion-root'
+    }
 }
 
 const getTrash = async (address: string) => {
-    const {url, formSelector, suggestionSelector, resultSelector, calendarSelector} = pageObject
+    // const tableContents: string[][] = [[],[]]
+    const {url, formSelector, suggestionSelector, resultSelector, table} = pageObject
 
     const browser = await puppeteer.launch({
         headless: false
@@ -31,41 +23,43 @@ const getTrash = async (address: string) => {
     const context = browser.defaultBrowserContext();
     context.overridePermissions('https://support.newedgeservices.com', ['clipboard-read', 'clipboard-write'])
 
-    console.log('address set to: ', address)
-
     const page = await browser.newPage();
     await page.goto(url);
+
     // await page.focus(formSelector)
     // await page.keyboard.type(address)
     await clipboard.write(address)
-    await page.bringToFront();
-    const result = await page.evaluate(async () => {
-    return navigator.clipboard.readText();
-    });
-    console.log('result: ', result)
 
-    // const p1 = await page.type(formSelector, address);
-    // await page.$eval(formSelector, (el: any) => el.value = `2814 Woodie Drive, Sachse, TX, USA`);
+    /* workaround to paste string rather than type */
+    await page.focus(formSelector)
+    await page.keyboard.down('Control')
+    await page.keyboard.press('V')
+    await page.keyboard.up('Control')
 
-    await page.$eval(formSelector, (el: any) => {
-        el.addEventListener("paste", (event: any) => {
-            event.preventDefault();
-          
-            let paste = (event.clipboardData || window.Clipboard).getData("text");
-            paste = paste.toUpperCase();
-            const selection = window.getSelection();
-            if (!selection!.rangeCount) return;
-            selection!.deleteFromDocument();
-            selection!.getRangeAt(0).insertNode(document.createTextNode(paste));
-            selection!.collapseToEnd();
-          });
-    })
-
-    const p2 = await page.waitForSelector(suggestionSelector, {timeout: 10000});
+    await page.waitForSelector(suggestionSelector, {timeout: 10000});
+    page.click(resultSelector)
     
-    // const p3 = await page.keyboard.press('Enter')
+    await page.waitForSelector('.MuiAccordion-root [role="region"] table');
+    await page.$$eval('.MuiAccordion-root thead tr th', async (elements: HTMLElement[]) => {
+        console.log('getting table data')
+        // let Arr: string[] = []
+        // Promise.all( elements.map(async (e, i) => {
+        //     return Arr.push(e.innerText)
+        // }));
+        let Arr = Promise.all( elements.map(async (e, i) => {
+            return e.innerText
+        }));
+        
+        // tableContents[0] = Arr
+        console.log(Arr)
+      });
+
+      const example = await page.$$('.MuiPaper-root')
+      console.log(example[0].getProperty)
 
     const content = await page.content()
+
+    // await browser.close()
 
 }
 
