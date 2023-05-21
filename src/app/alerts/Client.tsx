@@ -1,10 +1,10 @@
 'use client';
+
+import React, { useState } from "react";
 import { InView } from 'react-intersection-observer';
 import AlertCard from "./alertCard";
 import CircularProgress from '@mui/material/CircularProgress';
 import styles from '../../styles/alerts.module.scss'
-
-import React, { useState } from "react";
 
 const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => {
     const [alerts, setAlerts] = useState(Arr)

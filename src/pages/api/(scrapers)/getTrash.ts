@@ -1,4 +1,5 @@
 import puppeteer, { ElementHandle, Page } from "puppeteer"
+import * as cheerio from 'cheerio';
 import clipboard from "clipboardy";
 
 const pageObject = {
@@ -12,8 +13,8 @@ const pageObject = {
     }
 }
 
-const getTrash = async (address: string) => {
-    // const tableContents: string[][] = [[],[]]
+const getTrash = async (address: string): Promise<string[][]> => {
+    const tableContents: string[][] = [[],[],[],[]]
     const {url, formSelector, suggestionSelector, resultSelector, table} = pageObject
 
     const browser = await puppeteer.launch({
@@ -26,8 +27,6 @@ const getTrash = async (address: string) => {
     const page = await browser.newPage();
     await page.goto(url);
 
-    // await page.focus(formSelector)
-    // await page.keyboard.type(address)
     await clipboard.write(address)
 
     /* workaround to paste string rather than type */
@@ -39,28 +38,23 @@ const getTrash = async (address: string) => {
     await page.waitForSelector(suggestionSelector, {timeout: 10000});
     page.click(resultSelector)
     
-    await page.waitForSelector('.MuiAccordion-root [role="region"] table');
-    await page.$$eval('.MuiAccordion-root thead tr th', async (elements: HTMLElement[]) => {
-        console.log('getting table data')
-        // let Arr: string[] = []
-        // Promise.all( elements.map(async (e, i) => {
-        //     return Arr.push(e.innerText)
-        // }));
-        let Arr = Promise.all( elements.map(async (e, i) => {
-            return e.innerText
-        }));
-        
-        // tableContents[0] = Arr
-        console.log(Arr)
-      });
+    try {
+        await page.waitForSelector('.MuiAccordion-root [role="region"] table', {timeout: 10000});
+    }
+    catch(e) {
+        console.log('error', e)
+    }
 
-      const example = await page.$$('.MuiPaper-root')
-      console.log(example[0].getProperty)
+    const htmlString = await page.content()
+    const $ = cheerio.load(htmlString)
 
-    const content = await page.content()
+    $('.MuiAccordion-root thead tr th').map((i, el) => { tableContents[0].push($(el).text()) });
 
-    // await browser.close()
-
+    $('.MuiAccordion-root tbody tr').map((i, el) => {
+        $(el).find('td').map((j, el) => { tableContents[i+1].push($(el).text()) })
+    });
+    await browser.close()
+    return tableContents
 }
 
 export default getTrash

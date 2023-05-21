@@ -41,34 +41,20 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
     structured_formatting: StructuredFormatting;
   }
   
-  export default function MapsInput() {
+  export default function MapsInput({getTrashDays}: any) {
     const [value, setValue] = React.useState<PlaceType | null>(null);
     const [inputValue, setInputValue] = React.useState('');
     const [options, setOptions] = React.useState<readonly PlaceType[]>([]);
-    const plswork = useRef('')
+    const address = useRef('')
     const loaded = useRef(false);
 
     const handleAddressInput = async (e: React.SyntheticEvent, newInputValue: string) => {
-        console.log(e)
-        console.log('oninputchange event')
         setInputValue(newInputValue);
-        plswork.current = newInputValue
-        console.log('new value: ', plswork.current)
+        address.current = newInputValue
     }
 
     const handleAddressSelect = async (e: React.SyntheticEvent) => {
-      console.log('in click event')
-      console.log(e)
-      console.log('inputvalue: ', inputValue)
-      console.log('value: ', value)
-      const res = await fetch ('http://localhost:3000/api/trash', {
-          method: 'POST', 
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(plswork.current),
-          cache: 'default'
-        });
+      getTrashDays(address.current)
     }
   
     if (typeof window !== 'undefined' && !loaded.current) {
