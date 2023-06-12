@@ -1,0 +1,30 @@
+/* Typography */
+/* Breakpoints */
+.main {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(249, 255, 255, 0.7);
+}
+.main .header {
+  position: relative;
+  max-width: 1500px;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: row wrap;
+}
+.main .header a {
+  padding: 15px 10px;
+  color: #333;
+}
+.main .header .category {
+  flex-basis: 50%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+.main .header .settings {
+  flex-basis: 50%;
+  display: flex;
+  flex-flow: row wrap;
+}/*# sourceMappingURL=header.module.css.map */
