@@ -36,10 +36,10 @@ const AlertCard: React.FC<Props> = ({alert, i}: Props) => {
         <>
             <Card key={i} className={styles.card} onClick={() => router.push(`/alerts/${alert._id}`)}>
             <Alert className={`${styles.type} ${alert.type}`} severity={severity(alert.type)}>{`Message Type: ${alert.type}`}</Alert>
-                <CardContent>
+                <CardContent className={`${styles.content}`}>
+                    <p className="date">{new Date(alert.createdAt).toLocaleString()}</p>
                     <h3>{alert.title}</h3>
                     <p dangerouslySetInnerHTML={{ __html: alert.body }}></p>
-                    <p className="date">{new Date(alert.createdAt).toLocaleString()}</p>
                 </CardContent>
                 <Button size="small">Read More</Button>
             </Card>
