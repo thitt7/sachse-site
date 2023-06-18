@@ -20,10 +20,11 @@
     // cursor: pointer;
     position: relative;
     flex: 1 0 calc(33% - 12.5px);
+    border-radius: 10px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-around;
-    padding: 70px 25px 0;
+    padding: 70px 0 0;
     max-height: 500px;
     transition: 0.3s all ease;
     margin: 10px;

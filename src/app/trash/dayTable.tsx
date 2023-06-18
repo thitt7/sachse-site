@@ -1,6 +1,3 @@
-'use client'
-
-import React, { useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -16,7 +13,7 @@ const DayTable = ({days}: {days: string[][]}) => {
             <TableHead>
               <TableRow>
                 {days[0].map((label) => (
-                  <TableCell>{label}</TableCell>
+                  <TableCell align="center">{label}</TableCell>
                 ))}
               </TableRow>
             </TableHead>
@@ -24,10 +21,10 @@ const DayTable = ({days}: {days: string[][]}) => {
               {
                 days.slice(1).map((row) => {
                   return (
-                    <TableRow>
+                    <TableRow >
                       {row.map((cell) => {
                         return (
-                          <TableCell align="right">{cell}</TableCell>
+                          <TableCell align="center">{cell}</TableCell>
                         )
                       })}
                     </TableRow>

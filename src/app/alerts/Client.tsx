@@ -39,7 +39,7 @@ const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => 
 }
 
 const getAlerts = async (page: number, limit: number, offset: number) => {
-    const res = await fetch(`http://localhost:3000/api/alerts?page=${page}&limit=${limit}&offset=${offset}`);
+    const res = await fetch(`/api/alerts?page=${page}&limit=${limit}&offset=${offset}`);
     return res.json();
 }
 
