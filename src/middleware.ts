@@ -22,6 +22,7 @@ const allowedOrigins = [
     //   response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
     // }
     
+    console.log('in middleware')
     // console.log('REQ HEADERS: ', requestHeaders)
     // console.log('ORIGIN: origin')
     // console.log('REQUEST: ', request)

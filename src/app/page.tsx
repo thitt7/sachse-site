@@ -3,8 +3,6 @@ import { Inter } from '@next/font/google'
 import '../styles/globals.scss'
 import News from './news'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Home() {
   return (
     <main>

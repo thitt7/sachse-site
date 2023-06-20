@@ -14,7 +14,7 @@ const pageObject = {
 }
 
 const getTrash = async (address: string): Promise<string[][]> => {
-    const tableContents: string[][] = [[],[],[],[]]
+    const tableContents: string[][] = [[],[],[],[], []]
     const {url, formSelector, suggestionSelector, resultSelector, table} = pageObject
 
     const browser = await puppeteer.launch({

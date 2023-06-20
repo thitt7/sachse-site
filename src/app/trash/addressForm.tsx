@@ -1,6 +1,8 @@
 'use client'
 
-import React, {useState, useRef} from "react"
+import React, {useState, useEffect, useRef} from "react"
+
+import DayTable from "./dayTable"
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -8,6 +10,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 import parse from 'autosuggest-highlight/parse';
 import { debounce } from '@mui/material/utils';
 
@@ -41,21 +44,45 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
     structured_formatting: StructuredFormatting;
   }
   
-  export default function MapsInput({getTrashDays}: any) {
+  export default function MapsInput() {
     const [value, setValue] = React.useState<PlaceType | null>(null);
     const [inputValue, setInputValue] = React.useState('');
     const [options, setOptions] = React.useState<readonly PlaceType[]>([]);
+    const [days, setDays] = useState([[]])
+    const [errorState, setErrorState] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('Please enter a valid residential address');
+    const [isLoading, setLoading] = useState(false)
     const address = useRef('')
     const loaded = useRef(false);
+
+    const getAddress = async (position: any) => {
+      console.log(position.coords);
+      const res = await fetch (`/api/trash/${position.coords.latitude},${position.coords.longitude}`, { });
+    }
+
+    const getTrashDays = async (address: string): Promise<void> => {
+      console.log('hitting trash route endpoint')
+      setLoading(() => true);
+      const res = await fetch (`/api/trash?address=${address}`);
+      setLoading(false);
+      console.log('loading state: ', isLoading);
+
+      if (res!.status !== 200) {
+          setErrorState(true)
+          return
+      }
+      const result = await res!.json();
+      console.log('trash API res: ', result)
+      setErrorState(false);
+      setDays(result);
+    }
 
     const handleAddressInput = async (e: React.SyntheticEvent, newInputValue: string) => {
         setInputValue(newInputValue);
         address.current = newInputValue
     }
 
-    const handleAddressSelect = async (e: React.SyntheticEvent) => {
-      getTrashDays(address.current)
-    }
+    const handleAddressSelect = async (e: React.SyntheticEvent) => { getTrashDays(address.current); }
   
     if (typeof window !== 'undefined' && !loaded.current) {
       if (!document.querySelector('#google-maps')) {
@@ -85,8 +112,15 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
         ),
       [],
     );
+
+    /* Get GeoLocation */
+    useEffect(() => {
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(getAddress);
+          }
+    }, []);
   
-    React.useEffect(() => {
+    useEffect(() => {
       let active = true;
   
       if (!autocompleteService.current && (window as any).google) {
@@ -125,6 +159,7 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
     }, [value, inputValue, mapFetch]);
   
     return (
+      <>
       <Autocomplete
         id="gmap-input"
         sx={{ width: 300 }}
@@ -179,7 +214,12 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
             </li>
             </div>
           );
+          
         }}
       />
+        {isLoading == true ? <div className='progress'><CircularProgress /></div> : <></>}
+        {days[0].length ? <DayTable days={days}/> : <></>}
+        {errorState ? <p>Error: {errorMsg}</p> : <></>}
+      </>
     );
   }
