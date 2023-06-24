@@ -56,23 +56,22 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
     const loaded = useRef(false);
 
     const getAddress = async (position: any) => {
-      console.log(position.coords);
       const res = await fetch (`/api/trash/${position.coords.latitude},${position.coords.longitude}`, { });
+      const response = await res.json();
+      const address = response.formatted_address;
+      getTrashDays(address);
     }
 
     const getTrashDays = async (address: string): Promise<void> => {
-      console.log('hitting trash route endpoint')
       setLoading(() => true);
       const res = await fetch (`/api/trash?address=${address}`);
       setLoading(false);
-      console.log('loading state: ', isLoading);
 
       if (res!.status !== 200) {
           setErrorState(true)
           return
       }
       const result = await res!.json();
-      console.log('trash API res: ', result)
       setErrorState(false);
       setDays(result);
     }

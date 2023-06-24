@@ -15,7 +15,7 @@ const News = async (req: NextApiRequest, res: NextApiResponse) => {
         case "GET":
           getNews()
 
-          const alertRes = await alerts
+          const newsRes = await alerts
             .find( )
             // .find( { createdAt: { $lt: new Date('2021-03-01') } } )
             .sort({ createdAt: -1 })
@@ -23,7 +23,7 @@ const News = async (req: NextApiRequest, res: NextApiResponse) => {
             .limit(Number(limit))
             .toArray()
 
-          res.json(alertRes);
+          res.json(newsRes);
           break;
       }
 

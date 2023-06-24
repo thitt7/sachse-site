@@ -1,0 +1,40 @@
+@use "variables" as *;
+
+.news-card-container {
+	max-width: 1350px;
+	margin: 40px auto;
+	padding: 20px;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+    align-items: center;
+	gap: 25px;
+
+    [class*="MuiCard-root"] {
+        border-radius: 10px;
+        flex: 0 1 600px;
+        max-width: revert;
+        height: fit-content;
+
+        img {
+            height: 400px;
+        }
+
+        [class*="MuiCardContent-root"] {
+            max-height: 300px;
+            overflow: hidden;
+            position: relative;
+
+            &::after {
+                @include read-more-card-overlay;
+            }
+
+            [class*="Typography"] {max-height: 300px;}
+        }
+
+        [class*="MuiCardActions"] {
+            justify-content: center;
+            @include button;
+        }
+    }
+}

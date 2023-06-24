@@ -5,4 +5,27 @@ $font-color: #333;
 /* Breakpoints */
 $mobile: 480px;
 $tablet: 768px;
-$desktop: 1920px
+$desktop: 1920px;
+
+/* Mixins */
+@mixin button {
+    button {
+        margin: 15px auto;
+        min-width: 120px;
+        padding: 10px;
+        border-radius: 20px;
+        transition: 0.3s all ease;
+        &:hover {background-color:rgba(25, 118, 210, 0.06)}
+    }
+  };
+
+@mixin read-more-card-overlay {
+    background: linear-gradient(to bottom,rgba(255,255,255,0) 0,#fff 80%);
+    height: 100px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    content: " ";
+    z-index: 1;
+}

@@ -24,6 +24,7 @@
     "clipboardy": "^3.0.0",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
+    "google-news-scraper": "^1.1.0",
     "mongodb": "^5.1.0",
     "next": "^13.2.4",
     "nextjs-cors": "^2.1.2",

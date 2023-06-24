@@ -5,17 +5,15 @@ const Alerts = async (req: NextApiRequest, res: NextApiResponse) => {
     let {coordinates} = req.query
     coordinates = coordinates?.toString()
     let split = coordinates!.split(',')
-    console.log('split: ', split)
 
-    const result = await fetch (`https://maps.googleapis.com/maps/api/geocode/json?latlng=${split[0]},${split[0]}&key=${process.env.GOOGLE_MAPS_API_KEY}`, { });
-    const result2 = await result.json()
-    console.log('result: ', result2)
+    const result = await fetch (`https://maps.googleapis.com/maps/api/geocode/json?latlng=${split[0]},${split[1]}&key=${process.env.GOOGLE_MAPS_API_KEY}`, { });
+    const response = await result.json()
 
     switch (req.method) {
         case "POST":
           break;
         case "GET":
-          res.json({ test: 'coords trash route reached' });
+          res.json(response.results[0]);
           break;
       }
 
