@@ -5,7 +5,7 @@ import '../styles/globals.scss'
 export default function Home() {
   return (
     <main>
-      <h1>This is 'page' content</h1>
+      <h3>Example</h3>
     </main>
   )
 }
