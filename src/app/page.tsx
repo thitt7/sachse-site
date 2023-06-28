@@ -1,11 +1,15 @@
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
+import Banner from './home/banner'
+import Footer from './footer'
 import '../styles/globals.scss'
 
 export default function Home() {
   return (
     <main>
-      <h1>This is 'page' content</h1>
+      {/* @ts-expect-error Async Server Component */}
+      <Banner/>
+      <Footer/>
     </main>
   )
 }
