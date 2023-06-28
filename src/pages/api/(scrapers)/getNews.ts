@@ -1,9 +1,10 @@
-const googleNewsScraper = require('google-news-scraper');
 import * as cheerio from 'cheerio';
 import clientPromise from '../../../lib/mongodb';
+import slugify from "slugify";
 
 export type News = {
     title?: string,
+    slug?: string,
     author?: string,
     category?: string[],
     body?: string,
@@ -21,19 +22,6 @@ const getNews = async () => {
     bulkArr = await populateNewsArr(bulkArr);
     await bulkWrite(bulkArr);
 
-    const articles = await googleNewsScraper({
-        searchTerm: "The Oscars",
-        prettyURLs: false,
-        queryVars: {
-            hl:"en-US",
-            gl:"US",
-            ceid:"US:en"
-          },
-        timeframe: "5d",
-        puppeteerArgs: []
-    })
-
-    console.log('google news package returns: ', articles);
 }
 
 /* Get list of new News Articles from 'latest' page */
@@ -47,6 +35,8 @@ const getLatest = async () => {
             let currenthref = $(el).attr('href')
             newsArr.push({ URL: currenthref })
     });
+
+    console.log('updating news...')
 
     return newsArr;
 }
@@ -72,7 +62,7 @@ const scrape = async (n: News): Promise<News> => {
     const createdAt = new Date($(" .et_pb_title_meta_container .published ").text())
     const img: string = $(" .et_pb_post_title_1_tb_body img ").attr("src")!
 
-    n = { ...n, title: title, author: author, category: category, body: body, createdAt: createdAt, img: img }
+    n = { ...n, title: title, author: author, category: category, body: body, createdAt: createdAt, img: img, slug: slugify(title, {lower: true}) }
     return n
 }
 
