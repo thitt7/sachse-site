@@ -1,12 +1,19 @@
 "use client"
 import React, { Component } from 'react';
-import Slider from 'react-slick';
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import "../../styles/_banner.scss";
 
 
 export default async function Banner () {
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
 
     return (
         <>
@@ -25,13 +32,11 @@ export default async function Banner () {
                         </div>
                         <div className="col-6">
                             <h3>Title 3 - This could be a slider with news</h3>
-                            <Slider>
-                                <div className='slider'>
-                                    <div>1</div>
-                                    <div>2</div>
-                                    <div>3</div>
-                                    <div>4</div>
-                                </div>
+                            <Slider {...settings}>
+                                <div>1</div>
+                                <div>2</div>
+                                <div>3</div>
+                                <div>4</div>
                             </Slider>
                         </div>
                     </div>

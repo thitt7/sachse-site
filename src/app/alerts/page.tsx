@@ -13,7 +13,6 @@ export default async function Alerts () {
         <Client Arr={alertArr}>
         </Client>
     )
-
 }
 
 const getAlerts = async (page: number, limit: number, offset: number) => {
@@ -22,4 +21,4 @@ const getAlerts = async (page: number, limit: number, offset: number) => {
     });
 
     return res.json();
-  }
+}
