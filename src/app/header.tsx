@@ -35,7 +35,6 @@ const Header = (props: Props) => {
     const [mobileOpen, setMobileOpen] = useState(false);
   
     const handleDrawerToggle = (e: React.MouseEvent) => {
-      console.log('in drawer handler')
       setMobileOpen((prevState: any) => !prevState);
     };
   

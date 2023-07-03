@@ -36,8 +36,6 @@ const getLatest = async () => {
             newsArr.push({ URL: currenthref })
     });
 
-    console.log('updating news...')
-
     return newsArr;
 }
 
@@ -61,8 +59,9 @@ const scrape = async (n: News): Promise<News> => {
     const body: string = $(" .et_pb_post_content_0_tb_body ").html()!
     const createdAt = new Date($(" .et_pb_title_meta_container .published ").text())
     const img: string = $(" .et_pb_post_title_1_tb_body img ").attr("src")!
+    const slug: string = slugify(title, {remove: /[*+~.,()'"!:@]/g, lower: true})
 
-    n = { ...n, title: title, author: author, category: category, body: body, createdAt: createdAt, img: img, slug: slugify(title, {lower: true}) }
+    n = { ...n, title: title, author: author, category: category, body: body, createdAt: createdAt, img: img, slug: slug }
     return n
 }
 
