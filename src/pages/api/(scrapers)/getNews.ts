@@ -7,10 +7,10 @@ export type News = {
     slug?: string,
     author?: string,
     category?: string[],
-    body?: string,
+    body?: {html: string, text: string},
     createdAt?: Date,
     URL?: string,
-    img?: string
+    img?: {src: string, alt: string}
 }
 
 const getNews = async () => {
@@ -56,12 +56,13 @@ const scrape = async (n: News): Promise<News> => {
     const author: string = $(" .et_pb_title_meta_container .author ").text()!
     const category: string[] = []
     $(" .et_pb_title_meta_container a[rel='category tag']").each( function (i, e) { category.push($(e).text()!) })
-    const body: string = $(" .et_pb_post_content_0_tb_body ").html()!
-    const createdAt = new Date($(" .et_pb_title_meta_container .published ").text())
-    const img: string = $(" .et_pb_post_title_1_tb_body img ").attr("src")!
+    const body = { html: $(" .et_pb_post_content_0_tb_body ").html()!, text: $(" .et_pb_post_content_0_tb_body ").text()!.replace(/\t|\r|\n/gm, "")}
+    const createdAt = new Date($(" head meta[property='article:published_time'] ").attr("content")!)
+    const img = { src: $(" .et_pb_post_title_1_tb_body img ").attr("src")!, alt: $(" .et_pb_post_title_1_tb_body img ").attr("title")!}
     const slug: string = slugify(title, {remove: /[*+~.,()'"!:@]/g, lower: true})
 
     n = { ...n, title: title, author: author, category: category, body: body, createdAt: createdAt, img: img, slug: slug }
+    console.log(n)
     return n
 }
 

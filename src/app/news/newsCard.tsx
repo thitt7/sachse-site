@@ -49,11 +49,11 @@ const NewsCard: React.FC<Props> = ({news, i}: Props) => {
                 />
                 <CardMedia
                     component="img"
-                    image={news.img}
-                //   alt={news.img.alt}
+                    image={news.img.src}
+                    alt={news.img.alt}
                 />
                 <CardContent>
-                    <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: news.body }}>
+                    <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: news.body.html }}>
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>

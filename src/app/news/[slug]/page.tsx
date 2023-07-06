@@ -15,16 +15,16 @@ export const generateMetadata = async ({ params }: Props ) => {
   const { URL, title, author, body, category, createdAt, img } = article[0];
   
   return {
-    title: title,
-    description: body,
+    title: title + ' | Sachse Community Site',
+    description: body.text.substring(0, 160),
 
     generator: 'Next.js',
     applicationName: 'Next.js',
     referrer: 'origin-when-cross-origin',
     keywords: ['Next.js', 'React', 'JavaScript'],
-    authors: [{ name: 'Seb' }, { name: 'Josh', url: 'https://nextjs.org' }],
+    authors: [{ name: author, url: 'https://nextjs.org' }],
     colorScheme: 'dark',
-    creator: 'Jiachi Liu',
+    creator: 'Tristan Hitt',
     publisher: 'Sebastian Markbåge',
     formatDetection: {
       email: false,
@@ -33,21 +33,31 @@ export const generateMetadata = async ({ params }: Props ) => {
     },
 
     openGraph: {
-      title: 'Next.js',
-      description: 'The React Framework for the Web',
+      title: title,
+      description: body.text,
       url: 'https://nextjs.org',
-      publishedTime: '2023-01-01T00:00:00.000Z',
-      authors: ['Seb', 'Josh'],
-      siteName: 'Next.js',
+      publishedTime: createdAt,
+      authors: [author],
+      siteName: 'sachse.city',
       images: [
         {
-          url: 'https://nextjs.org/og.png',
+          url: img.src,
           width: 800,
           height: 600,
         },
       ],
       locale: 'en_US',
-      type: 'website',
+      type: 'article',
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: body.text,
+      siteId: '1467726470533754880',
+      creator: '@nextjs',
+      creatorId: '1467726470533754880',
+      images: [img.src],
     },
   }
 }
@@ -55,15 +65,14 @@ export const generateMetadata = async ({ params }: Props ) => {
 const NewsArticle = async ({ params }: Props ) => {
   const article = await getArticle(params.slug);
 
-  console.log('params: ', params);
   const { URL, title, author, body, category, createdAt, img } = article[0];
 
   return (
     <div className='article-content'>
       <h1>{title}</h1>
       <ArticleInfo article={article} />
-      <img src={img} alt="" />
-      <div dangerouslySetInnerHTML={{ __html: body }} />
+      <img src={img.src} alt={img.alt} />
+      <div dangerouslySetInnerHTML={{ __html: body.html }} />
       <Tags article={article} />
     </div>
   )
