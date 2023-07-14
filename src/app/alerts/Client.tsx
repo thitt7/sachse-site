@@ -50,4 +50,4 @@ export const pushAlerts = async (Arr: string[]): Promise<string[]> => {
     return Arr
 }
 
-export default Client
+export default Client;

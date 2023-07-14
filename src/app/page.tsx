@@ -1,9 +1,11 @@
 import Image from 'next/image'
-import { Inter } from '@next/font/google'
 import Example from './example'
 import '../styles/globals.scss'
 
-export default function Home() {
+export default async function Home() {
+
+  // const alerts = await getAlerts(0,10,0);
+
   return (
     <main>
       {/* @ts-expect-error Async Server Component */}

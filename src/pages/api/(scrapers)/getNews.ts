@@ -62,12 +62,11 @@ const scrape = async (n: News): Promise<News> => {
     const slug: string = slugify(title, {remove: /[*+~.,()'"!:@]/g, lower: true})
 
     n = { ...n, title: title, author: author, category: category, body: body, createdAt: createdAt, img: img, slug: slug }
-    console.log(n)
     return n
 }
 
 /* Perform bulk write operation to db with scraped data */
-async function bulkWrite(items: News[]) {
+async function bulkWrite(items: any) {
     const client = await clientPromise;
     const db = client.db("sachse-site");
     const alerts = await db.collection('news');
@@ -75,8 +74,8 @@ async function bulkWrite(items: News[]) {
     const ops = items.map((item: News) => ({
         updateOne: {
             filter: {
+                URL: item.URL,
                 title: item.title,
-                URL: item.URL
             },
             update: { $set: item },
             upsert: true

@@ -3,7 +3,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Link from 'next/link';
-import slugify from "slugify";
 
 import '../../styles/alerts.module.scss';
 
@@ -57,7 +56,7 @@ const NewsCard: React.FC<Props> = ({news, i}: Props) => {
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <Link href={`/news/${slugify(news.title, {lower: true})}`}>
+                    <Link href={`/news/${news.slug}`}>
                         <Button size="small">Read More</Button>
                     </Link>
                 </CardActions>

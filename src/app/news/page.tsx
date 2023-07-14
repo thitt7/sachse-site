@@ -2,7 +2,7 @@ import React from "react";
 import Client from "./Client";
 
 
-export default async function Alerts () {
+export default async function News () {
     let limit: number = 10
     let page: number = 0
     let offset: number = 0

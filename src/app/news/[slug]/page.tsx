@@ -12,7 +12,7 @@ type Props = {
 export const generateMetadata = async ({ params }: Props ) => {
   const article = await getArticle(params.slug);
 
-  const { URL, title, author, body, category, createdAt, img } = article[0];
+  const { URL, title, author, body, category, createdAt, img, slug } = article[0];
   
   return {
     title: title + ' | Sachse Community Site',
@@ -35,7 +35,7 @@ export const generateMetadata = async ({ params }: Props ) => {
     openGraph: {
       title: title,
       description: body.text,
-      url: 'https://nextjs.org',
+      url: `https://sachse.city/news/${slug}`,
       publishedTime: createdAt,
       authors: [author],
       siteName: 'sachse.city',
