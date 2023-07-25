@@ -2,7 +2,7 @@ import React from 'react'
 
 import getAlerts from '@/lib/getAlerts';
 
-const Example = async () => {
+const Alerts = async () => {
 
   const alerts = await getAlerts(0,10,0);
 
@@ -19,4 +19,4 @@ const Example = async () => {
   )
 }
 
-export default Example;
+export default Alerts;

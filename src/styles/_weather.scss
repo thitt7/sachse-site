@@ -1,0 +1,39 @@
+@use "variables" as *;
+
+.weather {
+    width: 300px;
+    aspect-ratio: .724/1;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    * {
+        text-align: center;
+        color: white;
+        text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+        font-weight: 400;
+        font-size: 20px;
+    }
+
+    > div {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+        padding-bottom: 30%;
+    }
+
+    &.clear {background-image: url("/clear-day.svg");
+
+        &.night {background-image: url("/clear-night.svg"), linear-gradient(rgba(41, 41, 41, 1), rgba(12, 21, 23, 1));}
+    }
+
+    &.haze {
+        background-image: url("/cloudy.svg"), linear-gradient(to bottom, rgb(152, 216, 236),rgb(84, 138, 201));
+
+        // &.night {background-color: #292929;}
+    }
+}

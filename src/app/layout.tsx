@@ -1,7 +1,9 @@
+import Head from './head';
 import Header from './header'
 import ScrollTop from './scrolltop';
 
 import '../styles/globals.scss'
+import { jost } from './fonts';
 
 export default function RootLayout({
   children,
@@ -9,9 +11,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <head />
-      <body>
+    <html lang="en" id="html" className={jost.className}>
+      <Head />
+      <body id="body">
         <Header />
         <ScrollTop/>
         {children}

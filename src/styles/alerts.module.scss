@@ -39,7 +39,7 @@
         flex-flow: row wrap;
         justify-content: center;
         padding: 15px;
-        font: 400 20px/1 $font-primary;
+        font: 400 20px/1 inherit;
         .MuiAlert-icon {
             justify-content: center;
         }

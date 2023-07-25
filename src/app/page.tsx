@@ -1,15 +1,17 @@
-import Image from 'next/image'
-import Example from './example'
+import Weather from './Weather'
+import Alerts from './Alerts'
+import { Metadata } from 'next'
+
 import '../styles/globals.scss'
 
 export default async function Home() {
 
-  // const alerts = await getAlerts(0,10,0);
-
   return (
     <main>
       {/* @ts-expect-error Async Server Component */}
-      <Example />
+      <Alerts />
+      {/* @ts-expect-error Async Server Component */}
+      <Weather />
     </main>
   )
 }

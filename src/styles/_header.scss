@@ -4,12 +4,11 @@ header {
     position: sticky;
     top: 0;
     z-index: 10000;
+    background: $header;
 
     nav[class*="Mui"] {
       position: static;
-      background-color: none;
-      background: rgba(249, 255, 255, 0.85);
-       * {color: $font-color;}
+      background: none;
     }
     [class*="MuiToolbar"] {
         display: flex;
@@ -25,8 +24,9 @@ header {
 
 
         [class*="MuiTypography-h6"], [class*="MuiBox-root"] {
-        @media (max-width: $tablet) {display: none;}
-        @media (min-width: $tablet) {display: block;}
+            font-family: inherit !important;
+            @media (max-width: $tablet) {display: none;}
+            @media (min-width: $tablet) {display: block;}
         }
     }
   }
