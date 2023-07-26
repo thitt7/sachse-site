@@ -1,5 +1,4 @@
 @use "variables" as *;
-@use "home";
 @use "weather";
 @use "header";
 @use "trash";
@@ -26,6 +25,12 @@ html#html {
 
 a {
   text-decoration: none;
+}
+
+.slick-track {
+  display: flex;
+  gap: 25px;
+  align-items: center;
 }
 
 [class*="Mui"] {

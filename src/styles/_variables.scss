@@ -1,6 +1,8 @@
 /* Typography */
 // $font-primary: 'Jost', sans-serif;
 $font-color: #333;
+$font-secondary: #B1CDEA;
+$font-tertiary: #93B9E0;
 
 /* Breakpoints */
 $mobile: 480px;
@@ -10,6 +12,9 @@ $desktop: 1920px;
 /* Colors */
 $primary: #1C2028;
 $secondary: #364157;
+$heading-bg: #364157;
+$card-bg: #28303F;
+$card-bg-secondary: #3A4354;
 $header: #262C36;
 
 /* Mixins */
@@ -34,3 +39,33 @@ $header: #262C36;
     content: " ";
     z-index: 1;
 }
+
+@mixin base-card {
+    border-radius: 5px;
+    background-color: $card-bg;
+
+    h2 {
+        color: $font-secondary;
+        text-transform: uppercase;
+        font-size: 16px;
+        margin: 0;
+    }
+
+    h3 {
+        text-align: center;
+        background-color: $heading-bg;
+        font-weight: 500;
+        font-size: 25px;
+        margin: 0;
+        padding: 15px;
+    }
+
+    button {
+        cursor: pointer;
+        border: 0;
+        background: none;
+        font-size: 15px;
+        font-family: inherit;
+        font-weight: bold;
+    }
+  };

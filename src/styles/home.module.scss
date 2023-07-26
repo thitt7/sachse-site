@@ -1,0 +1,46 @@
+@use "variables" as *;
+
+.mw {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.alerts {
+    @include base-card;
+
+    .slick {
+        max-width: 100%;
+    }
+
+    .container {
+        padding: 25px;
+
+        > div {
+            flex: 0 1 calc(33% - 10px);
+        }
+
+        .alert {
+            border-radius: 5px;
+            padding: 15px;
+            background-color: $card-bg-secondary;
+            display: flex;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+
+            > div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                time {
+                    color: $font-tertiary;
+                    height: fit-content;
+                }
+            }
+
+            p {
+                margin: 10px 0;
+            }
+        }
+    }
+}

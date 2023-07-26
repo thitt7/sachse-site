@@ -1,6 +1,6 @@
-import Head from './head';
-import Header from './header'
-import ScrollTop from './scrolltop';
+// import Head from './head';
+import Header from './components/layout/header'
+import ScrollTop from './components/layout/scrolltop';
 
 import '../styles/globals.scss'
 import { jost } from './fonts';
@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" id="html" className={jost.className}>
-      <Head />
+      {/* <Head /> */}
       <body id="body">
         <Header />
         <ScrollTop/>
