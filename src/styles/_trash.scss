@@ -12,6 +12,11 @@
     .MuiPaper-root {
         border-radius: 10px;
         margin: 25px auto;
+        background-color: $card-bg;
+
+        * {
+            color: white;
+        }
     }
 }
 
