@@ -58,6 +58,12 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
     const getAddress = async (position: any) => {
       const res = await fetch (`/api/trash/${position.coords.latitude},${position.coords.longitude}`, { });
       const response = await res.json();
+      console.log('RESPOSNE: ', res);
+      if (res.status == 500) {
+        setErrorMsg('Server Error, this one is on us...sorry!')
+        setErrorState(true)
+        return
+      }
       const address = response.formatted_address;
       getTrashDays(address);
     }

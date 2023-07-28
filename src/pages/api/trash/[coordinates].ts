@@ -13,7 +13,9 @@ const Alerts = async (req: NextApiRequest, res: NextApiResponse) => {
         case "POST":
           break;
         case "GET":
-          res.json(response.results[0]);
+          response.status == 'OK' ? res.json(response.results[0]) : ''
+          console.log('STATUS: ', response.status)
+          response.status !== 'OK' ? res.status(500).send({ error: response.error_message }) : ''
           break;
       }
 

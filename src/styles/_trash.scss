@@ -18,3 +18,19 @@
 [class*=MuiTable-root] {min-width: auto;
     thead th, tbody td:first-of-type {font-weight: bold;}
 }
+
+[class*=MuiAutocomplete] {
+
+    label#gmap-input-label {color: white;}
+
+    [class*=MuiOutlinedInput] {
+        background-color: $heading-bg;
+        z-index: -1;
+        // border: none;
+
+        input#gmap-input {
+            color: white;
+            z-index: 0;
+        }
+    }
+}
