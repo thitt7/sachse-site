@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 const DayTable = ({days}: {days: string[][]}) => {
     return (
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 650 }} aria-label="trash pickup table">
             <TableHead>
               <TableRow>
                 {days[0].map((label) => (

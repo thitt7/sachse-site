@@ -12,11 +12,17 @@
     .MuiPaper-root {
         border-radius: 10px;
         margin: 25px auto;
-    }
-}
+        background: none;
 
-[class*=MuiTable-root] {min-width: auto;
-    thead th, tbody td:first-of-type {font-weight: bold;}
+        [class*=MuiTable-root] {
+            min-width: auto;
+            background: $card-bg;
+        
+            thead th, tbody td:first-of-type {font-weight: bold;}
+        
+            * {color: white;}
+        }
+    }
 }
 
 [class*=MuiAutocomplete] {
@@ -32,5 +38,13 @@
             color: white;
             z-index: 0;
         }
+    }
+}
+
+[class*=MuiAutocomplete-popper] {
+    [class*=MuiAutocomplete-paper] {background-color: $heading-bg}
+
+    p {
+        color: white;
     }
 }

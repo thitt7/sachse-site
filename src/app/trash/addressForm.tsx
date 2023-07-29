@@ -14,7 +14,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import parse from 'autosuggest-highlight/parse';
 import { debounce } from '@mui/material/utils';
 
-const GOOGLE_MAPS_API_KEY = 'AIzaSyDrK0lfRCDfk7qiSTxJwmfXrvJ0NgzKm4I';
+const GOOGLE_MAPS_API_KEY = 'AIzaSyA33B4yAmE-rDcU5Zy2v-HggCF20zx_gPM';
 
 function loadScript(src: string, position: HTMLElement | null, id: string) {
     if (!position) {
