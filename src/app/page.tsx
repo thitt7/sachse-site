@@ -16,6 +16,7 @@ export default async function Home() {
           <Alerts />
           {/* @ts-expect-error Async Server Component */}
           <Weather />
+          {/* @ts-expect-error Async Server Component */}
           <News />
           {/* <TwitterFeed /> */}
         </div>

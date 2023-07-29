@@ -2,6 +2,8 @@
 
 import React from 'react'
 import Link from 'next/link';
+import { Box } from '@mui/material';
+import Divider from '@mui/material/Divider';
 import getNews from '@/lib/getNews';
 
 import styles from '../../../../styles/home.module.scss'
@@ -9,7 +11,36 @@ import styles from '../../../../styles/home.module.scss'
 const Client = ({ news }: { news: any }) => {
 
   return (
-    <div>Client</div>
+    <div className={styles.news}>
+      <Link href={'/news'}>
+        <h3>News</h3>
+      </Link>
+      <div className={styles.container}>
+        {news.map((news: any, i: number) => {
+          const { URL, title, author, body, category, createdAt, img, slug } = news
+
+          return (
+            <>
+            <div className={styles.news} key={i}>
+              <img src={img.src} alt={img.alt} />
+              <Box>
+              <h2>{title}</h2>
+              <p>{body.text}</p>
+              <Box>
+                <div>{author}</div>
+                <Link href={`/news/${slug}`}>
+                  <button>READ MORE</button>
+                </Link>
+              </Box>
+              </Box>
+            </div>
+            <Divider variant="middle" />
+            </>
+
+          )
+        })}
+      </div>
+    </div>
   )
 }
 
