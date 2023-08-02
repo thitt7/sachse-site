@@ -45,7 +45,7 @@ const Header = (props: Props) => {
             <Link href={`/${item.toLowerCase()}`}>
             <ListItem key={item} disablePadding>
               <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={item} />
+                <ListItemText primary={item} sx={{ fontSize: '1.5rem' }}/>
               </ListItemButton>
             </ListItem>
             </Link>

@@ -51,6 +51,32 @@
 
 .news {
     @include base-card;
+    width: 50%;
 
-    
+    .article {
+        @include clearfix;
+        // display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .clearfix {
+        @include clearfix;
+    }
+
+    .image {
+        max-width: 100%;
+        width: 33%;
+        float: left;
+        margin: 0 20px 20px 0;
+    }
+
+    .p {margin: 0;}
+
+    .info {
+        display: flex;
+        justify-content: space-between;
+    }
+
 }

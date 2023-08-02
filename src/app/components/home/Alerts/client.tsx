@@ -3,22 +3,27 @@
 import React from 'react'
 import Link from 'next/link';
 import Slider from "react-slick";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from '../../../../styles/home.module.scss'
 
-const settings = {
-    dots: false,
-    arrows: false,
-    infinite: true,
-    autoplay: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1
-};
-
 const Client = ({ alerts }: { alerts: any }) => {
+
+    const mobile = useMediaQuery('(max-width:768px)');
+
+    const settings = {
+        dots: false,
+        arrows: false,
+        infinite: true,
+        autoplay: true,
+        speed: 500,
+        slidesToShow: mobile ? 1 : 3,
+        slidesToScroll: 1,
+        mobileFirst: true,
+    };
+
     return (
         <div className={styles.alerts}>
             <Link href={'/alerts'}>

@@ -29,6 +29,14 @@ $header: #262C36;
     }
   };
 
+@mixin clearfix() {
+    &::after {
+      display: block;
+      content: "";
+      clear: both;
+    }
+  }
+
 @mixin read-more-card-overlay {
     background: linear-gradient(to bottom,rgba(255,255,255,0) 0,#fff 80%);
     height: 100px;
