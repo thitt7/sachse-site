@@ -20,6 +20,7 @@ $header: #262C36;
 /* Mixins */
 @mixin button {
     button {
+        color: white;
         margin: 15px auto;
         min-width: 120px;
         padding: 10px;
@@ -49,7 +50,7 @@ $header: #262C36;
 }
 
 @mixin base-card {
-    border-radius: 5px;
+    border-radius: 7px;
     background-color: $card-bg;
 
     h2 {
@@ -75,5 +76,10 @@ $header: #262C36;
         font-size: 15px;
         font-family: inherit;
         font-weight: bold;
+    }
+
+    @media (max-width: $mobile) {
+      overflow: hidden;
+      margin: 15px;
     }
   };

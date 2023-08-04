@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio';
-import clientPromise from '../../../lib/mongodb';
+import clientPromise from '../../../../lib/mongodb';
 import slugify from "slugify";
+import getEvents2 from './getEvents2';
 
 export type Event = {
     title?: string,
@@ -14,17 +15,15 @@ export type Event = {
 }
 
 const getEvents = async () => {
-    const client = await clientPromise;
-    const db = client.db("sachse-site");
-    const alerts = await db.collection('events');
     
     let bulkArr = await getLatest();
     bulkArr = await populateEventArr(bulkArr);
-    // await bulkWrite(bulkArr);
+    bulkArr.push(...await getEvents2())
+    await bulkWrite(bulkArr);
 
 }
 
-/* Get list of new News Articles from 'latest' page */
+/* Get list of new event Articles from 'latest' page */
 const getLatest = async () => {
     const now = new Date()
     let currentDate = now.toLocaleString()
@@ -52,7 +51,7 @@ const populateEventArr = (bulkArr: Event[]) => {
     }))
   }
 
-/* Populate individual news object with scraped data from individual news article*/
+/* Populate individual event object with scraped data from individual event page*/
 const scrape = async (e: Event): Promise<Event> => {
     const response = await fetch(e.URL!)
     const htmlString = await response.text()
@@ -73,8 +72,28 @@ const scrape = async (e: Event): Promise<Event> => {
     const date = {start: new Date(`${dates[0]} ${times[0]}`), end: new Date(`${dates[1]} ${times[1]}`)}
     
     e = { ...e, title: title, date: date, location: location, address: address }
-    console.log(e)
     return e;
 }
+
+/* Perform bulk write operation to db with scraped data */
+async function bulkWrite(items: Event[]) {
+    const client = await clientPromise;
+    const db = client.db("sachse-site");
+    const events = await db.collection('events');
+
+    const ops = items.map((item: Event) => ({
+        updateOne: {
+            filter: {
+                URL: item.URL,
+                title: item.title,
+            },
+            update: { $set: item },
+            upsert: true
+        }
+    }));
+
+    return await events.bulkWrite(ops);
+
+  } 
 
 export default getEvents;

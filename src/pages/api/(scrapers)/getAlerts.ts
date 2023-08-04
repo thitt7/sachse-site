@@ -32,9 +32,6 @@ class dateString extends String {
 }
 
 const getNewAlerts = async () => {
-    const client = await clientPromise;
-    const db = client.db("sachse-site");
-    const alerts = await db.collection('alerts');
 
     let bulkArr: Alert[] = []
     
@@ -116,8 +113,8 @@ async function bulkWrite(items: Alert[]) {
     const ops = items.map((item: Alert) => ({
         updateOne: {
             filter: {
+                URL: item.URL,
                 title: item.title,
-                URL: item.URL
             },
             update: { $set: item },
             upsert: true

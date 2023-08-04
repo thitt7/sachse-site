@@ -23,7 +23,7 @@ interface Props {
     window?: () => Window;
   }
 
-  const navItems = ['Alerts', 'News', 'Events', 'Trash'];
+  const navItems = ['Alerts', 'News', 'Events', 'Trash', 'Subscribe'];
 
 const Header = (props: Props) => {
     const isMobile = useMediaQuery('(max-width:480px)');

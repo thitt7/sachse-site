@@ -39,7 +39,7 @@ const Client = ({ alerts }: { alerts: any }) => {
                                 <div>
                                     <time dateTime={alert.createdAt}>{new Date(alert.createdAt).toLocaleString()}</time>
                                     <Link href={`/alerts/${alert._id}`}>
-                                        <button>READ MORE</button>
+                                        <button style={{margin: 0}}>READ MORE</button>
                                     </Link>
                                 </div>
                             </div>

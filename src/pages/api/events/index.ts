@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../lib/mongodb';
-import getEvents from '../(scrapers)/getEvents';
+import getEvents from '../(scrapers)/events/getEvents';
 
 const News = async (req: NextApiRequest, res: NextApiResponse) => {
     const client = await clientPromise;

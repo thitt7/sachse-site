@@ -27,6 +27,10 @@ a {
   text-decoration: none;
 }
 
+[class*=MuiFab-root] {
+  background-color: rgba(3, 9, 28, 0.5);
+}
+
 [class*=MuiDivider] {
   background-color: #3C4861;
 }
@@ -41,9 +45,16 @@ a {
   font-family: inherit;
 }
 
-// [class*="MuiButton"] {
-//   color: $font-color;
-// }
+[class*="alerts_container"] {
+  .alert {background-color: #AF3C3C;}
+  .advisory {background-color: #AB691C;}
+  .community {background-color: #426186;}
+
+  .MuiAlert-icon {
+    align-items: center;
+    font-size: 1em;
+}
+}
 
 [class*="MuiAutocomplete-noOptions"] {display: none;}
 

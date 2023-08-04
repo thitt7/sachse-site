@@ -7,6 +7,7 @@
 
 .alerts {
     @include base-card;
+    @include button;
 
     .slick {
         max-width: 100%;
@@ -51,6 +52,8 @@
 
 .news {
     @include base-card;
+    @include button;
+
     width: 50%;
 
     .article {
@@ -77,6 +80,7 @@
     .info {
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
 }

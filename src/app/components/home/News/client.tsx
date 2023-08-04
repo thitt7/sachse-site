@@ -29,7 +29,7 @@ const Client = ({ news }: { news: any }) => {
               <div className={styles.info}>
                 <div>{author}</div>
                 <Link href={`/news/${slug}`}>
-                  <button>READ MORE</button>
+                  <button style={{margin: 0}}>READ MORE</button>
                 </Link>
               </div>
             </article>
