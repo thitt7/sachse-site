@@ -64,7 +64,7 @@ const scrape = async (e: Event): Promise<Event> => {
     const date = {start: new Date($(" [itemprop='startDate'] ").attr("content")!), end: new Date($(" [itemprop='endDate'] ").attr("content")!)}
     
     e = { ...e, title: title, date: date, address: address, description: description }
-    console.log(e)
+    // console.log(e)
     return e;
 }
 

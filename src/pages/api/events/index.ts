@@ -1,29 +1,34 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../lib/mongodb';
 import getEvents from '../(scrapers)/events/getEvents';
+import { ObjectId } from 'mongodb';
 
 const News = async (req: NextApiRequest, res: NextApiResponse) => {
     const client = await clientPromise;
     const db = client.db("sachse-site");
     const events = await db.collection('events');
 
-    const {page, limit, offset} = req.query
+    const {id} = req.query
 
     switch (req.method) {
         case "POST":
           break;
         case "GET":
-          getEvents()
+          // await getEvents()
 
-        //   const newsRes = await events
-        //     .find( )
-        //     // .find( { createdAt: { $lt: new Date('2021-03-01') } } )
-        //     .sort({ createdAt: -1 })
-        //     .skip(Number(offset))
-        //     .limit(Number(limit))
-        //     .toArray()
+          if (id) {
+            const objectid = new ObjectId(id as string)
+            const Event = await events.find( {_id : objectid} ).toArray()
+            res.json(Event);
+          }
+          else {
+            const Events = await events
+            .find( )
+            .toArray()
 
-        //   res.json(newsRes);
+          res.json(Events);
+          }
+
           break;
       }
 

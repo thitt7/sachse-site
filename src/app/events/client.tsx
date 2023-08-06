@@ -7,11 +7,17 @@ import listGridPlugin from '@fullcalendar/list'
 
 import React from 'react'
 
-const Client = () => {
+type Props = {
+  events: Event[]
+}
 
-    const events = [
-        { title: 'Meeting', start: new Date() }
-      ]
+const Client = ({events}: Props) => {
+
+    // const events = [
+    //   { title: 'event 1', date: '2023-07-01' },
+    //   { title: 'event 2', date: '2023-07-02' }
+    //   ]
+    console.log('EVENTS: ',events)
 
   return (
     <div className="container" style={{maxWidth: "1200px", margin: "auto"}}>
@@ -20,7 +26,7 @@ const Client = () => {
             headerToolbar={{
                 left: 'prev,next today',
                 center: 'title',
-                right: 'dayGrid,dayGridMonth,listWeek'
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
               }}
             initialView='dayGridMonth'
             weekends={true}
