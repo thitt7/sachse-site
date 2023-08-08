@@ -9,9 +9,11 @@ export type Event = {
     location?: string,
     address?: string,
     description?: {html: string, text: string},
-    date?: {start: Date, end?: Date},
+    start?: Date,
+    end?: Date,
     URL?: string,
-    img?: {src: string, alt: string}
+    img?: {src: string, alt: string},
+    allDay?: boolean
 }
 
 const getEvents = async () => {
@@ -23,7 +25,7 @@ const getEvents = async () => {
 
 }
 
-/* Get list of new event Articles from 'latest' page */
+/* Get list of events from city of sachse page from range of current date to current date + 2 years */
 const getLatest = async () => {
     const now = new Date()
     let currentDate = now.toLocaleString()
@@ -37,7 +39,7 @@ const getLatest = async () => {
     let $ = cheerio.load(htmlString)
 
     $(" a[id*='calendarEvent'] ").each((i, el) => {
-            const currenthref = `https://www.cityofsachse.com${$(el).attr('href')}`
+            const currenthref = `https://www.cityofsachse.com${$(el).attr('href')!.split('&')[0]}`
             eventArr.push({ URL: currenthref })
     });
 
@@ -61,17 +63,19 @@ const scrape = async (e: Event): Promise<Event> => {
     const slug: string = slugify(title, {remove: /[*+~.,()'"!:@]/g, lower: true})
     const location: string = $(" [id*='location'] .specificDetailItem [itemprop='name'] ").text()!.replace(/\t|\r|\n/gm, "");
     const address: string = $(" [id*='Address'] .specificDetailItem [itemprop='address']").html()!
+    let allDay: boolean = false;
 
     let dates = $(" [id*='dateDiv'] ").text().replace(/\u00A0/gm, " ").split('-').map((e:string)=>{return e.trim()})
     dates.length == 1 ? dates.push(dates[0]) : ''
 
     let times = $(" [id*='time'] .specificDetailItem ").text().replace(/\u00A0/gm, " ").split('-').map((e:string)=>{return e.trim()})
     times.length == 1 && times[0].trim() !== "All Day" ? times.push(times[0]) : ''
-    if (times[0].trim() == "All Day") { times[0] = "00:00:01"; times.push("23:59:59") }
+    if (times[0].trim() == "All Day") { allDay = true; times[0] = "00:00:01"; times.push("23:59:59") }
    
-    const date = {start: new Date(`${dates[0]} ${times[0]}`), end: new Date(`${dates[1]} ${times[1]}`)}
+    const start: Date = new Date(`${dates[0]} ${times[0]}`)
+    const end: Date = new Date(`${dates[1]} ${times[1]}`)
     
-    e = { ...e, title: title, date: date, location: location, address: address }
+    e = { ...e, title: title, start: start, end: end, location: location, address: address, allDay: allDay }
     return e;
 }
 

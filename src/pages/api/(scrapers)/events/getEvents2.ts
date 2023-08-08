@@ -7,8 +7,9 @@ export type Event = {
     location?: string,
     address?: string,
     description?: {html: string, text: string},
-    date?: {start: Date, end?: Date},
-    URL?: string,
+    start?: Date,
+    end?: Date,
+    URL: string,
     img?: {src: string, alt: string}
 }
 
@@ -30,7 +31,7 @@ const getLatest = async () => {
     let $ = cheerio.load(htmlString)
 
     $(" a[href^=https://www.sachsechamber.com/events].mn-read-more ").each((i, el) => {
-            eventArr.push({ URL: $(el).attr('href') })
+            eventArr.push({ URL: $(el).attr('href')! })
     });
 
     return eventArr;
@@ -61,9 +62,10 @@ const scrape = async (e: Event): Promise<Event> => {
     // times.length == 1 && times[0].trim() !== "All Day" ? times.push(times[0]) : ''
     // if (times[0].trim() == "All Day") { times[0] = "00:00:01"; times.push("23:59:59") }
    
-    const date = {start: new Date($(" [itemprop='startDate'] ").attr("content")!), end: new Date($(" [itemprop='endDate'] ").attr("content")!)}
+    const start: Date = new Date($(" [itemprop='startDate'] ").attr("content")!)
+    const end: Date = new Date($(" [itemprop='endDate'] ").attr("content")!)
     
-    e = { ...e, title: title, date: date, address: address, description: description }
+    e = { ...e, title: title, start: start, end: end, address: address, description: description }
     // console.log(e)
     return e;
 }

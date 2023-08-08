@@ -4,8 +4,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import listGridPlugin from '@fullcalendar/list'
-
-import React from 'react'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   events: Event[]
@@ -13,11 +12,14 @@ type Props = {
 
 const Client = ({events}: Props) => {
 
-    // const events = [
-    //   { title: 'event 1', date: '2023-07-01' },
-    //   { title: 'event 2', date: '2023-07-02' }
-    //   ]
-    console.log('EVENTS: ',events)
+  const router = useRouter()
+
+  const handleEventClick = (event: any) => {
+    const {extendedProps: eventObj} = event.event._def
+    const date = new Date (eventObj.start)
+    console.log(eventObj)
+    // router.push('/dashboard')
+  }
 
   return (
     <div className="container" style={{maxWidth: "1200px", margin: "auto"}}>
@@ -31,7 +33,8 @@ const Client = ({events}: Props) => {
             initialView='dayGridMonth'
             weekends={true}
             events={events}
-            // eventContent={renderEventContent}
+            eventInteractive={true}
+            eventClick={handleEventClick}
           />
     </div>
   )

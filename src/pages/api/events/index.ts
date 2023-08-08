@@ -14,7 +14,7 @@ const News = async (req: NextApiRequest, res: NextApiResponse) => {
         case "POST":
           break;
         case "GET":
-          // await getEvents()
+          await getEvents()
 
           if (id) {
             const objectid = new ObjectId(id as string)
