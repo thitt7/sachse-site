@@ -1,3 +1,5 @@
+'use server'
+
 import React from 'react'
 import getEvents from '@/lib/getEvents';
 import Client from './client';
@@ -13,7 +15,8 @@ const Events = async () => {
 
   return (
     <>
-      <Client events={events} setID={setEventID}/>
+      {/* <Client events={events} setID={setEventID}/> */}
+      <Client events={events} />
       
       {/* <EventModal id={'64d1cc9b2e195bf274542e2d'}/> */}
     </>

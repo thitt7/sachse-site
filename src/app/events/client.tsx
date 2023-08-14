@@ -11,7 +11,7 @@ import { useRouter, usePathname, useParams, useSearchParams } from 'next/navigat
 
 type Props = {
   events: Event[],
-  setID: any
+  setID?: any
 }
 
 const Client = ({events, setID}: Props) => {
@@ -36,17 +36,11 @@ const Client = ({events, setID}: Props) => {
   const handleEventClick = (event: any) => {
     const date = new Date (event.event.start)
     const dateFormatted = date.toLocaleString().split(',')[0].replace(/\//g, '-')
-
-    console.log(event.event)
     
     // router.push(pathName + '?' + createQuery('date', dateFormatted) + createQuery('id', Event._id))
     router.push(pathName + '?' + `id=${event.event._def.extendedProps._id}`)
     setEventID(event.event._def.extendedProps._id)
   }
-
-  useEffect(() => {
-    console.log(eventID)
-  }, [])
 
   return (
     <>
@@ -65,6 +59,7 @@ const Client = ({events, setID}: Props) => {
           eventClick={handleEventClick}
         />
       </div>
+      <EventModal id={eventID}/>
     </>
   )
 }

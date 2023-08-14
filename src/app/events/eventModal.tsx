@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import getEvents from '@/lib/getEvents';
 
 type Event = {
@@ -18,12 +18,32 @@ type Props = {
     id: string
 }
 
-const EventModal = async ({id}: Props) => {
-    
-    const event = await getEvents(id)
+const EventModal = ({id}: Props) => {
+
+  const getEvent = useCallback(
+    async () => {
+      const event = await fetch (`/api/events?id=${id}`)
+      return await event.json()
+    },
+    [id]
+  );
+
+  // const [eventID, setEventID] = useState<string>(id)
+  const [event, setEvent] = useState<Promise<Event>>(async ()=>{return getEvent()})
+
+  useEffect(() => {
+    const fetchEvent = async () => {
+      const event = await getEvent()
+      console.log(event)
+      setEvent(event[0])
+    }
+    fetchEvent()
+  }, [])
 
   return (
-    <div>Event ID: {id}</div>
+    <>
+      <div>Event ID: {event.URL}</div>
+    </>
   )
 }
 
