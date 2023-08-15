@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react';
+import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import getEvents from '@/lib/getEvents';
 
 type Event = {
@@ -15,10 +16,11 @@ type Event = {
 }
 
 type Props = {
-    id: string
+    id: string,
+    isOpen: boolean
 }
 
-const EventModal = ({id}: Props) => {
+const EventModal = ({id, isOpen}: Props) => {
 
   const getEvent = useCallback(
     async () => {
@@ -30,6 +32,7 @@ const EventModal = ({id}: Props) => {
 
   // const [eventID, setEventID] = useState<string>(id)
   const [event, setEvent] = useState<Promise<Event>>(async ()=>{return getEvent()})
+  const [open, setOpen] = useState(isOpen)
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -40,9 +43,28 @@ const EventModal = ({id}: Props) => {
     fetchEvent()
   }, [])
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  console.log('OPEN STATE: ', open)
+
   return (
     <>
-      <div>Event ID: {event.URL}</div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          
+        </DialogTitle>
+        <DialogContent>
+        Example Content
+        </DialogContent>
+       
+      </Dialog>
     </>
   )
 }

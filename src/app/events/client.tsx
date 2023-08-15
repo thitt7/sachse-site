@@ -23,6 +23,7 @@ const Client = ({events, setID}: Props) => {
 
   const [eventID, setEventID] = useState<string>(searchParams.get('id')!)
   const [eventObj, setEventObj] = useState()
+  const [open, setOpen] = useState(false)
 
   const createQuery = useCallback(
     (name: string, value: string) => {
@@ -40,6 +41,7 @@ const Client = ({events, setID}: Props) => {
     // router.push(pathName + '?' + createQuery('date', dateFormatted) + createQuery('id', Event._id))
     router.push(pathName + '?' + `id=${event.event._def.extendedProps._id}`)
     setEventID(event.event._def.extendedProps._id)
+    setOpen(true)
   }
 
   return (
@@ -59,7 +61,7 @@ const Client = ({events, setID}: Props) => {
           eventClick={handleEventClick}
         />
       </div>
-      <EventModal id={eventID}/>
+      <EventModal id={eventID} isOpen={open}/>
     </>
   )
 }
