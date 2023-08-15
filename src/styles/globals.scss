@@ -62,6 +62,10 @@ a {
   [class*="popupIndicator"] {display: none;}
 }
 
+.MuiDialog-container {
+  .MuiPaper-root {background-color: $card-bg;}
+}
+
 .progress {
   padding: 35px 35px 0;
   display: flex;
