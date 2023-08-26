@@ -3,12 +3,12 @@ import clientPromise from '../../../lib/mongodb';
 import getEvents from '../(scrapers)/events/getEvents';
 import { ObjectId } from 'mongodb';
 
-const News = async (req: NextApiRequest, res: NextApiResponse) => {
+const Events = async (req: NextApiRequest, res: NextApiResponse) => {
     const client = await clientPromise;
     const db = client.db("sachse-site");
     const events = await db.collection('events');
 
-    const {id} = req.query
+    const {id, date, limit, offset} = req.query
 
     switch (req.method) {
         case "POST":
@@ -23,7 +23,14 @@ const News = async (req: NextApiRequest, res: NextApiResponse) => {
           }
           else {
             const Events = await events
-            .find( )
+            .find({
+              start: {
+                  $gte: new Date(date as string),
+                  // $lte: new Date("2023-08-30")
+              }})
+            .sort({ start: 1 })
+            .skip(Number(offset))
+            .limit(Number(limit))
             .toArray()
 
           res.json(Events);
@@ -34,4 +41,4 @@ const News = async (req: NextApiRequest, res: NextApiResponse) => {
 
 }
 
-export default News
+export default Events

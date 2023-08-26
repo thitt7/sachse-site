@@ -2,6 +2,7 @@ import * as cheerio from 'cheerio';
 import clientPromise from '../../../lib/mongodb'
 
 export type Alert = {
+    img?: {src: string, alt: string}
     title?: string,
     type?: string,
     body?: string,
@@ -71,13 +72,14 @@ const scrape = async (a: Alert): Promise<Alert> => {
     const htmlString = await response.text()
     const $ = cheerio.load(htmlString)
 
+    const img = { src: $(" [property='og:image'] ").attr("content")!, alt: 'Sachse Police Department Logo'}
     const alertType: string = $(" span.priority ").html()!
     const title: string = $(" span.priority + h2").text()!
     const body: string = $(" #alert-body p").html()!
     let date: dateString = new dateString($(" #fullpubhd dl.last > dd").text()!)
     const createdAt = date.toDateObject()
 
-    a = { ...a, title: title, type: alertType, body: body, createdAt: createdAt }
+    a = { ...a, title: title, img:img, type: alertType, body: body, createdAt: createdAt }
     return a
 }
 

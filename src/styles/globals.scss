@@ -45,7 +45,7 @@ a {
   font-family: inherit;
 }
 
-[class*="alerts_container"] {
+[class*="alerts"] {
   .alert {background-color: #AF3C3C;}
   .advisory {background-color: #AB691C;}
   .community {background-color: #426186;}
@@ -63,7 +63,30 @@ a {
 }
 
 .MuiDialog-container {
-  .MuiPaper-root {background-color: $card-bg;}
+  .MuiPaper-root {
+    @include button;
+
+    background-color: $card-bg;
+
+    #alert-dialog-title {
+      text-align: left;
+      font-size: 1.5rem;
+      padding-right: 55px;
+    }
+
+    [class*="MuiDialogContent"] {
+      display: flex;
+      flex-flow: column nowrap;
+
+      a {
+        width: fit-content;
+        align-self: flex-end;
+      }
+
+      span {font-size: inherit !important;}
+    }
+    
+  }
 }
 
 .progress {

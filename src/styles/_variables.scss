@@ -1,5 +1,4 @@
 /* Typography */
-// $font-primary: 'Jost', sans-serif;
 $font-color: #333;
 $font-secondary: #B1CDEA;
 $font-tertiary: #93B9E0;
@@ -17,15 +16,28 @@ $card-bg: #28303F;
 $card-bg-secondary: #3A4354;
 $header: #262C36;
 
+/* Layout */
+$border-radius: 7px;
+
 /* Mixins */
+@mixin remove-scrollbar {
+  &::-webkit-scrollbar {display: none;}
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 @mixin button {
-    button {
+    button:not([class*="MuiIconButton"]) {
+        cursor: pointer;
         color: white;
+        font-family: inherit;
         margin: 15px auto;
         min-width: 120px;
         padding: 10px;
+        border: 0;
         border-radius: 20px;
         transition: 0.3s all ease;
+        background: none;
         &:hover {background-color:rgba(25, 118, 210, 0.06)}
     }
   };
@@ -83,3 +95,48 @@ $header: #262C36;
       margin: 15px;
     }
   };
+
+@mixin alert-card {
+  .card {
+    // cursor: pointer;
+    background: $card-bg;
+    position: relative;
+    flex: 1 0 calc(33% - 25px);
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    padding: 70px 0 0;
+    max-height: 500px;
+    transition: 0.3s all ease;
+    max-width: 400px;
+
+    @media (max-width: $tablet) {
+        flex-basis: 100%;
+      }
+
+    &:hover {transform: scale(1.03);box-shadow: 5px 5px 5px #0000005e;}
+
+    .type {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        padding: 15px;
+        font-size: 20px;
+        font-weight: 500;
+    }
+    [class*="MuiCardContent"] {
+        padding: 0;
+        overflow-y: scroll;
+        @include remove-scrollbar;
+        height: 370px;
+    }
+    .content {padding: 10px 25px; margin-top: 10px;}
+    
+    @include button;
+}
+}

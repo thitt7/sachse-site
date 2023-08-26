@@ -41,9 +41,10 @@ header {
             background-color: initial;
         }
         [class*="MuiDrawer-paper"] {
+            background-color: $header;
             position: relative;
             justify-content: center;
-            opacity: 0.9;
+            // opacity: 0.9;
             height: 100%;
 
             @media (max-width: $mobile) {

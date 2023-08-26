@@ -50,6 +50,7 @@ const scrape = async (e: Event): Promise<Event> => {
     const htmlString = await response.text()
     const $ = cheerio.load(htmlString)
 
+    const img = {src: $(" [itemprop='image'] ").attr("src")!, alt: ''}
     const title: string = $(" .mn-event-head:contains(Name:) + .mn-event-content ").text()!;
     const slug: string = slugify(title, {remove: /[*+~.,()'"!:@]/g, lower: true})
     const address: string = $(" .mn-event-content [itemprop='name'] ").html()!;
@@ -65,7 +66,7 @@ const scrape = async (e: Event): Promise<Event> => {
     const start: Date = new Date($(" [itemprop='startDate'] ").attr("content")!)
     const end: Date = new Date($(" [itemprop='endDate'] ").attr("content")!)
     
-    e = { ...e, title: title, start: start, end: end, address: address, description: description }
+    e = { ...e, title: title, img: img, start: start, end: end, address: address, description: description }
     // console.log(e)
     return e;
 }

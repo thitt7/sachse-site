@@ -59,6 +59,7 @@ const scrape = async (e: Event): Promise<Event> => {
     const htmlString = await response.text()
     const $ = cheerio.load(htmlString)
 
+    const img = {src: $(" [property='og:image'] ").attr("content")!, alt: ''}
     const title: string = $(" h2[id*='eventTitle'] ").text()!;
     const slug: string = slugify(title, {remove: /[*+~.,()'"!:@]/g, lower: true})
     const location: string = $(" [id*='location'] .specificDetailItem [itemprop='name'] ").text()!.replace(/\t|\r|\n/gm, "");
@@ -75,7 +76,7 @@ const scrape = async (e: Event): Promise<Event> => {
     const start: Date = new Date(`${dates[0]} ${times[0]}`)
     const end: Date = new Date(`${dates[1]} ${times[1]}`)
     
-    e = { ...e, title: title, start: start, end: end, location: location, address: address, allDay: allDay }
+    e = { ...e, title: title, img: img, start: start, end: end, location: location, address: address, allDay: allDay }
     return e;
 }
 
@@ -89,7 +90,7 @@ async function bulkWrite(items: Event[]) {
         updateOne: {
             filter: {
                 URL: item.URL,
-                title: item.title,
+                // title: item.title,
             },
             update: { $set: item },
             upsert: true

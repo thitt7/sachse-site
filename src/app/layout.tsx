@@ -1,4 +1,3 @@
-// import Head from './head';
 import Header from './components/layout/header'
 import ScrollTop from './components/layout/scrolltop';
 
@@ -12,7 +11,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" id="html" className={jost.className}>
-      {/* <Head /> */}
       <body id="body">
         <Header />
         <ScrollTop/>

@@ -1,12 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import clientPromise from '../../../lib/mongodb'
+import { ObjectId } from 'mongodb';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const client = await clientPromise;
     const db = client.db("sachse-site");
     const alerts = await db.collection('alerts');
 
-    const {alertId} = req.query
+    const {alertId} = req.query;
+    const id = new ObjectId(alertId as string)
+    const Alert = await alerts.find( {_id : id} ).toArray()
+    console.log(Alert)
 
     switch (req.method) {
         case "POST":
@@ -20,8 +24,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         //     .limit(10)
         //     .toArray()
 
-        //   res.json(alertRes);
-        res.json({ID: alertId})
+        // res.json(Alert)
+        res.json(Alert)
           break;
       }
 

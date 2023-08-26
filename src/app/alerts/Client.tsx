@@ -13,7 +13,7 @@ const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => 
 
     return (
         <>
-        <div className={styles.container}>
+        <div className={styles.alertsContainer}>
             {alerts.map((alert: any, i: number) => {
                 return (
                     <AlertCard alert={alert} i={i} key={i}/>

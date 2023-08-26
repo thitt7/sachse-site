@@ -1,12 +1,6 @@
 @use "variables" as *;
 
-@mixin remove-scrollbar {
-    &::-webkit-scrollbar {display: none;}
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
-.container {
+.alertsContainer {
     max-width: 1350px;
     margin: 40px auto;
     padding: 20px;
@@ -14,48 +8,27 @@
     flex-flow: row wrap;
     justify-content: center;
     gap: 25px;
+
+    @include alert-card;
 }
 
-.card {
-    // cursor: pointer;
-    background: $card-bg;
-    position: relative;
-    flex: 1 0 calc(33% - 12.5px);
-    border-radius: 10px;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-around;
-    padding: 70px 0 0;
-    max-height: 500px;
-    transition: 0.3s all ease;
-    margin: 10px;
-    max-width: 400px;
+.alertContainer {
+    max-width: 600px;
+    margin: auto;
+    padding: 0;
 
-    @media (max-width: $mobile) {
-        flex-basis: 100%;
-      }
+    @include alert-card;
 
-    &:hover {transform: scale(1.03);box-shadow: 5px 5px 5px #0000005e;}
+    [class*="MuiCard-root"] {
+        transition: none;
+        max-width: none;
+        max-height: 100%;
+        margin: 20px;
 
-    .type {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: center;
-        padding: 15px;
-        font-size: 20px;
-        font-weight: 500;
+        &:hover {transform: none;}
+
+        [class*="MuiCardContent"] {
+            height: initial;
+        }
     }
-    [class*="MuiCardContent"] {
-        padding: 0;
-        overflow-y: scroll;
-        @include remove-scrollbar;
-        height: 370px;
-    }
-    .content {padding: 10px 25px; margin-top: 10px;}
-    
-    @include button;
 }
