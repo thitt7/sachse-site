@@ -75,6 +75,7 @@ $border-radius: 7px;
     h3 {
         text-align: center;
         background-color: $heading-bg;
+        border-radius: $border-radius $border-radius 0 0;
         font-weight: 500;
         font-size: 25px;
         margin: 0;

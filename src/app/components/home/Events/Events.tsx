@@ -6,7 +6,7 @@ import getEvents from '@/lib/getEvents'
 const Events = async () => {
 
   const now = new Date(Date.now()).toISOString()
-  const events = await getEvents(undefined, now, '5')
+  const events = await getEvents(undefined, now, '4')
 
   return (
     <Client events={events} />

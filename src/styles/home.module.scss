@@ -7,12 +7,12 @@
     section {
         display: grid;
         gap: 1em;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(6, 1fr);
         grid-template-areas:
-        "one one"
-        "two four"
-        "three four"
-        "five six";
+        "one one one one one one"
+        "two two two four four four"
+        "three three three four four four"
+        "five five six six sevem seven";
 
         > div {
             &:nth-child(1) {
@@ -142,5 +142,14 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+}
+
+#ig-feed {
+    iframe {
+        max-width: initial;
+        width: 100%;
+        margin: 0 !important;
+        border-radius: $border-radius !important;
     }
 }

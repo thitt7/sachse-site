@@ -17,8 +17,8 @@ export default async function Home() {
       <div className={styles.grid}>
         <section>
           {/* @ts-expect-error Async Server Component */}
-          {/* <Alerts /> */}
-          <div>Alerts</div>
+          <Alerts />
+          {/* <div>Alerts</div> */}
           {/* @ts-expect-error Async Server Component */}
           <Events />
           <InstagramFeed />
