@@ -4,45 +4,79 @@
     max-width: 1200px;
     margin: auto;
 
-    section {
-        display: grid;
-        gap: 1em;
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "one"
+        "four"
+        "two"
+        "three"
+        "five"
+        "six"
+        "seven";
+
+    > div {
+        &:nth-child(1) {
+            grid-area: one;
+        }
+
+        &:nth-child(2) {
+            grid-area: two;
+        }
+
+        &:nth-child(3) {
+            grid-area: three;
+        }
+
+        &:nth-child(4) {
+            grid-area: four;
+        }
+
+        &:nth-child(5) {
+            grid-area: five;
+        }
+
+        &:nth-child(6) {
+            grid-area: six;
+        }
+
+        &:nth-child(7) {
+            grid-area: seven;
+        }
+    }
+
+    @media (min-width: $tablet) {
         grid-template-columns: repeat(6, 1fr);
         grid-template-areas:
-        "one one one one one one"
-        "two two two four four four"
-        "three three three four four four"
-        "five five six six sevem seven";
+            "one one one one one one"
+            "two two two four four four"
+            "three three three four four four"
+            "five five six six seven seven";
+    }
 
-        > div {
-            &:nth-child(1) {
-                grid-area: one;
-            }
-            &:nth-child(2) {
-                grid-area: two;
-            }
-            &:nth-child(3) {
-                grid-area: three;
-            }
-            &:nth-child(4) {
-                grid-area: four;
-            }
-            &:nth-child(5) {
-                grid-area: five;
-            }
-            &:nth-child(6) {
-                grid-area: six;
-            }
-            &:nth-child(7) {
-                grid-area: seven;
-            }
-        }
-}
+    @media (min-width: $tablet) and (max-width: $desktop){
+        grid-template-areas:
+            "one one one one one one"
+            "two two two four four four"
+            "three three three four four four"
+            "five five five six six six"
+            "seven seven seven seven seven seven";
+    }
+
+    @media (max-width: $desktop) {
+        padding: 20px;
+    }
+
+    [class*=MuiDivider] { &:last-of-type {display: none;} }
+
 }
 
 .alerts {
     @include base-card;
     @include button;
+
+    max-width: calc(100vw - 40px);
 
     .slick {
         max-width: 100%;
@@ -116,6 +150,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        span {
+            display: flex;
+            gap: .5rem;
+            align-items: center;
+        }
     }
 
 }
@@ -151,5 +191,40 @@
         width: 100%;
         margin: 0 !important;
         border-radius: $border-radius !important;
+    }
+}
+
+#fb-feed {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: $card-bg;
+    border-radius: $border-radius;
+
+    @media (max-width: $tablet) {
+        padding: 50px 0;
+    }
+}
+
+#subscribe {
+    @include base-card;
+
+    .container {
+        padding: 20px;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        p:first-of-type {margin-top: 0;}
+
+        a {display: flex;}
+
+        button {
+            margin: auto;
+            background: $heading-bg;
+            font-size: 1.5em;
+            font-weight: 500;
+            padding: 10px;
+        }
     }
 }

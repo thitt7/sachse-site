@@ -46,7 +46,7 @@ const Client = ({events, setID}: Props) => {
 
   return (
     <>
-      <div className="container" style={{ maxWidth: "1200px", margin: "auto" }}>
+      <div className="container" style={{ maxWidth: "1200px", margin: "50px auto" }}>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, listGridPlugin]}
           headerToolbar={{

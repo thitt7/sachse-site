@@ -39,7 +39,6 @@ const getNewAlerts = async () => {
     /* Iterate through all numbered pages until failure */
     for (let i = 1; ; i++) {
         const response = await fetch(`https://local.nixle.com/sachse-police-department?page=${i}`)
-        console.log('status is', response.status)
         if (response.status == 404) { break }
         const htmlString = await response.text()
         const $ = cheerio.load(htmlString)
@@ -51,7 +50,6 @@ const getNewAlerts = async () => {
     }
 
     if (!await isUpToDate(bulkArr)) {
-        console.log('updating...')
         populateBulkArr(bulkArr).then(async (arr) => {
             await bulkWrite(arr)
         })
@@ -108,6 +106,7 @@ const isUpToDate = async (arr: Alert[]): Promise<boolean> => {
 
 /* Perform bulk write operation to db with scraped data */
 async function bulkWrite(items: Alert[]) {
+    if (items.length < 1) { return }
     const client = await clientPromise;
     const db = client.db("sachse-site");
     const alerts = await db.collection('alerts');

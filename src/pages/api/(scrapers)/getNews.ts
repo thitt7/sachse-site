@@ -67,6 +67,7 @@ const scrape = async (n: News): Promise<News> => {
 
 /* Perform bulk write operation to db with scraped data */
 async function bulkWrite(items: any) {
+    if (items.length < 1) { return }
     const client = await clientPromise;
     const db = client.db("sachse-site");
     const alerts = await db.collection('news');

@@ -1,0 +1,45 @@
+@use "variables" as *;
+
+.container {
+    @include button;
+
+    max-width: 1200px;
+    margin: 30px auto;
+
+    @media (max-width: $desktop) {
+        padding: 25px;
+
+        button {
+            display: block;
+        }
+    }
+
+    #subscribe {
+
+        button {
+            font-size: 1rem;
+            background-color: $secondary;
+            display: block;
+            margin: 20px 0;
+
+            &:hover {background-color: $header;}
+        }
+
+        .helperText {
+            margin: 10px 0;
+            font-size: .75rem;
+            color: rgb(211, 47, 47);
+        }
+
+        input, label {color: white;}
+
+        [class*=MuiOutlinedInput-root] {
+            background-color: $heading-bg;
+            // z-index: -1;
+
+            // input {position: relative; z-index: 0;}
+        }
+
+        h4 {margin: 10px 0;}
+    }
+}

@@ -15,6 +15,8 @@ $heading-bg: #364157;
 $card-bg: #28303F;
 $card-bg-secondary: #3A4354;
 $header: #262C36;
+$weather-day-bg: linear-gradient(to bottom, rgb(152, 216, 236),rgb(84, 138, 201));
+$weather-night-bg: linear-gradient(rgba(41, 41, 41, 1), rgba(12, 21, 23, 1));
 
 /* Layout */
 $border-radius: 7px;
@@ -30,6 +32,9 @@ $border-radius: 7px;
     button:not([class*="MuiIconButton"]) {
         cursor: pointer;
         color: white;
+        background: none;
+        font-size: 15px;
+        font-weight: bold;
         font-family: inherit;
         margin: 15px auto;
         min-width: 120px;
@@ -38,6 +43,7 @@ $border-radius: 7px;
         border-radius: 20px;
         transition: 0.3s all ease;
         background: none;
+
         &:hover {background-color:rgba(25, 118, 210, 0.06)}
     }
   };
@@ -50,8 +56,8 @@ $border-radius: 7px;
     }
   }
 
-@mixin read-more-card-overlay {
-    background: linear-gradient(to bottom,rgba(255,255,255,0) 0,#fff 80%);
+@mixin fade-out-overlay ($direction, $color) {
+    background: linear-gradient(to $direction,rgba(255,255,255,0) 0,$color 80%);
     height: 100px;
     position: absolute;
     left: 0;
@@ -93,7 +99,7 @@ $border-radius: 7px;
 
     @media (max-width: $mobile) {
       overflow: hidden;
-      margin: 15px;
+      // margin: 15px;
     }
   };
 

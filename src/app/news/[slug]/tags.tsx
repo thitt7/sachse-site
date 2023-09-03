@@ -13,7 +13,8 @@ const Tags = ({article}: any) => {
           {
             Article.category.map((e: string, i: number) => {
                 return (
-                    <Chip label={e} component="a" href={`/tag/${e.toLocaleLowerCase()}`} clickable />
+                    // <Chip label={e} component="a" href={`/tag/${e.toLocaleLowerCase()}`} clickable />
+                    <Chip label={e} component="a" clickable />
                 )
             })
           }

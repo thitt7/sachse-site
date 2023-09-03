@@ -11,14 +11,20 @@
 	gap: 25px;
 
     [class*="MuiCard-root"] {
-        border-radius: 10px;
+        background-color: $card-bg;
+        border-radius: $border-radius;
         flex: 0 1 600px;
         max-width: revert;
         height: fit-content;
 
+        .MuiCardHeader-root {padding: 20px;}
+
         img {
             height: 400px;
         }
+
+        [class*="title"] {font-size: 1.25rem;}
+        [class*="subheader"] {color: $font-secondary;}
 
         [class*="MuiCardContent-root"] {
             max-height: 300px;
@@ -26,10 +32,13 @@
             position: relative;
 
             &::after {
-                @include read-more-card-overlay;
+                @include fade-out-overlay(bottom, $card-bg);
             }
 
-            [class*="Typography"] {max-height: 300px;}
+            [class*="Typography"] {
+                font-size: 1rem;
+                max-height: 300px;
+            }
         }
 
         [class*="MuiCardActions"] {
@@ -57,6 +66,19 @@
         h3 {
             font-weight: normal;
             font-size: 17px;
-            margin: 0;}
+            margin: 0;
+        }
+
+        span {
+            display: flex;
+            gap: .5em;
+            align-items: center;
+        }
+
+        author {font-weight: 500;}
     }
+
+    @media (max-width: $tablet) {
+        padding: 0 20px;
+      }
 }

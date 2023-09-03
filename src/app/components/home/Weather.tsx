@@ -15,7 +15,6 @@ const ktof = (temp: number) => {
 const Weather = async () => {
 
     const res = await getWeather()
-    console.log('WEATHER DATA: ', res);
     const {sys: {sunrise, sunset}, weather: obj, main: {temp, temp_min, temp_max}} = res;
     const description: string = obj[0].description;
     const rise: number = sunrise * 1000;
@@ -23,7 +22,7 @@ const Weather = async () => {
 
   return (
     <>
-    <div className={`weather ${description.split(' ')[0]} ${isNight(rise,set) ? 'night' : ''}`}>
+    <div className={`weather ${description.split(' ')[0]} ${isNight(rise,set) ? 'night' : ''}`} data-desciption={description}>
       <div>
         <h2>TODAY</h2>
         <article>
@@ -42,7 +41,6 @@ const Weather = async () => {
 
 const getWeather = async () => {
     const res = await fetch(`http:localhost:${process.env.PORT}/api/weather`)
-
     return res.json();
 }
 

@@ -23,6 +23,7 @@
     h2 {
         font-weight: 400;
         font-size: 20px;
+        margin-top: -15px;
     }
 
     > div {
@@ -34,14 +35,21 @@
         padding-bottom: 30%;
     }
 
-    &.clear {background-image: url("/clear-day.svg");
+    &.clear {background-image: url("/clear-day.svg"), $weather-day-bg;
 
-        &.night {background-image: url("/clear-night.svg"), linear-gradient(rgba(41, 41, 41, 1), rgba(12, 21, 23, 1));}
+        &.night {background-image: url("/clear-night.svg"), $weather-night-bg;}
     }
 
     &.haze {
-        background-image: url("/cloudy.svg"), linear-gradient(to bottom, rgb(152, 216, 236),rgb(84, 138, 201));
+        background-image: url("/cloudy.svg"), $weather-day-bg;
 
-        &.night {background-image: url("/cloudy.svg"), linear-gradient(rgba(41, 41, 41, 1), rgba(12, 21, 23, 1));}
+        &.night {background-image: url("/cloudy.svg"), $weather-night-bg;}
     }
+
+    &[data-desciption*="cloud"] {
+        background-image: url("/cloudy.svg"), $weather-day-bg;
+
+        &.night {background-image: url("/cloudy.svg"), $weather-night-bg;}
+    }
+
 }

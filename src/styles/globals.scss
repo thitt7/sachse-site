@@ -1,4 +1,5 @@
 @use "variables" as *;
+@use "parallax";
 @use "weather";
 @use "header";
 @use "trash";
@@ -23,6 +24,10 @@ html#html {
 }
 }
 
+[disabled] {
+  filter: brightness(.75);
+}
+
 a {
   text-decoration: none;
 }
@@ -33,8 +38,6 @@ a {
 
 [class*=MuiDivider] {
   background-color: #3C4861;
-
-  &:last-of-type {display: none;}
 }
 
 .slick-track {
