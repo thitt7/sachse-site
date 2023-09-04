@@ -2,11 +2,16 @@
 
 import React from 'react'
 
-import styles from '../../../styles/banner.module.scss'
+import { Parallax, Background } from 'react-parallax';
+import styles from '../../../styles/banner.module.scss';
+
+const style = {height: '100vh'}
 
 const Banner = () => {
   return (
-    <section id={styles['banner']}>
+<section id={styles['banner']}>
+    <Parallax style={style} bgImage="/banner-full.jpg" bgImageAlt="aerial view of Sachse, Texas" strength={300} bgImageStyle={{filter: 'brightness(0.85)'}}>
+    
         <div className={styles.container}>
             <article>
                 <h1>Sachse, TX</h1>
@@ -15,6 +20,8 @@ const Banner = () => {
                 </p>
             </article>
         </div>
+    
+    </Parallax>
     </section>
   )
 }

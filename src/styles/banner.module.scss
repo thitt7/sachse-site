@@ -1,12 +1,10 @@
 @use "variables" as *;
 
 #banner {
-    // background: center no-repeat url("/banner-full.jpg");
-    position: relative;
-    padding: 7.5% 0;
-
+    
     .container {
         max-width: 1200px;
+        padding: 7.5% 0;
         margin: auto;
         display: flex;
         flex-flow: row wrap;
@@ -26,16 +24,7 @@
         }
     }
 
-    &::after {
-        content:"";
-        position:absolute;
-        left:0;
-        top:0;
-        width:100%;
-        height:100%;
-        background: center no-repeat url('/banner-full.jpg');
-        background-size: cover;
-        z-index: -1;
-        filter: brightness(.85);
+    .react-parallax {
+        image {filter: brightness(0.8)}
     }
 }
