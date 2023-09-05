@@ -1,6 +1,7 @@
 @use "variables" as *;
 
 #banner {
+    padding: 7.5% 0;
     
     .container {
         max-width: 1200px;
@@ -17,14 +18,18 @@
 
         article {
             flex-basis: 50%;
+
+            @media (max-width: $tablet) {
+                flex-basis: auto;
+            }
         }
 
         @media (max-width: $desktop) {
             padding: 20px;
         }
     }
+}
 
-    .react-parallax {
-        image {filter: brightness(0.8)}
-    }
+.parallax {
+    filter: brightness(0.85) !important;
 }

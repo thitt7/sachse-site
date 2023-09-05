@@ -29,11 +29,8 @@
         [class*="MuiCardContent-root"] {
             max-height: 300px;
             overflow: hidden;
-            position: relative;
 
-            &::after {
-                @include fade-out-overlay(bottom, $card-bg);
-            }
+            @include fade-out-overlay(bottom, $card-bg, 50%);
 
             [class*="Typography"] {
                 font-size: 1rem;

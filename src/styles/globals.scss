@@ -43,6 +43,15 @@ a {
   display: flex;
   gap: 25px;
   align-items: center;
+
+  .slick-slide {
+    position: relative;
+
+    &.slick-active {
+      border: 1px solid red;
+      &:first-of-type {@include fade-out-overlay (left, $card-bg-secondary, 20%);}
+    }
+  }
 }
 
 [class*="Mui"] {

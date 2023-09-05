@@ -56,15 +56,37 @@ $border-radius: 7px;
     }
   }
 
-@mixin fade-out-overlay ($direction, $color) {
-    background: linear-gradient(to $direction,rgba(255,255,255,0) 0,$color 80%);
-    height: 100px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    content: " ";
-    z-index: 1;
+@mixin fade-out-overlay ($direction, $color, $size) {
+  position: relative;
+  
+    &::after {
+      content: '';
+      z-index: 1;
+      position: absolute;
+      #{$direction}: 0;
+      background: linear-gradient(to $direction, rgba(255,255,255,0), $color);
+  
+      @if $direction == top {
+        width: 100%;
+        height: $size;
+        left: 0;
+      }
+      @else if $direction == bottom {
+        width: 100%;
+        height: $size;
+        left: 0;
+      }
+      @else if $direction == left {
+        height: 100%;
+        width: $size;
+        top: 0;
+      }
+      @else if $direction == right {
+        height: 100%;
+        width: $size;
+        top: 0;
+      }
+    }
 }
 
 @mixin base-card {
