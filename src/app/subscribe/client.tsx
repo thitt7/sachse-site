@@ -48,7 +48,7 @@ const Client = () => {
       <div className={styles.container}>
           <div id={styles["subscribe"]}>
               <h2>Join Our Growing Community!</h2>
-              <p>Become a part of Sachse's informed and connected community by subscribing to our email newsletter. Stay up-to-date, engaged, and involved in the exciting developments that shape our beautiful city. The aim is
+              <p>Become a part of Sachse&lsquo;s informed and connected community by subscribing to our email newsletter. Stay up-to-date, engaged, and involved in the exciting developments that shape our beautiful city. The aim is
                   not to bombard you with emails every single time we get something new, but to curate only the information most relevant to you and help keep you in the loop. Please keep in mind this feature is a work in progress and will be
                   rolled out accordingly pending gauged interest from community responses.
               </p>

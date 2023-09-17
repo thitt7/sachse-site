@@ -1,5 +1,3 @@
-'use server'
-
 import React from 'react'
 import getEvents from '@/lib/getEvents';
 import Client from './client';
@@ -12,10 +10,10 @@ type metaProps = {
 
 export const generateMetadata = async ({params, searchParams}: metaProps): Promise<Metadata> => {
   const event = await getEvents(searchParams.id as string)
-  const { URL, img, title, address, description, start, end, location} = event[0];
+  const { URL, img, title, address, description, start, end, location, pubDate} = event[0];
   
   return {
-    title: searchParams.id ? `${title} | Events` : 'Events',
+    title: searchParams.id ? `${title} | Events` : 'Events | Sachse Community Site',
     description: description ? description.text.substring(0, 160) : '',
 
     generator: 'Next.js',
@@ -36,7 +34,7 @@ export const generateMetadata = async ({params, searchParams}: metaProps): Promi
       title: title,
       description: description ? description.text : '',
       url: `https://sachse.city/events?id=${searchParams.id}`,
-      publishedTime: '',
+      publishedTime: pubDate ? pubDate : Date.now(),
       // authors: [author],
       siteName: 'sachse.city',
       images: [
@@ -58,7 +56,7 @@ export const generateMetadata = async ({params, searchParams}: metaProps): Promi
       siteId: '',
       creator: '',
       creatorId: '',
-      images: img ? [img.src] : '',
+      images: img ? img.src : '',
     },
   }
 }
@@ -70,8 +68,6 @@ const Events = async () => {
   return (
     <>
       <Client events={events} />
-      
-      {/* <EventModal id={'64d1cc9b2e195bf274542e2d'}/> */}
     </>
   )
 }

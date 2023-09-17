@@ -48,6 +48,18 @@ $border-radius: 7px;
     }
   };
 
+@mixin btn-alt {
+  button {
+    cursor: pointer;
+    border: none;
+    margin: auto;
+    background: $heading-bg;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 10px;
+}
+}
+
 @mixin clearfix() {
     &::after {
       display: block;
@@ -58,7 +70,7 @@ $border-radius: 7px;
 
 @mixin fade-out-overlay ($direction, $color, $size) {
   position: relative;
-  
+
     &::after {
       content: '';
       z-index: 1;

@@ -2,6 +2,7 @@ import * as cheerio from 'cheerio';
 import clientPromise from '../../../../lib/mongodb';
 import slugify from "slugify";
 import getEvents2 from './getEvents2';
+import getEvents3 from './getEvents3';
 
 export type Event = {
     title?: string,
@@ -20,7 +21,7 @@ const getEvents = async () => {
     
     let bulkArr = await getLatest();
     bulkArr = await populateEventArr(bulkArr);
-    bulkArr.push(...await getEvents2())
+    bulkArr.push(...await getEvents2(), ...await getEvents3())
     await bulkWrite(bulkArr);
 
 }

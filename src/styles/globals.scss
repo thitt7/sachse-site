@@ -20,7 +20,31 @@ html#html {
     background: $primary;
     font-family: inherit;
     letter-spacing: 1.2;
+    display: flex;
+    flex-flow: column;
+
+    & > [class*=container] {
+      margin: auto auto;
+    }
 }
+}
+
+h1, h2, h3, h4 {line-height: 1.25;}
+
+h1 {
+  font-size: 3.5rem;
+  margin: 15px 0;
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: 500;
+  margin: 10px auto;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.75;
 }
 
 [disabled] {
@@ -48,8 +72,20 @@ a {
     position: relative;
 
     &.slick-active {
-      border: 1px solid red;
-      &:first-of-type {@include fade-out-overlay (left, $card-bg-secondary, 20%);}
+
+      @media (min-width: $tablet) {
+        // &:nth-child(3n+1) {
+        //   @include fade-out-overlay (left, $card-bg-secondary, 20%);
+        // }
+        // &:nth-child(3n+3) {
+        //   @include fade-out-overlay (right, $card-bg-secondary, 20%);
+        // }
+
+        &.slick-current {
+          @include fade-out-overlay (left, $card-bg-secondary, 20%);
+          &+div+div {@include fade-out-overlay (right, $card-bg-secondary, 20%);}
+        }
+      }
     }
   }
 }
@@ -98,6 +134,8 @@ a {
 
       span {font-size: inherit !important;}
     }
+
+    .progress {padding: 150px;}
     
   }
 }
@@ -106,6 +144,51 @@ a {
   padding: 35px 35px 0;
   display: flex;
   justify-content: center;
+}
+
+#not-found {
+  @include btn-alt;
+  position: relative;
+  padding: 15% 20px;
+
+  &::after{
+    content: '';
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: center no-repeat url('https://64.media.tumblr.com/bf71d3861bae2da8551e9b1f293c84eb/tumblr_pcuxhod0XH1w8mobyo3_540.gifv');
+    background-position-y: bottom;
+    background-size: cover;
+    filter: brightness(0.8);
+  }
+
+  * {text-align: center;}
+
+  h2 {
+    font-size: 3rem;
+    margin: 10px auto;
+  }
+
+  p {font-size: 1.5rem;}
+}
+
+#about, #privacy {
+  @media (max-width: $desktop) {
+    padding: 0 25px;
+  }
+}
+
+#privacy {
+  &.container {padding: 30px 0;}
+}
+
+.container {
+  max-width: 1200px;
+  margin: 25px auto;
 }
 
 :root {
@@ -146,43 +229,3 @@ a {
     --card-rgb: 180, 185, 188;
     --card-border-rgb: 131, 134, 135;
   }
-  
-//   @media (prefers-color-scheme: dark) {
-//     :root {
-//       --foreground-rgb: 255, 255, 255;
-//       --background-start-rgb: 0, 0, 0;
-//       --background-end-rgb: 0, 0, 0;
-  
-//       --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-//       --secondary-glow: linear-gradient(
-//         to bottom right,
-//         rgba(1, 65, 255, 0),
-//         rgba(1, 65, 255, 0),
-//         rgba(1, 65, 255, 0.3)
-//       );
-  
-//       --tile-start-rgb: 2, 13, 46;
-//       --tile-end-rgb: 2, 5, 19;
-//       --tile-border: conic-gradient(
-//         #ffffff80,
-//         #ffffff40,
-//         #ffffff30,
-//         #ffffff20,
-//         #ffffff10,
-//         #ffffff10,
-//         #ffffff80
-//       );
-  
-//       --callout-rgb: 20, 20, 20;
-//       --callout-border-rgb: 108, 108, 108;
-//       --card-rgb: 100, 100, 100;
-//       --card-border-rgb: 200, 200, 200;
-//     }
-//   }
-  
-//   @media (prefers-color-scheme: dark) {
-//     html {
-//       color-scheme: dark;
-//     }
-//   }
-  

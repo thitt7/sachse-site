@@ -1,1 +1,17 @@
 @use "variables" as *;
+
+#events {
+    &.container > [class*=fc] {
+        max-width: 1200px;
+        margin: 50px auto;
+
+        @media (max-width: $desktop) {
+            padding: 0 25px;
+          }
+      }
+}
+
+:root {
+    --fc-neutral-bg-color: #{$secondary};
+    --fc-list-event-hover-bg-color: #{$header};
+}

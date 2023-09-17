@@ -26,6 +26,7 @@ const getNews = async () => {
 
 /* Get list of new News Articles from 'latest' page */
 const getLatest = async () => {
+    // https://sachsenews.com/wp-sitemap-posts-post-2.xml
     const newsArr: News[] = []
     const response = await fetch(`https://sachsenews.com/category/latest/`)
     const htmlString = await response.text()
@@ -76,7 +77,6 @@ async function bulkWrite(items: any) {
         updateOne: {
             filter: {
                 URL: item.URL,
-                title: item.title,
             },
             update: { $set: item },
             upsert: true

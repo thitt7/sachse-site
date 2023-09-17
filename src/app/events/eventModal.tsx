@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogTitle, Button, Box, IconButton } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -27,7 +28,7 @@ const EventModal = ({ id, isOpen }: Props) => {
   const getEvent = useCallback(
     async () => {
       const event = await fetch(`/api/events?id=${id}`)
-      console.log('fetch response: ', event)
+    //   console.log('fetch response: ', event)
       if (event.status == 500) { return 'error' }
       return await event.json()
     },
@@ -41,11 +42,11 @@ const EventModal = ({ id, isOpen }: Props) => {
   const [eventID, setEventID] = useState<string>(id)
   const [event, setEvent] = useState<Promise<Event>>()
   const [open, setOpen] = useState(isOpen)
+  const [isLoading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('error')
 
   const handleClose = () => {
-    console.log('closing')
     setOpen(false);
     removeParams()
   };
@@ -55,13 +56,12 @@ const EventModal = ({ id, isOpen }: Props) => {
   }
 
   useEffect(() => {
-    console.log('running useeffect hook...')
+    console.log('modal rerendering...')
     const fetchEvent = async () => {
 
       try {
         const event = await getEvent()
         if (event !== 'error') {
-          console.log('EVENT: ', event)
           setEvent(event[0])
         }
         else {
@@ -75,12 +75,15 @@ const EventModal = ({ id, isOpen }: Props) => {
     }
 
     if (id) {
-      fetchEvent()
+      setLoading(() => true);
+      fetchEvent().then(() => {
+        setLoading(() => false)
+      })
       setOpen(true)
     }
   }, [])
 
-  console.log('OPEN STATE: ', open)
+//   console.log('OPEN STATE: ', open)
 
   return (
     <>
@@ -93,6 +96,7 @@ const EventModal = ({ id, isOpen }: Props) => {
           aria-describedby="alert-dialog-description"
           maxWidth='md'
         >
+          {isLoading == true ? <div className='progress'><CircularProgress /></div> : <></>}
           {!error && event ?
             <>
               <IconButton
@@ -112,14 +116,13 @@ const EventModal = ({ id, isOpen }: Props) => {
               </DialogTitle>
               <DialogContent>
                 <p><strong>Date/Time:</strong> {new Date(event.start).toLocaleString()} - {new Date(event.end).toLocaleString()}</p>
-                <p><strong>Location:</strong> {event.location}</p>
-                <p><strong>Address:</strong> <p dangerouslySetInnerHTML={{ __html: event.address }} /></p>
+                {event.location ? <p><strong>Location:</strong> {event.location}</p> : ''}
+                {event.address ? <p><strong>Address:</strong> <p dangerouslySetInnerHTML={{ __html: event.address }} /></p> : ''}
                 {event.description ? <p><strong>Description:</strong><p dangerouslySetInnerHTML={{ __html: event.description.html }}></p></p> : ''}
-                <Link target={'_blank'} href={event.URL}><button style={{ margin: 0 }}>READ MORE</button></Link>
+                <Link target={'_blank'} href={event.URL ? event.URL: ''}><button style={{ margin: 0 }}>READ MORE</button></Link>
               </DialogContent>
             </>
-            :
-            <DialogContent><p>{errorMessage}</p></DialogContent>
+            : ''
           }
         </Dialog>
       }

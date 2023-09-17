@@ -220,12 +220,6 @@
 
         a {display: flex;}
 
-        button {
-            margin: auto;
-            background: $heading-bg;
-            font-size: 1.5em;
-            font-weight: 500;
-            padding: 10px;
-        }
+        @include btn-alt;
     }
 }

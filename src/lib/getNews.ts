@@ -1,9 +1,17 @@
-const getNews = async (page: number, limit: number, offset: number) => {
-    const res = await fetch(`http://localhost:${process.env.PORT}/api/news?page=${page}&limit=${limit}&offset=${offset}`, { 
-        next: { revalidate: 5 }
-    });
+function urlConcat (url: string, query: string, name: string) {
+	return url.concat(`${name}=${query}&`)
+}
+
+async function getNews(id?: string, limit?: string, offset?: string) {
+  let url: string = '';
+  if (typeof window == 'undefined') {url = `http://localhost:${process.env.PORT}/api/news?`;}
+  else {url = `/api/news?`;}
+  id ? url = urlConcat(url, id, 'id') : ''
+  limit ? url = urlConcat(url, limit, 'limit') : ''
+  offset ? url = urlConcat(url, offset, 'offset') : ''
   
-    return res.json();
-  }
+  const res = await fetch(url)
+  return res.json();
+}
 
 export default getNews;

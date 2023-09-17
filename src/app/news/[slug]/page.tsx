@@ -55,7 +55,7 @@ export const generateMetadata = async ({ params }: Props ): Promise<Metadata> =>
       title: title,
       description: body.text,
       siteId: '1467726470533754880',
-      creator: '@nextjs',
+      // creator: '@nextjs',
       creatorId: '1467726470533754880',
       images: [img.src],
     },
@@ -69,7 +69,7 @@ const NewsArticle = async ({ params }: Props ) => {
 
   return (
     <div className='article-content'>
-      <h1>{title}</h1>
+      <h2>{title}</h2>
       <ArticleInfo article={article} />
       <img src={img.src} alt={img.alt} />
       <div dangerouslySetInnerHTML={{ __html: body.html }} />

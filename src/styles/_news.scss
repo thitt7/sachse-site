@@ -53,12 +53,17 @@
         width: 100%;
     }
 
+    h2 {
+        line-height: 1;
+        margin: 20px auto;
+    }
+
     .article-info {
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
         gap: 15px;
-        margin: -15px 0 15px;
+        margin: 15px 0;
 
         h3 {
             font-weight: normal;

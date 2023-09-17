@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from "react";
+import getNews from "@/lib/getNews";
 import { InView } from 'react-intersection-observer';
 import NewsCard from "./newsCard";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -37,14 +38,9 @@ const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => 
 
 }
 
-const getNews = async (page: number, limit: number, offset: number) => {
-    const res = await fetch(`/api/news?page=${page}&limit=${limit}&offset=${offset}`);
-    return res.json();
-}
-
 export const pushNews = async (Arr: string[]): Promise<string[]> => {
     console.log('pushing alerts...')
-    const res = await getNews(0, 10, Arr.length)
+    const res = await getNews('0', '10', Arr.length.toString())
     res.map( (e: string) => {Arr.push(e)})
     return Arr
 }

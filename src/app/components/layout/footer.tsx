@@ -14,16 +14,16 @@ const Footer = () => {
         <footer id={styles['footer']}>
             <div className={styles.container}>
                 <div className={styles.col}>
-                    <h3>What's New</h3>
+                    <h3>What&lsquo;s New</h3>
                     <Divider />
                     {categories.map((item) => (
-                        <Link href={`/${item.toLowerCase()}`}>
+                        <Link href={`/${item.toLowerCase()}`} key={item}>
                             <p>{item}</p>
                         </Link>
                     ))}
                 </div>
                 <div className={styles.col}>
-                    <h3>Why we're cool</h3>
+                    <h3>Why we&lsquo;re cool</h3>
                     <Divider />
                     <Link href={'/about'}><p>About</p></Link>
                     <Link href={'/contact'}><p>Contact</p></Link>
@@ -43,7 +43,7 @@ const Footer = () => {
                              <> • </>
                             <Link href={'/privacy'}>Privacy Policy</Link>
                               <> • </>
-                            <Link href={'/sitemap'}>Sitemap</Link>
+                            <Link href={'/server-sitemap.xml'}>Sitemap</Link>
                         </div>
                     </div>
             </div>

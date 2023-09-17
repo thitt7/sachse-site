@@ -13,7 +13,7 @@ const DayTable = ({days}: {days: string[][]}) => {
             <TableHead>
               <TableRow>
                 {days[0].map((label) => (
-                  <TableCell align="center">{label}</TableCell>
+                  <TableCell align="center" key={label}>{label}</TableCell>
                 ))}
               </TableRow>
             </TableHead>
@@ -21,10 +21,10 @@ const DayTable = ({days}: {days: string[][]}) => {
               {
                 days.slice(1).map((row) => {
                   return (
-                    <TableRow >
+                    <TableRow key={row} >
                       {row.map((cell) => {
                         return (
-                          <TableCell align="center">{cell}</TableCell>
+                          <TableCell align="center" key={cell}>{cell}</TableCell>
                         )
                       })}
                     </TableRow>

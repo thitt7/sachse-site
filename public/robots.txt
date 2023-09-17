@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://sachse.city
+
+# Sitemaps
+Sitemap: https://sachse.city/sitemap.xml
+Sitemap: https://sachse.city/server-sitemap.xml

@@ -42,7 +42,7 @@ const Header = (props: Props) => {
       <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
         <List>
           {navItems.map((item) => (
-            <Link href={`/${item.toLowerCase()}`}>
+            <Link href={`/${item.toLowerCase()}`} key={item}>
             <ListItem key={item} disablePadding>
               <ListItemButton sx={{ textAlign: 'center' }}>
                 <ListItemText primary={item} sx={{ fontSize: '1.5rem' }}/>
@@ -81,7 +81,7 @@ const Header = (props: Props) => {
                 </Typography>
                 <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                   {navItems.map((item) => (
-                    <Link href={`/${item.toLowerCase()}`}>
+                    <Link href={`/${item.toLowerCase()}`} key={item}>
                         <Button key={item} sx={{ color: '#fff' }}>
                           {item}
                         </Button>

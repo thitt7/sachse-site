@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap --next-sitemap.config.js"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -29,9 +30,9 @@
     "clipboardy": "^3.0.0",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
-    "google-news-scraper": "^1.1.0",
     "mongodb": "^5.1.0",
     "next": "^13.2.4",
+    "next-sitemap": "^4.2.3",
     "nextjs-cors": "^2.1.2",
     "puppeteer": "^20.1.0",
     "react": "18.2.0",

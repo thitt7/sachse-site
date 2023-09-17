@@ -18,11 +18,25 @@ const Client = ({ news }: { news: any }) => {
       </Link>
       <div className={styles.container}>
         {news.map((article: any, i: number) => {
-          const millisecondsinday = 86400000;
-          const [daysElapsed, setDaysElapsed] = useState(Math.round((Date.now() - new Date(article.createdAt).getTime()) / millisecondsinday));
-          const formattedDate = new Date(article.createdAt).toDateString().slice(3)
 
           const { URL, title, author, body, category, createdAt, img, slug } = article
+          console.log('ARTICLE: ',article)
+          
+          const getTimeElapsed = () => {
+            const millisecondsinday = 86400000;
+            const days = (Date.now() - new Date(article.createdAt).getTime()) / millisecondsinday
+            const daysElapsed = Math.round(days)
+            const hoursElapsed = Math.round(days * 24)
+            const formattedDate = new Date(article.createdAt).toDateString().slice(3)
+            
+            let timeElapsed;
+            if (daysElapsed < 29) {
+              if (daysElapsed < 1) {timeElapsed = `${hoursElapsed} hour${hoursElapsed > 1 ? 's' : ''} ago`}
+              else {timeElapsed = `${daysElapsed} day${daysElapsed > 1 ? 's' : ''} ago`}
+            }
+            else {timeElapsed = formattedDate}
+            return timeElapsed;
+          }
 
           return (
             <>
@@ -33,7 +47,7 @@ const Client = ({ news }: { news: any }) => {
                 <p className={styles.p} dangerouslySetInnerHTML={{ __html: `${body.text.substring(0, 100)}${body.text.length>100 ? '...' : ''}` }}></p>
               </div>
               <div className={styles.info}>
-              <span> {calendarIcon}{daysElapsed < 29 ? `${daysElapsed} day${daysElapsed != 1 ? 's' : ''} ago` : formattedDate}</span>
+              <span> {calendarIcon}{getTimeElapsed()}</span>
                 <Link href={`/news/${slug}`}>
                   <button style={{margin: 0}}>READ MORE</button>
                 </Link>

@@ -14,11 +14,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 type Props = {
@@ -26,9 +22,9 @@ type Props = {
     i: number;
 }
 
-const NewsCard: React.FC<Props> = ({news, i}: Props) => {
+const NewsCard: React.FC<Props> = ({ news, i }: Props) => {
     const router = useRouter()
-    
+
     return (
         <>
             <Card>
@@ -52,8 +48,8 @@ const NewsCard: React.FC<Props> = ({news, i}: Props) => {
                     alt={news.img.alt}
                 />
                 <CardContent>
-                    <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: news.body.html }}>
-                    </Typography>
+                    <div dangerouslySetInnerHTML={{ __html: news.body.html }}></div>
+                    {/* <Body text={news.body.html} /> */}
                 </CardContent>
                 <CardActions disableSpacing>
                     <Link href={`/news/${news.slug}`}>
