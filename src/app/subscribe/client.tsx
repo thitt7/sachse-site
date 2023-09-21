@@ -1,7 +1,8 @@
 'use client'
 
+import submit from './actions';
+import Recaptcha from '../components/recaptcha';
 import React, {useState} from 'react';
-// import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
@@ -18,7 +19,10 @@ const Client = () => {
         news: false,
         events: false,
       });
-      const [helperText, setHelperText] = React.useState('*You must enter your email and at least one preference');
+      const [helperText, setHelperText] = useState('*You must enter your email and at least one preference');
+      const [isVerified, setIsVerified] = useState(false)
+
+      const setVerified = (verified: boolean): void => { setIsVerified(verified) }
 
       function validateEmail(email: string) {
         // Regular expression for email validation
@@ -27,7 +31,6 @@ const Client = () => {
       }
     
       const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target)
         if (event.target.type == 'checkbox') {
             setformData({
                 ...formData, [event.target.name]: event.target.checked,
@@ -41,8 +44,7 @@ const Client = () => {
 
       const { email, alerts, news, events } = formData;
       const error = !(([alerts, news, events].filter((v) => v).length > 0) && email);
-      const disabledProp = {disabled: error ? true : false}
-      console.log(!(([alerts, news, events].filter((v) => v).length > 0) && email))
+      const disabledProp = {disabled: !error && isVerified ? false : true}
 
   return (
       <div className={styles.container}>
@@ -53,6 +55,7 @@ const Client = () => {
                   rolled out accordingly pending gauged interest from community responses.
               </p>
               {error ? <div className={styles.helperText}>{helperText}</div> : ''}
+              <form action={submit}>
               <TextField
                   onChange={handleChange}
                   name='email'
@@ -64,7 +67,7 @@ const Client = () => {
                   fullWidth
                   variant="outlined"
               />
-              <h3>Preferences:</h3>
+              <h3>Please select your email preferences:</h3>
               <FormControl
                   error={error}
                   required
@@ -78,12 +81,14 @@ const Client = () => {
                               <Checkbox checked={alerts} onChange={handleChange} name="alerts" />
                           }
                           label="Alerts"
+                          
                       />
                       <FormControlLabel
                           control={
                               <Checkbox checked={news} onChange={handleChange} name="news" />
                           }
                           label="News"
+                        
                       />
                       <FormControlLabel
                           control={
@@ -94,8 +99,15 @@ const Client = () => {
                   </FormGroup>
               </FormControl>
 
-              {/* <FormHelperText>{helperText}</FormHelperText> */}
-              <Button variant="contained" {...disabledProp}>Submit</Button>
+            <Recaptcha setVerified={setVerified}/>
+        
+            <Button 
+            variant="contained"
+            type="submit"
+            {...disabledProp}>
+                Submit
+            </Button>
+            </form>
           </div>
       </div>
   )

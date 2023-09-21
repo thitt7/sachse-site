@@ -4,10 +4,10 @@
     @include button;
 
     max-width: 1200px;
-    margin: 30px auto;
+    margin: 30px auto !important;
 
     @media (max-width: $desktop) {
-        padding: 25px;
+        padding: 0 25px;
 
         button {
             display: block;

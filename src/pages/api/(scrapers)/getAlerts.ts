@@ -1,5 +1,5 @@
 import * as cheerio from 'cheerio';
-import clientPromise from '../../../lib/mongodb'
+import clientPromise from '@/lib/mongodb';
 
 export type Alert = {
     img?: {src: string, alt: string}

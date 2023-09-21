@@ -68,7 +68,6 @@ const Alert = async ({params}: Props) => {
 
     const alert = await getAlert(params.id)
     const { URL, title, author, body, category, createdAt, img } = alert[0];
-    console.log('ALERT: ',alert)
 
   return (
       <div className={styles.alertContainer}>

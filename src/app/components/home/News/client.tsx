@@ -20,7 +20,6 @@ const Client = ({ news }: { news: any }) => {
         {news.map((article: any, i: number) => {
 
           const { URL, title, author, body, category, createdAt, img, slug } = article
-          console.log('ARTICLE: ',article)
           
           const getTimeElapsed = () => {
             const millisecondsinday = 86400000;

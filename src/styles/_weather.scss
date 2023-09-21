@@ -52,4 +52,10 @@
         &.night {background-image: url("/cloudy.svg"), $weather-night-bg;}
     }
 
+    &[data-desciption*="rain"] {
+        background-image: url("/rainy.svg"), $weather-rainy-day-bg;
+
+        &.night {background-image: url("/rainy.svg"), $weather-night-bg;}
+    }
+
 }
