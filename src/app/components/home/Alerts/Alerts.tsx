@@ -5,6 +5,7 @@ import getAlerts from '@/lib/getAlerts';
 
 const Alerts = async () => {
 
+  // await new Promise(resolve => setTimeout(resolve, 5000))
   const alerts = await getAlerts(0,10,0);
 
   return (

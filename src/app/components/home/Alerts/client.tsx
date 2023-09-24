@@ -1,7 +1,8 @@
 'use client'
 
-import React from 'react'
+import React, { Suspense } from 'react';
 import Link from 'next/link';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Slider from "react-slick";
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -27,10 +28,15 @@ const Client = ({ alerts }: { alerts: any }) => {
     return (
         <div className={styles.alerts}>
             <Link href={'/alerts'}>
-                <h3>Alerts</h3>
+                <h3>
+                    Alerts
+                    <ArrowForwardIosIcon />
+                </h3>
+                
             </Link>
             <div className={styles.container}>
                 <Slider className={styles.slick} {...settings}>
+                {/* <Suspense fallback={<p>Loading feed...</p>}> */}
                     {alerts.map((alert: any, i: number) => {
                         return (
                             <div className={styles.alert} key={i}>
@@ -45,6 +51,7 @@ const Client = ({ alerts }: { alerts: any }) => {
                             </div>
                         )
                     })}
+                {/* </Suspense> */}
                 </Slider>
             </div>
         </div>

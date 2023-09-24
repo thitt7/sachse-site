@@ -1,3 +1,7 @@
+import { Suspense } from 'react';
+import { NavigationEvents } from './components/NavigationEvents';
+import TrickleBar from './components/layout/TrickleBar';
+import NextTopLoader from 'nextjs-toploader';
 import Header from './components/layout/header';
 import Footer from './components/layout/footer';
 import ScrollTop from './components/layout/scrolltop';
@@ -13,6 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en" id="html" className={jost.className}>
       <body id="body">
+        {/* <NextTopLoader /> */}
+        <TrickleBar />
         <Header />
         <ScrollTop/>
         {children}

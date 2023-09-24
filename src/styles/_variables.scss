@@ -11,6 +11,7 @@ $desktop: 1920px;
 /* Colors */
 $primary: #1C2028;
 $secondary: #364157;
+$trickle-bar: #FF5F1F;
 $heading-bg: #364157;
 $card-bg: #28303F;
 $card-bg-secondary: #3A4354;
@@ -114,6 +115,11 @@ $border-radius: 7px;
     }
 
     h3 {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
         text-align: center;
         background-color: $heading-bg;
         border-radius: $border-radius $border-radius 0 0;

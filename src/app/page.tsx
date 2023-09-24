@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import Banner from './components/home/Banner'
 import Alerts from './components/home/Alerts/Alerts'
 import Events from './components/home/Events/Events'
@@ -19,15 +20,10 @@ export default async function Home() {
       <Banner />
       <section>
         <div className={styles.grid}>
-          {/* @ts-expect-error Async Server Component */}
           <Alerts />
-          {/* <div>Alerts</div> */}
-          {/* @ts-expect-error Async Server Component */}
           <Events />
           <InstagramFeed />
-          {/* @ts-expect-error Async Server Component */}
           <News />
-          {/* @ts-expect-error Async Server Component */}
           <Weather />
           <FacebookFeed />
           <Subscribe />

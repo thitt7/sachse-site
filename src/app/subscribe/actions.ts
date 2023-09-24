@@ -5,7 +5,6 @@ import { redirect } from 'next/navigation';
 
 async function submit(formData: FormData) {
   const client = await clientPromise;
-  console.log('MONGOCLIENT: ',client)
   const db = client.db("sachse-site");
   const emails = db.collection("emails");
 

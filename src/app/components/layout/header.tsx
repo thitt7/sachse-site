@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Hamburger, { handleHamburgerClick } from './hamburger';
 import styles from '../styles/header.module.scss';
 
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -23,7 +23,8 @@ interface Props {
     window?: () => Window;
   }
 
-  const navItems = ['Alerts', 'News', 'Events', 'Trash', 'Subscribe'];
+const navItems = ['Alerts', 'News', 'Events', 'Trash', 'Subscribe'];
+// const headerHeight = document.querySelector('header')?.offsetHeight
 
 const Header = (props: Props) => {
     const isMobile = useMediaQuery('(max-width:480px)');
@@ -31,12 +32,16 @@ const Header = (props: Props) => {
     const isDesktop = useMediaQuery('(min-width:768px)');
 
     const { window } = props;
-    // const headerHeight = document.querySelector('header')?.offsetHeight
     const [mobileOpen, setMobileOpen] = useState(false);
+    const headerRef = useRef<HTMLElement>(null);
   
     const handleDrawerToggle = (e: React.MouseEvent) => {
       setMobileOpen((prevState: any) => !prevState);
     };
+
+    useEffect(() => {
+      headerRef.current!.setAttribute('data-height', document.querySelector('header')?.offsetHeight.toString()!)
+    });
   
     const drawer = (
       <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -57,19 +62,22 @@ const Header = (props: Props) => {
     const container = window !== undefined ? () => window().document.body : undefined;
   
     return (
-      <header>
+      <header ref={headerRef}>
           <Box className="nav" sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar component="nav">
               <Toolbar>
-                  {isTablet ? 
-                  <IconButton
-                  disableRipple
-                  aria-label="open drawer"
-                  onClick={handleDrawerToggle}
-                  >
-                  <Hamburger/>
-                  </IconButton> 
+                  {isTablet ?
+                  <>
+                    <Link href={`/`}><img src="/logo-header.png" alt="Sachse Community Site header logo" /></Link>
+                    <IconButton
+                    disableRipple
+                    aria-label="open drawer"
+                    onClick={handleDrawerToggle}
+                    >
+                    <Hamburger/>
+                    </IconButton>
+                  </>
                   : 
                   <></>}
                 <Typography

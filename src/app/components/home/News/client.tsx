@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Divider from '@mui/material/Divider';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
@@ -14,7 +15,10 @@ const Client = ({ news }: { news: any }) => {
   return (
     <div className={styles.news}>
       <Link href={'/news'}>
-        <h3>News</h3>
+        <h3>
+          News
+          <ArrowForwardIosIcon />
+        </h3>
       </Link>
       <div className={styles.container}>
         {news.map((article: any, i: number) => {

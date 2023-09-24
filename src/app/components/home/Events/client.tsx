@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Divider from '@mui/material/Divider';
 import getEvents from '@/lib/getNews';
 
@@ -29,7 +30,10 @@ const Client = ({ events }: Props) => {
   return (
     <div className={styles.events}>
       <Link href={'/events'}>
-        <h3>Events</h3>
+        <h3>
+          Events
+          <ArrowForwardIosIcon />
+        </h3>
       </Link>
       <div className={styles.container}>
         {events.map((event: any, i: number) => {
