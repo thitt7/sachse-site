@@ -3,4 +3,4 @@ const getWeather = async () => {
     return res.json();
 }
 
-export default getWeather
+export default getWeather;

@@ -1,25 +1,13 @@
-import React from "react";
-import Client from "./Client";
+// import React from "react";
+// import Client from "./Client";
+// import getNews from "@/lib/getNews";
 
-
-export default async function News () {
-    let limit: number = 10
-    let page: number = 0
-    let offset: number = 0
-    let newsArr: any
-    newsArr = await getNews(page, limit, offset)
+// export default async function News () {
+//     const newsArr = await getNews('', '10', '0')
     
-    return (
-        <Client Arr={newsArr}>
-        </Client>
-    )
+//     return (
+//         <Client Arr={newsArr}>
+//         </Client>
+//     )
 
-}
-
-const getNews = async (page: number, limit: number, offset: number) => {
-    const res = await fetch(`http://localhost:${process.env.PORT}/api/news?page=${page}&limit=${limit}&offset=${offset}`, { 
-        next: { revalidate: 5 }
-    });
-
-    return res.json();
-  }
+// }

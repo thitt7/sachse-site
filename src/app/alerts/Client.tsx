@@ -11,6 +11,15 @@ const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => 
     const [isLoading, setIsLoading] = useState(false)
     const [example, setExample] = useState([3, 4, 9, 7, 0, 1, 8, 3, 6, 2])
 
+    // const pushAlerts = async (Arr: string[]): Promise<any> => {
+    //     console.log('pushing alerts...')
+    //     const res = await getAlerts(0, 10, Arr.length)
+    //     res.map( (e: string) => {Arr.push(e)})
+    //     setAlerts(Arr)
+    //     setExample((example: any) => example + 1)
+    //     setIsLoading(false)
+    // }
+
     return (
         <>
         <div className={styles.alertsContainer}>
@@ -24,15 +33,16 @@ const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => 
         {isLoading == true ? <div className='progress'><CircularProgress /></div> : <></>}
         <InView onChange={async (inView, entry) => {
                 console.log('entry:', entry)
-                if (entry.isIntersecting) {
-                    setIsLoading(true)
-                    const updatedAlerts = await pushAlerts(alerts)
-                    setAlerts(updatedAlerts)
-                    setExample((example: any) => example + 1)
-                    setIsLoading(false)
-                }
+                // if (entry.isIntersecting) {
+                //     setIsLoading(true)
+                //     const updatedAlerts = await pushAlerts(alerts)
+                //     setAlerts(updatedAlerts)
+                //     setExample((example: any) => example + 1)
+                //     setIsLoading(false)
+                // }
             }}>
         </InView>
+        {/* <button onClick={pushAlerts(alerts)}>Load More</button> */}
         </>
     )
 
@@ -41,13 +51,6 @@ const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => 
 const getAlerts = async (page: number, limit: number, offset: number) => {
     const res = await fetch(`/api/alerts?page=${page}&limit=${limit}&offset=${offset}`);
     return res.json();
-}
-
-export const pushAlerts = async (Arr: string[]): Promise<string[]> => {
-    console.log('pushing alerts...')
-    const res = await getAlerts(0, 10, Arr.length)
-    res.map( (e: string) => {Arr.push(e)})
-    return Arr
 }
 
 export default Client;
