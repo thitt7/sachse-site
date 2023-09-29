@@ -5,7 +5,7 @@ import getNews from '@/lib/getNews'
 
 const News = async () => {
 
-  const news = await getNews('0','5','0')
+  const news = await getNews(undefined, 5, 0)
 
   return (
     <Client news={news} />

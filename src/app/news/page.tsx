@@ -1,13 +1,13 @@
-// import React from "react";
-// import Client from "./Client";
-// import getNews from "@/lib/getNews";
+import React from "react";
+import Client from "./Client";
+import getNews from "@/lib/getNews";
 
-// export default async function News () {
-//     const newsArr = await getNews('', '10', '0')
+export default async function News () {
+    const newsArr = await getNews(undefined, 10, 0)
     
-//     return (
-//         <Client Arr={newsArr}>
-//         </Client>
-//     )
+    return (
+        <Client Arr={newsArr}>
+        </Client>
+    )
 
-// }
+}

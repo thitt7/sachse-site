@@ -4,7 +4,6 @@ import React from 'react'
 import Link from 'next/link';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Divider from '@mui/material/Divider';
-import getEvents from '@/lib/getNews';
 
 import styles from '../../../../styles/home.module.scss'
 

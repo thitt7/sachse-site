@@ -112,32 +112,37 @@ a {
   [class*="popupIndicator"] {display: none;}
 }
 
-.MuiDialog-container {
-  .MuiPaper-root {
-    @include button;
 
-    background-color: $card-bg;
+.MuiDialog-root {
+  z-index: 10000;
 
-    #alert-dialog-title {
-      text-align: left;
-      font-size: 1.5rem;
-      padding-right: 55px;
-    }
-
-    [class*="MuiDialogContent"] {
-      display: flex;
-      flex-flow: column nowrap;
-
-      a {
-        width: fit-content;
-        align-self: flex-end;
+  .MuiDialog-container {
+    .MuiPaper-root {
+      @include button;
+  
+      background-color: $card-bg;
+  
+      #alert-dialog-title {
+        text-align: left;
+        font-size: 1.5rem;
+        padding-right: 55px;
       }
-
-      span {font-size: inherit !important;}
+  
+      [class*="MuiDialogContent"] {
+        display: flex;
+        flex-flow: column nowrap;
+  
+        a {
+          width: fit-content;
+          align-self: flex-end;
+        }
+  
+        span {font-size: inherit !important;}
+      }
+  
+      .progress {padding: 150px;}
+      
     }
-
-    .progress {padding: 150px;}
-    
   }
 }
 

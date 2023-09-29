@@ -30,7 +30,7 @@ const Client = ({events, setID}: Props) => {
   const searchParams = useSearchParams()!
 
   const [eventID, setEventID] = useState<string>(searchParams.get('id')!)
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState<boolean>()
   const [lastDate, setLastDate] = useState()
   const calendarRef: any = useRef();
   const lastDateRef: any = useRef();
@@ -55,7 +55,6 @@ const Client = ({events, setID}: Props) => {
       const {start: date} = event[0]
       
       if (typeof calendarRef.current !== 'undefined' && typeof calendarRef.current !== null) {
-        console.log('WRITING REF...')
         lastDateRef.current = date;
         calendarRef.current.getApi().changeView('dayGridMonth', date);
       }
@@ -78,10 +77,11 @@ const Client = ({events, setID}: Props) => {
       <div id="events" className="container" style={Style}>
             <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, listGridPlugin]}
-              headerToolbar={isTablet ? { left: 'title', right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek' }
+              headerToolbar={isTablet ? { left: '', center: 'title', right: '' }
                : { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek' }}
-              footerToolbar={isTablet ? { center: 'prev,next', } : false}
-              initialView={isTablet ? 'dayGridMonth' : 'listWeek'}
+              footerToolbar={isTablet ? { left: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek', right: 'prev,next', } : false}
+              initialView={isTablet ? 'listWeek' : 'dayGridMonth'}
+              dayMaxEvents={isMobile ? 0 : 1}
               weekends={true}
               events={events}
               eventInteractive={true}
@@ -89,7 +89,7 @@ const Client = ({events, setID}: Props) => {
               ref={calendarRef}
             />
       </div>
-      <EventModal id={eventID} isOpen={open}/>
+      <EventModal id={eventID}/>
     </>
   )
 }

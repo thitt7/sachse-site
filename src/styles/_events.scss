@@ -7,11 +7,20 @@
 
         @media (max-width: $desktop) {
             padding: 0 25px;
-          }
+        }
+
+        .fc-footer-toolbar {
+            @media (max-width: $tablet) {
+                flex-flow: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+        }
       }
 }
 
 :root {
     --fc-neutral-bg-color: #{$secondary};
     --fc-list-event-hover-bg-color: #{$header};
+    --fc-page-bg-color: #{$header};
 }

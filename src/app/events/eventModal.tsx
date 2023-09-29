@@ -1,34 +1,32 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Dialog, DialogContent, DialogTitle, Button, Box, IconButton } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-type Event = {
-  title?: string,
-  slug?: string,
-  location?: string,
-  address?: string,
-  description?: { html: string, text: string },
-  start?: Date,
-  end?: Date,
-  URL?: string,
-  img?: { src: string, alt: string },
-  allDay?: boolean
-}
+// type Event = {
+//   title?: string,
+//   slug?: string,
+//   location?: string,
+//   address?: string,
+//   description?: { html: string, text: string },
+//   start?: Date,
+//   end?: Date,
+//   URL?: string,
+//   img?: { src: string, alt: string },
+//   allDay?: boolean
+// }
 
 type Props = {
   id: string,
-  isOpen: boolean
 }
 
-const EventModal = ({ id, isOpen }: Props) => {
+const EventModal = ({ id }: Props) => {
 
   const getEvent = useCallback(
     async () => {
       const event = await fetch(`/api/events?id=${id}`)
-    //   console.log('fetch response: ', event)
       if (event.status == 500) { return 'error' }
       return await event.json()
     },
@@ -39,16 +37,16 @@ const EventModal = ({ id, isOpen }: Props) => {
   const pathName = usePathname()
   const searchParams = useSearchParams()!
 
-  const [eventID, setEventID] = useState<string>(id)
-  const [event, setEvent] = useState<Promise<Event>>()
-  const [open, setOpen] = useState(isOpen)
+  const [eventID, setEventID] = useState<string>(searchParams.get('id') as string)
+  const [event, setEvent] = useState<any>()
+  const [open, setOpen] = useState<boolean>(false)
   const [isLoading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('error')
 
   const handleClose = () => {
+    removeParams();
     setOpen(false);
-    removeParams()
   };
 
   const removeParams = () => {
@@ -56,7 +54,7 @@ const EventModal = ({ id, isOpen }: Props) => {
   }
 
   useEffect(() => {
-    console.log('modal rerendering...')
+    setOpen(false)
     const fetchEvent = async () => {
 
       try {
@@ -74,23 +72,20 @@ const EventModal = ({ id, isOpen }: Props) => {
       }
     }
 
-    if (id) {
+    if (searchParams.get('id')) {
       setLoading(() => true);
       fetchEvent().then(() => {
         setLoading(() => false)
       })
-      setOpen(true)
+      setOpen(() => true)
     }
-  }, [])
-
-//   console.log('OPEN STATE: ', open)
+    else {}
+  }, [searchParams])
 
   return (
     <>
-      {
-
         <Dialog
-          open={open}
+          open={open || false}
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
@@ -125,7 +120,6 @@ const EventModal = ({ id, isOpen }: Props) => {
             : ''
           }
         </Dialog>
-      }
     </>
   )
 }

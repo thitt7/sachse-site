@@ -3,76 +3,86 @@ import getAlerts from '@/lib/getAlerts';
 import getNews from '@/lib/getNews';
 import getEvents from '@/lib/getEvents';
 
-export async function GET(request: Request) {
-  // Method to source urls from cms
-  // const urls = await fetch('https//example.com/api')
-  let alerts = await getAlerts()
+export async function GET() {
+  
+  // let alerts = await getAlerts()
+  let alerts = await (await fetch(`http://${process.env.HOSTNAME}:${process.env.PORT}/api/alerts`)).json()
   alerts = alerts.map((alert: any) => {
     return {
       loc: `${process.env.SITE_URL}/alerts/${alert._id}`,
-      lastmod: alert.createdAt
+      lastmod: alert.createdAt,
+      changefreq: "daily",
+      priority: 0.7,
     }
   })
-  let news = await getNews()
+  // let news = await getNews()
+  let news = await (await fetch(`http://${process.env.HOSTNAME}:${process.env.PORT}/api/news`)).json()
   news = news.map((article: any) => {
     return {
       loc: `${process.env.SITE_URL}/news/${article.slug}`,
-      lastmod: article.createdAt
+      lastmod: article.createdAt,
+      changefreq: "daily",
+      priority: 0.7,
     }
   })
-  let events = await getEvents()
+  // let events = await getEvents()
+  let events = await (await fetch(`http://${process.env.HOSTNAME}:${process.env.PORT}/api/events`)).json()
   events = events.map((event: any) => {
     return {
       loc: `${process.env.SITE_URL}/events?id=${event._id}`,
-      lastmod: new Date().toISOString()
+      lastmod: new Date().toISOString(),
+      changefreq: "daily",
+      priority: 0.7,
     }
   })
+
+  console.log('ALERTS: ',alerts)
 
   return getServerSideSitemap([
     {
       loc: `${process.env.SITE_URL}`,
       lastmod: new Date().toISOString(),
-      // changefreq
-      // priority
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       loc: `${process.env.SITE_URL}/alerts`,
       lastmod: new Date().toISOString(),
-      // changefreq
-      // priority
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       loc: `${process.env.SITE_URL}/news`,
       lastmod: new Date().toISOString(),
-      // changefreq
-      // priority
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       loc: `${process.env.SITE_URL}/events`,
       lastmod: new Date().toISOString(),
-      // changefreq
-      // priority
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       loc: `${process.env.SITE_URL}/trash`,
       lastmod: new Date().toISOString(),
-      // changefreq
-      // priority
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       loc: `${process.env.SITE_URL}/subscribe`,
       lastmod: new Date().toISOString(),
-      // changefreq
-      // priority
+      changefreq: "daily",
+      priority: 0.7,
     },
     {
       loc: `${process.env.SITE_URL}/privacy`,
       lastmod: new Date().toISOString(),
-      // changefreq
-      // priority
+      changefreq: "daily",
+      priority: 0.7,
     },
-    ...alerts,
-    ...news,
-    ...events
+    // ...alerts,
+    // ...news,
+    // ...events
   ])
 }

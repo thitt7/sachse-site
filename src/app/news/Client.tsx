@@ -39,8 +39,8 @@ const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => 
 }
 
 export const pushNews = async (Arr: string[]): Promise<string[]> => {
-    console.log('pushing alerts...')
-    const res = await getNews('0', '10', Arr.length.toString())
+    console.log('pushing news...')
+    const res = await getNews(undefined, 10, Arr.length)
     res.map( (e: string) => {Arr.push(e)})
     return Arr
 }
