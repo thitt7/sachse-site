@@ -43,7 +43,7 @@ const Footer = () => {
                              <> • </>
                             <Link href={'/privacy'}>Privacy Policy</Link>
                               <> • </>
-                            {/* <Link href={'/sitemap.xml'}>Sitemap</Link> */}
+                            <Link href={'/sitemap.xml'}>Sitemap</Link>
                         </div>
                     </div>
             </div>

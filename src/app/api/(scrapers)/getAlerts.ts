@@ -115,7 +115,6 @@ async function bulkWrite(items: Alert[]) {
         updateOne: {
             filter: {
                 URL: item.URL,
-                title: item.title,
             },
             update: { $set: item },
             upsert: true
