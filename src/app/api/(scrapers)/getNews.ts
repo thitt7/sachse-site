@@ -16,7 +16,7 @@ export type News = {
 const getNews = async () => {
     const client = await clientPromise;
     const db = client.db("sachse-site");
-    const alerts = await db.collection('news');
+    const news = await db.collection('news');
     
     let bulkArr = await getLatest();
     bulkArr = await populateNewsArr(bulkArr);
@@ -71,7 +71,7 @@ async function bulkWrite(items: any) {
     if (items.length < 1) { return }
     const client = await clientPromise;
     const db = client.db("sachse-site");
-    const alerts = await db.collection('news');
+    const news = await db.collection('news');
 
     const ops = items.map((item: News) => ({
         updateOne: {
@@ -83,7 +83,7 @@ async function bulkWrite(items: any) {
         }
     }));
 
-    return await alerts.bulkWrite(ops);
+    return await news.bulkWrite(ops);
 
   }
 
