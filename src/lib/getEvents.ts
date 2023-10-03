@@ -4,7 +4,7 @@ function urlConcat (url: string, query: string, name: string) {
 
 async function getEvents(id?: string, now?: boolean, limit?: string, offset?: string) {
   let url: string = '';
-  if (typeof window == 'undefined') {url = `http://${process.env.HOSTNAME}:${process.env.PORT}/api/events?`;}
+  if (typeof window == 'undefined') {url = `${process.env.API_URL}/api/weather?`;}
   else {url = `/api/events?`;}
   id ? url = urlConcat(url, id, 'id') : ''
   now ? url = urlConcat(url, now.toString(), 'date') : ''

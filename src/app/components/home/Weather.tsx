@@ -34,7 +34,7 @@ const Weather = async () => {
 }
 
 const getWeather = async () => {
-    const res = await fetch(`http:${process.env.HOSTNAME}:${process.env.PORT}/api/weather`)
+    const res = await fetch(`${process.env.API_URL}/api/weather`)
     return res.json();
 }
 
