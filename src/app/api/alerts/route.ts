@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   const {id, page, limit, offset} = Object.fromEntries(searchParams.entries())
 
   /* Scraper */
-  getNewAlerts()
+  // getNewAlerts()
 
   if (id) {
     const objectid = new ObjectId(id as string)

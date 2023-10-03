@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     const {slug, limit, offset} = Object.fromEntries(searchParams.entries())
   
     /* Scraper */
-    getNews()
+    // getNews()
   
     if (slug) {
         const Article = await alerts.find( {slug: slug} ).toArray()

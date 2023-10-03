@@ -21,11 +21,7 @@ export async function GET(request: Request) {
   }
   else {
     const Events = await events
-      .find({
-        start: {
-            $gte: now ? new Date(Date.now()) : '',
-            // $lte: new Date("2023-08-30")
-        }})
+      .find( now ? {start: { $gte:new Date(Date.now()) }} : {} )
       .sort({ start: 1 })
       .skip(Number(offset))
       .limit(Number(limit))

@@ -44,20 +44,32 @@ let clientPromise: Promise<MongoClient>
 // }
 // run().catch(console.dir);
 
-const connect = async () => {
-  if (process.env.NODE_ENV === 'development') {
-    // In development mode, use global variable
-    if (!global._mongoClientPromise) {
-      // client = new MongoClient(atlasURI, options)
-      global._mongoClientPromise = client.connect()
-      clientPromise = global._mongoClientPromise
-    }
-  }
-  else {
-    clientPromise = client.connect()
+// const connect = async () => {
+//   if (process.env.NODE_ENV === 'development') {
+//     // In development mode, use global variable
+//     if (!global._mongoClientPromise) {
+//       // client = new MongoClient(atlasURI, options)
+//       global._mongoClientPromise = client.connect()
+//       clientPromise = global._mongoClientPromise
+//     }
+//   }
+//   else {
+//     clientPromise = client.connect()
+//   }
+// }
+
+// connect().catch(console.dir);
+
+async function run() {
+  try {
+    clientPromise = client.connect();
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    // await client.close();
   }
 }
-
-connect().catch(console.dir);
+run().catch(console.dir);
 
 export default clientPromise!
