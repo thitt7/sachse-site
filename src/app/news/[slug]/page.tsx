@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 
 import ArticleInfo from './articleInfo';
 import Tags from './tags';
+import styles from '../../../styles/news.module.scss'
 
 type Props = {
   params: { slug: string }
@@ -21,15 +22,31 @@ export const generateMetadata = async ({ params }: Props ): Promise<Metadata> =>
     generator: 'Next.js',
     applicationName: 'Next.js',
     referrer: 'origin-when-cross-origin',
-    keywords: ['Next.js', 'React', 'JavaScript'],
+    keywords: ['sachse', 'sachse, Texas', 'sachse news', 'sachse events', 'sachse sports'],
     authors: [{ name: author, url: 'https://nextjs.org' }],
     colorScheme: 'dark',
     creator: 'Tristan Hitt',
-    publisher: 'Sebastian Markbåge',
+    publisher: 'Sachse Community Site',
     formatDetection: {
       email: false,
       address: false,
       telephone: false,
+    },
+    alternates: {
+      canonical: `https://sachse.city/news/${slug}`
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
 
     openGraph: {
@@ -68,7 +85,7 @@ const NewsArticle = async ({ params }: Props ) => {
   const { URL, title, author, body, category, createdAt, img } = article[0];
 
   return (
-    <div className='article-content'>
+    <div className={styles.articleContent}>
       <h2>{title}</h2>
       <ArticleInfo article={article} />
       <img src={img.src} alt={img.alt} />

@@ -16,7 +16,7 @@ const Weather = async () => {
 
   return (
     <>
-    <div className={`weather ${description.split(' ')[0]} ${isNight(rise,set) ? 'night' : ''}`} data-desciption={description}>
+    <div id="weather" className={`${isNight(rise,set) ? 'night' : ''}`} data-desciption={description}>
       <div>
         <h2>TODAY</h2>
         <article>

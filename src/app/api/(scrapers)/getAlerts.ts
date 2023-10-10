@@ -37,23 +37,35 @@ const getNewAlerts = async () => {
     let bulkArr: Alert[] = []
     
     /* Iterate through all numbered pages until failure */
-    for (let i = 1; ; i++) {
-        const response = await fetch(`https://local.nixle.com/sachse-police-department?page=${i}`)
-        if (response.status == 404) { break }
-        const htmlString = await response.text()
-        const $ = cheerio.load(htmlString)
+    // for (let i = 1; ; i++) {
+    //     const response = await fetch(`https://local.nixle.com/sachse-police-department?page=${i}`)
+    //     if (response.status == 404) { break }
+    //     const htmlString = await response.text()
+    //     const $ = cheerio.load(htmlString)
 
-        $(" li[id^='pub'] a[href^='https://nixle.us'] ").each((j, el) => {
-            let currenthref = $(el).attr('href')
-            bulkArr.push({ URL: currenthref })
-        });
-    }
+    //     $(" li[id^='pub'] a[href^='https://nixle.us'] ").each((j, el) => {
+    //         let currenthref = $(el).attr('href')
+    //         bulkArr.push({ URL: currenthref })
+    //     });
+    // }
+
+    const response = await fetch(`https://local.nixle.com/sachse-police-department`)
+    const htmlString = await response.text()
+    const $ = cheerio.load(htmlString)
+
+    $(" li[id^='pub'] a[href^='https://nixle.us'] ").each((j, el) => {
+        let currenthref = $(el).attr('href')
+        bulkArr.push({ URL: currenthref })
+    });
 
     if (!await isUpToDate(bulkArr)) {
-        populateBulkArr(bulkArr).then(async (arr) => {
-            await bulkWrite(arr)
-        })
-    } 
+        bulkArr = await populateBulkArr(bulkArr)
+        await bulkWrite(bulkArr)
+        return bulkArr;
+    }
+    else {
+        return null;
+    }
 
 }
 
@@ -86,22 +98,8 @@ const isUpToDate = async (arr: Alert[]): Promise<boolean> => {
     const client = await clientPromise;
     const db = client.db("sachse-site");
     const alerts = await db.collection('alerts');
-    let oldAlert = []
 
-    oldAlert = await alerts
-        .find()
-        .sort({ createdAt: -1 })
-        .limit(1)
-        .toArray()
-
-    const newAlert = await scrape(arr[0])
-
-    if (oldAlert[0] == undefined) {
-        return false
-    }
-    else {
-        return newAlert.URL == oldAlert[0].URL
-    }
+    return (await alerts.find({ URL: arr[0].URL }).toArray()).length != 0
 }
 
 /* Perform bulk write operation to db with scraped data */

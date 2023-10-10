@@ -1,25 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
+import ShareIcon from '@mui/icons-material/Share';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-// type Event = {
-//   title?: string,
-//   slug?: string,
-//   location?: string,
-//   address?: string,
-//   description?: { html: string, text: string },
-//   start?: Date,
-//   end?: Date,
-//   URL?: string,
-//   img?: { src: string, alt: string },
-//   allDay?: boolean
-// }
-
 type Props = {
   id: string,
+}
+
+const optionStyles = {
+  display: 'flex',
+  flexFlow: 'row wrap',
+  alignItems: 'center',
+  justifyContent: 'space-between'
 }
 
 const EventModal = ({ id }: Props) => {
@@ -114,7 +109,10 @@ const EventModal = ({ id }: Props) => {
                 {event.location ? <p><strong>Location:</strong> {event.location}</p> : ''}
                 {event.address ? <p><strong>Address:</strong> <p dangerouslySetInnerHTML={{ __html: event.address }} /></p> : ''}
                 {event.description ? <p><strong>Description:</strong><p dangerouslySetInnerHTML={{ __html: event.description.html }}></p></p> : ''}
-                <Link target={'_blank'} href={event.URL ? event.URL: ''}><button style={{ margin: 0 }}>READ MORE</button></Link>
+                <div style={optionStyles}>
+                  <ShareIcon></ShareIcon>
+                  <Link target={'_blank'} href={event.URL ? event.URL: ''}><button style={{ margin: 0 }}>READ MORE</button></Link>
+                </div>
               </DialogContent>
             </>
             : ''

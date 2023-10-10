@@ -1,7 +1,7 @@
 import React from 'react'
 import getEvents from '@/lib/getEvents';
 import Client from './client';
-import { Metadata } from 'next'
+import { Metadata } from 'next';
 
 type metaProps = {
   params: { id: string }
@@ -28,6 +28,22 @@ export const generateMetadata = async ({params, searchParams}: metaProps): Promi
       email: true,
       address: true,
       telephone: true,
+    },
+    alternates: {
+      canonical: `https://sachse.city/events?id=${searchParams.id}`
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
 
     openGraph: {

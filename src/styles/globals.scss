@@ -1,8 +1,6 @@
 @use "variables" as *;
 @use "weather";
 @use "header";
-@use "trash";
-@use "news";
 @use "events";
 
 * {
@@ -15,6 +13,7 @@ html#html {
   scroll-behavior: smooth;
 
   body#body {
+    min-height: 100vh;
     margin: 0;
     background: $primary;
     font-family: inherit;
@@ -168,6 +167,30 @@ html#html {
       }
     }
 
+    [class*=MuiAutocomplete] {
+
+      label#gmap-input-label {color: white;}
+  
+      [class*=MuiOutlinedInput] {
+          background-color: $heading-bg;
+          z-index: -1;
+          // border: none;
+  
+          input#gmap-input {
+              color: white;
+              z-index: 0;
+          }
+      }
+  }
+  
+  [class*=MuiAutocomplete-popper] {
+      [class*=MuiAutocomplete-paper] {background-color: $heading-bg}
+  
+      p {
+          color: white;
+      }
+  }
+
     .progress {
       padding: 35px 35px 0;
       display: flex;
@@ -208,22 +231,27 @@ html#html {
       }
     }
 
-    #about,
-    #privacy {
-      @media (max-width: $desktop) {
-        padding: 0 25px;
-      }
-    }
-
     #privacy {
       &.container {
         padding: 30px 0;
       }
     }
 
-    .container {
+    #about,
+    #privacy.container {
+      @media (max-width: $desktop) {
+        padding: 0 25px;
+      }
+    }
+
+    [class*=container] {
       max-width: 1200px;
       margin: 25px auto;
+
+      .head {
+        padding: 0 25px;
+        p {font-size: 1.25rem;}
+      }
     }
   }
 }

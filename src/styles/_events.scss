@@ -5,6 +5,10 @@
         max-width: 1200px;
         margin: 50px auto;
 
+        [class*=fc][class*=event] {
+            cursor: pointer;
+        }
+
         @media (max-width: $desktop) {
             padding: 0 25px;
         }

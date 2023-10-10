@@ -1,0 +1,62 @@
+@use "variables" as *;
+
+#container {
+    max-width: 1000px !important;
+    margin: 25px auto;
+    padding: 0 25px;
+
+    .MuiAutocomplete-root {
+        width: 100%;
+    }
+
+    .MuiPaper-root {
+        border-radius: $border-radius;
+        margin: 25px auto;
+    }
+
+    h1 {margin: 0;}
+
+    [class*=MuiTableContainer-root] {
+        background-color: $card-bg;
+        margin-top: 25px;
+    
+        table {
+            * {color: white;}
+            tr :is(th, td:first-of-type) {font-weight: bold;}
+            tbody {tr:last-of-type { td{border-bottom: 0;}}}
+        }
+    }
+    
+    [class*=MuiAutocomplete] {
+        width: auto;
+    
+        label#gmap-input-label {color: white;}
+    
+        [class*=MuiOutlinedInput] {
+            background-color: $heading-bg;
+            z-index: -1;
+            // border: none;
+    
+            input#gmap-input {
+                color: white;
+                z-index: 0;
+            }
+        }
+    }
+    
+    [class*=MuiAutocomplete-popper] {
+        [class*=MuiAutocomplete-paper] {background-color: $heading-bg}
+
+        p {
+            color: white;
+        }
+    }
+
+    @media (max-width: $tablet) {
+        padding: 25px;
+      }
+}
+
+.option {
+    margin: 0 !important;
+}

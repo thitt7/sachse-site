@@ -1,4 +1,5 @@
 import * as cheerio from 'cheerio';
+import { isUpToDate } from './getEvents';
 import slugify from "slugify";
 
 type Event = {
@@ -7,24 +8,15 @@ type Event = {
     location?: string,
     address?: string,
     description?: {html: string, text: string},
-    pubDate?: Date,
-    start?: Date,
-    end?: Date,
+    pubDate?: Date | string,
+    start?: Date | string,
+    end?: Date | string,
     URL?: string,
     img?: {src: string, alt: string}
 }
 
 const getEvents3 = async () => {
     
-    let bulkArr = await getLatest();
-    return bulkArr;
-
-}
-
-/* Get list of new News Articles from 'latest' page */
-const getLatest = async () => {
-
-
     /* Collin College Events */
     let eventArr: Event[] = [];
     const response = await fetch('https://collin.campuslabs.com/engage/events.rss')
@@ -39,15 +31,13 @@ const getLatest = async () => {
         let event: Event = {}
         const el = $(e).closest(' item ')
 
-        // console.log('NUM', i, $(e).parent().prop("outerHTML"))
-        // console.log('NUM', i, el.find('title').text())
-
         const URL: string = el.find(" guid ").text()!;
-        const img = {src: el.find(" enclosure ").attr("url")!, alt: ''}
-        const title: string = el.find(" title ").text()!;
+        const img = {src: el.find(" enclosure ").attr("url")!, alt: ''};
+
+        const regex = /<!\[CDATA\[(.*?)\]\]>/
+        const title: string = el.find(" title ").text()!.replace(regex, '$1')
         const description = {html: el.find(" description ").html()!, text: el.find(" description ").text()!}
         description.html = description.html.replace(']]&gt;', '')
-        console.log(description.html)
     
         const pubDate: Date = new Date(el.find(" pubDate ").text()!)
         const start: Date = new Date(el.find(" start ").text()!)
@@ -58,8 +48,11 @@ const getLatest = async () => {
         eventArr.push(event)
     });
 
-    return eventArr;
-    
+    if (!await isUpToDate(eventArr)) {
+        return eventArr;
+    }
+    else {return []}
+
 }
 
 export default getEvents3;

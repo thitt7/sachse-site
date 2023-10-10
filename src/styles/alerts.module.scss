@@ -1,8 +1,20 @@
 @use "variables" as *;
 
+.container {
+
+    .progress {
+        padding: 0;
+        margin: 10px auto 25px;
+        display: flex;
+        justify-content: center;
+
+    }
+    @include btn-alt;
+}
+
 .alertsContainer {
     max-width: 1350px;
-    margin: 40px auto;
+    margin: 0 auto;
     padding: 20px;
     display: flex;
     flex-flow: row wrap;
@@ -10,6 +22,7 @@
     gap: 25px;
 
     @include alert-card;
+    @include btn-alt;
 }
 
 .alertContainer {
@@ -29,6 +42,8 @@
 
         [class*="MuiCardContent"] {
             height: initial;
+
+            &::after{display: none;}
         }
     }
 }

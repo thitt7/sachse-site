@@ -10,7 +10,15 @@ const getAlerts = async (id?: string, page?: number, limit?: number, offset?: nu
       limit ? url = urlConcat(url, limit.toString(), 'limit') : ''
       offset ? url = urlConcat(url, offset.toString(), 'offset') : ''
       
-      const res = await fetch(url)
+      // console.log('URL: ',url)
+      // const res = await fetch(url, {
+      // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      // // credentials: "same-origin", // include, *same-origin, omit
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },})
+      const res = await fetch(url);
+
       return res.json();
   }
 

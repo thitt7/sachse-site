@@ -2,26 +2,35 @@
 
 import React, { useState } from "react";
 import getNews from "@/lib/getNews";
-import { InView } from 'react-intersection-observer';
+// import { InView } from 'react-intersection-observer';
 import NewsCard from "./newsCard";
 import CircularProgress from '@mui/material/CircularProgress';
-import styles from '../../styles/alerts.module.scss'
+import styles from '../../styles/news.module.scss';
 
 const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => {
     const [news, setNews] = useState(Arr)
-    const [isLoading, setIsLoading] = useState(false)
-    const [example, setExample] = useState([3, 4, 9, 7, 0, 1, 8, 3, 6, 2])
+    const [isLoading, setLoading] = useState(false)
+
+    const pushNews = async (e: React.MouseEvent<HTMLElement>) => {
+        setLoading(true)
+        const res = await getNews(undefined, 10, Arr.length)
+        res.map( (e: string) => {Arr.push(e)})
+        setNews(Arr)
+        setLoading(false)
+    }
 
     return (
-        <>
-        <div className="news-card-container">
+        <div id={styles['container']}>
+        <div className={styles.newsContainer}>
             {news.map((news: any, i: number) => {
                 return (
                     <NewsCard news={news} i={i} key={i}/>
                 )
             })}
         </div>
-        {isLoading == true ? <div className='progress'><CircularProgress /></div> : <></>}
+        {isLoading == true ? <div className={styles.progress}><CircularProgress /></div> : <></>}
+        <button onClick={pushNews}>Load More</button>
+        
         {/* <InView onChange={async (inView, entry) => {
                 console.log('entry:', entry)
                 if (entry.isIntersecting) {
@@ -33,16 +42,9 @@ const Client = ({children, Arr}: {children: React.ReactNode, Arr: string[]}) => 
                 }
             }}>
         </InView> */}
-        </>
+        </div>
     )
 
 }
 
-export const pushNews = async (Arr: string[]): Promise<string[]> => {
-    console.log('pushing news...')
-    const res = await getNews(undefined, 10, Arr.length)
-    res.map( (e: string) => {Arr.push(e)})
-    return Arr
-}
-
-export default Client
+export default Client;

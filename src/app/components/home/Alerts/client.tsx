@@ -12,15 +12,17 @@ import styles from '../../../../styles/home.module.scss'
 
 const Client = ({ alerts }: { alerts: any }) => {
 
-    const mobile = useMediaQuery('(max-width:768px)');
+    const mobile = useMediaQuery('(max-width:480px)');
+    const tablet = useMediaQuery('(max-width:768px)');
 
     const settings = {
         dots: false,
         arrows: false,
         infinite: true,
         autoplay: true,
-        speed: 500,
-        slidesToShow: mobile ? 1 : 3,
+        autoplaySpeed: 4000,
+        speed: 1000,
+        slidesToShow: tablet ? 1 : 3,
         slidesToScroll: 1,
         mobileFirst: true,
     };
@@ -32,11 +34,9 @@ const Client = ({ alerts }: { alerts: any }) => {
                     Alerts
                     <ArrowForwardIosIcon />
                 </h3>
-                
             </Link>
             <div className={styles.container}>
                 <Slider className={styles.slick} {...settings}>
-                {/* <Suspense fallback={<p>Loading feed...</p>}> */}
                     {alerts.map((alert: any, i: number) => {
                         return (
                             <div className={styles.alert} key={i}>
@@ -51,7 +51,6 @@ const Client = ({ alerts }: { alerts: any }) => {
                             </div>
                         )
                     })}
-                {/* </Suspense> */}
                 </Slider>
             </div>
         </div>

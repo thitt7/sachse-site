@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import parse from 'autosuggest-highlight/parse';
 import { debounce } from '@mui/material/utils';
+import styles from '../../styles/trash.module.scss';
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyA33B4yAmE-rDcU5Zy2v-HggCF20zx_gPM';
 
@@ -56,30 +57,31 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
     const loaded = useRef(false);
 
     const getAddress = async (position: any) => {
+      setLoading(() => true);
       const res = await fetch (`/api/trash/${position.coords.latitude},${position.coords.longitude}`, { });
       const response = await res.json();
-      // console.log('RESPOSNE: ', res);
-      // if (res.status == 500) {
-      //   setErrorMsg('Server Error, this one is on us...sorry!')
-      //   setErrorState(true)
-      //   return
-      // }
       const address = response.formatted_address;
       getTrashDays(address);
     }
 
     const getTrashDays = async (address: string): Promise<void> => {
-      setLoading(() => true);
+      setLoading(true);
       const res = await fetch (`/api/trash?address=${address}`);
-      setLoading(false);
+      try {
+        const res = await fetch (`https://sachse-trash-api.web.app/api/trash?address=${address}`);
+        // const res = await fetch (`/api/trash?address=${address}`);
+        const result = await res!.json();
+        setErrorState(false);
+        setDays(result);
+      } catch (error) {
+        setLoading(false);
+        setErrorState(true);
+        setErrorMsg('Trouble requesting trash pickup data, please try again later!');
+      }
+      finally{
 
-      // if (res!.status !== 200) {
-      //     setErrorState(true)
-      //     return
-      // }
-      const result = await res!.json();
-      setErrorState(false);
-      setDays(result);
+      }
+      setLoading(false);
     }
 
     const handleAddressInput = async (e: React.SyntheticEvent, newInputValue: string) => {
@@ -120,9 +122,7 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
 
     /* Get GeoLocation */
     useEffect(() => {
-          if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(getAddress);
-          }
+          if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(getAddress); }
     }, []);
   
     useEffect(() => {
@@ -197,7 +197,7 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
           return (
             <div onClick={handleAddressSelect}>
             <li {...props}>
-              <Grid container alignItems="center" className="meep">
+              <Grid container alignItems="center" className={styles.option}>
                 <Grid item sx={{ display: 'flex', width: 44 }}>
                   <LocationOnIcon sx={{ color: 'text.secondary' }} />
                 </Grid>

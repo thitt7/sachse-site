@@ -58,7 +58,7 @@
             "five five six six seven seven";
     }
 
-    @media (min-width: $tablet) and (max-width: $desktop){
+    @media (min-width: $tablet) and (max-width: 1919px){
         grid-template-areas:
             "one one one one one one"
             "two two two four four four"

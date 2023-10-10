@@ -20,11 +20,11 @@ const ScrollTop = () => {
     };
   
     return (
-      <Fade in={trigger}>
+      <Fade in={trigger} >
         <Box
           onClick={handleClick}
           role="presentation"
-          sx={{ position: 'fixed', bottom: 16, right: 16 }}
+          sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 1000 }}
         >
           <Fab size="small" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />
@@ -34,4 +34,4 @@ const ScrollTop = () => {
     );
   }
 
-  export default ScrollTop
+  export default ScrollTop;

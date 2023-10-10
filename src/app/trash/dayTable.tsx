@@ -21,7 +21,7 @@ const DayTable = ({days}: {days: string[][]}) => {
               {
                 days.slice(1).map((row) => {
                   return (
-                    <TableRow key={row} >
+                    <TableRow >
                       {row.map((cell) => {
                         return (
                           <TableCell align="center" key={cell}>{cell}</TableCell>

@@ -5,6 +5,7 @@ import readingTime from '@/lib/readingTime';
 import Avatar from '@mui/material/Avatar';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import styles from '../../../styles/news.module.scss'
 
 const ArticleInfo = ({article}: any) => {
 
@@ -29,10 +30,10 @@ const getTimeElapsed = () => {
 const timeIcon = <AccessTimeIcon sx={{fontSize: '1rem'}}/>
 const calendarIcon = <CalendarTodayIcon sx={{fontSize: '1rem'}}/>
   return (
-    <div className="article-info">
+    <div className={styles.info}>
         <Avatar>{Article.author[0]}</Avatar>
         <div>
-            <h3 className='author'>{Article.author}</h3>
+            <h3 className={styles.author}>{Article.author}</h3>
             <span>{timeIcon}{`${readingTime(Article.body)} min read`}<div>·</div>{calendarIcon}{getTimeElapsed()}</span>
         </div>
     </div>

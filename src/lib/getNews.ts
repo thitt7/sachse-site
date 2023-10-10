@@ -6,7 +6,7 @@ async function getNews(slug?: string, limit?: number, offset?: number) {
   let url: string = '';
   if (typeof window == 'undefined') {url = `${process.env.API_URL}/api/news?`;}
   else {url = `/api/news?`;}
-  slug ? url = urlConcat(url, slug, 'id') : ''
+  slug ? url = urlConcat(url, slug, 'slug') : ''
   limit ? url = urlConcat(url, limit.toString(), 'limit') : ''
   offset ? url = urlConcat(url, offset.toString(), 'offset') : ''
   

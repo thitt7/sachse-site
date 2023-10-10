@@ -10,8 +10,8 @@ export type Event = {
     location?: string,
     address?: string,
     description?: {html: string, text: string},
-    start?: Date,
-    end?: Date,
+    start?: Date | string,
+    end?:  Date | string,
     URL?: string,
     img?: {src: string, alt: string},
     allDay?: boolean
@@ -19,23 +19,9 @@ export type Event = {
 
 const getEvents = async () => {
     
-    let bulkArr = await getLatest();
-    bulkArr = await populateEventArr(bulkArr);
-    bulkArr.push(...await getEvents2(), ...await getEvents3())
-    await bulkWrite(bulkArr);
-
-}
-
-/* Get list of events from city of sachse page from range of current date to current date + 2 years */
-const getLatest = async () => {
-    const now = new Date()
-    let currentDate = now.toLocaleString()
-    const startDate = currentDate.slice(0,currentDate.indexOf(','))
-    const endDate = new Date(new Date().setFullYear(now.getFullYear()+2)).toLocaleString().slice(0,currentDate.indexOf(','))
-
-    /* City of Sachse Events */
-    const eventArr: Event[] = []
-    const response = await fetch(`https://www.cityofsachse.com/calendar.aspx?Keywords=&startDate=${startDate}&enddate=${endDate}`)
+    let eventArr: Event[] = []
+    // const response = await fetch(`https://www.cityofsachse.com/calendar.aspx?Keywords=&startDate=${startDate}&enddate=${endDate}`)
+    const response = await fetch(`https://www.cityofsachse.com/calendar`)
     let htmlString = await response.text()
     let $ = cheerio.load(htmlString)
 
@@ -44,7 +30,24 @@ const getLatest = async () => {
             eventArr.push({ URL: currenthref })
     });
 
-    return eventArr;
+    let length = eventArr.length
+    const pushEvents = async () => {
+        return[...await getEvents2(), ...await getEvents3()]
+    }
+    
+    length = eventArr.length - length
+    const events = await pushEvents()
+
+    if ((!await isUpToDate(eventArr)) || events.length) {
+        eventArr = await populateEventArr(eventArr)
+        eventArr = [...eventArr, ...events]
+        await bulkWrite(eventArr)
+        return eventArr
+    }
+    else {
+        return null;
+    }
+
 }
 
 /* Populate each index of array to be written to db with appropriate properties */
@@ -79,6 +82,15 @@ const scrape = async (e: Event): Promise<Event> => {
     
     e = { ...e, title: title, img: img, start: start, end: end, location: location, address: address, allDay: allDay }
     return e;
+}
+
+export const isUpToDate = async (arr: any[]): Promise<boolean> => {
+    const client = await clientPromise;
+    const db = client.db("sachse-site");
+    const events = await db.collection('events');
+
+    return (await events.find({ URL: arr[0].URL }).toArray()).length != 0
+    // return true
 }
 
 /* Perform bulk write operation to db with scraped data */

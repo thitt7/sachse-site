@@ -4,10 +4,10 @@ function urlConcat (url: string, query: string, name: string) {
 
 async function getEvents(id?: string, now?: boolean, limit?: string, offset?: string) {
   let url: string = '';
-  if (typeof window == 'undefined') {url = `${process.env.API_URL}/api/weather?`;}
+  if (typeof window == 'undefined') {url = `${process.env.API_URL}/api/events?`;}
   else {url = `/api/events?`;}
   id ? url = urlConcat(url, id, 'id') : ''
-  now ? url = urlConcat(url, now.toString(), 'date') : ''
+  now ? url = urlConcat(url, 'true', 'now') : ''
   limit ? url = urlConcat(url, limit, 'limit') : ''
   offset ? url = urlConcat(url, offset, 'offset') : ''
   

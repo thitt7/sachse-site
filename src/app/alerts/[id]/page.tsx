@@ -33,6 +33,9 @@ export const generateMetadata = async ({ params }: Props ): Promise<Metadata> =>
         address: true,
         telephone: true,
       },
+      alternates: {
+        canonical: `https://sachse.city/events?id=${params.id}`
+      },
   
       openGraph: {
         title: title,
@@ -68,7 +71,6 @@ export const generateMetadata = async ({ params }: Props ): Promise<Metadata> =>
 const Alert = async ({params}: Props) => {
 
     const alert = await getAlerts(params.id)
-    const { URL, title, author, body, category, createdAt, img } = alert[0];
 
   return (
       <div className={styles.alertContainer}>
