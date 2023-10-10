@@ -13,8 +13,8 @@ export const generateMetadata = async ({params, searchParams}: metaProps): Promi
   const { URL, img, title, address, description, start, end, location, pubDate} = event[0];
   
   return {
-    title: searchParams.id ? `${title} | Events` : 'Events | Sachse Community Site',
-    description: description ? description.text.substring(0, 160) : '',
+    title: title ? `${title} | Events` : 'Events | Sachse Community Site',
+    description: description ? description.text.substring(0, 160) : 'Explore all the exciting events in Sachse and the surrounding area on our Events page. Find all the events you&apos;re looking for in one place',
 
     generator: 'Next.js',
     applicationName: 'Next.js',
@@ -30,7 +30,7 @@ export const generateMetadata = async ({params, searchParams}: metaProps): Promi
       telephone: true,
     },
     alternates: {
-      canonical: `https://sachse.city/events?id=${searchParams.id}`
+      canonical: searchParams.id ? `https://sachse.city/events?id=${searchParams.id}` : 'https://sachse.city/events'
     },
     robots: {
       index: true,
@@ -47,15 +47,15 @@ export const generateMetadata = async ({params, searchParams}: metaProps): Promi
     },
 
     openGraph: {
-      title: title,
-      description: description ? description.text : '',
-      url: `https://sachse.city/events?id=${searchParams.id}`,
+      title: title ? `${title} | Events` : 'Events | Sachse Community Site',
+      description: description ? description.text.substring(0, 160) : 'Explore all the exciting events in Sachse and the surrounding area on our Events page. Find all the events you&apos;re looking for in one place',
+      url: searchParams.id ? `https://sachse.city/events?id=${searchParams.id}` : 'https://sachse.city/events',
       publishedTime: pubDate ? pubDate : Date.now(),
       // authors: [author],
       siteName: 'sachse.city',
       images: [
         {
-          url: img ? img.src: '',
+          url: img ? img.src : '/banner-full.jpg',
           width: 800,
           height: 600,
         },
@@ -67,12 +67,12 @@ export const generateMetadata = async ({params, searchParams}: metaProps): Promi
     twitter: {
       card: 'summary_large_image',
       site: '',
-      title: title,
-      description: description ? description.text : '',
+      title: title ? `${title} | Events` : 'Events | Sachse Community Site',
+      description: description ? description.text.substring(0, 160) : 'Explore all the exciting events in Sachse and the surrounding area on our Events page. Find all the events you&apos;re looking for in one place',
       siteId: '',
       creator: '',
       creatorId: '',
-      images: img ? img.src : '',
+      images: img ? img.src : '/banner-full.jpg',
     },
   }
 }
