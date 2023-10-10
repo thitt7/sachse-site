@@ -66,7 +66,7 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
 
     const getTrashDays = async (address: string): Promise<void> => {
       setLoading(true);
-      const res = await fetch (`/api/trash?address=${address}`);
+      // const res = await fetch (`/api/trash?address=${address}`);
       try {
         const res = await fetch (`https://sachse-trash-api.web.app/api/trash?address=${address}`);
         // const res = await fetch (`/api/trash?address=${address}`);
