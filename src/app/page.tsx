@@ -13,6 +13,8 @@ import { Metadata } from 'next';
 
 import '../styles/globals.scss';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: 'Sachse Community Site - Sachse, Texas Updates & More',
     description: 'Discover the community site for Sachse, Texas. The go-to source for the latest news, events, job opportunities, and up-to-date resources.',

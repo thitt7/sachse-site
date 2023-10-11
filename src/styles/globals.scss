@@ -253,6 +253,11 @@ html#html {
         p {font-size: 1.25rem;}
       }
     }
+
+    @media (orientation: portrait) {
+      :is([id*=ig-feed], [id*=fb-feed]) {display: none;}
+    }
+
   }
 }
 
