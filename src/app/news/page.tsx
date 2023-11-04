@@ -3,6 +3,8 @@ import Client from "./Client";
 import getNews from "@/lib/getNews";
 import { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: 'News | Sachse Community Site',
     description: 'Discover the latest news and updates from Sachse, Texas, on our News page. Stay up on local sports, community developments, and important stories that matter most to our city.',

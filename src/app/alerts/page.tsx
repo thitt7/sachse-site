@@ -3,6 +3,8 @@ import Client from "./Client";
 import getAlerts from "@/lib/getAlerts";
 import { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: 'Alerts | Sachse Community Site',
     description: 'Stay informed and safe with real-time alerts directly from the Sachse, Texas police department. Get timely updates on emergency situations, weather advisories, road closures, and more.',

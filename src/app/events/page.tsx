@@ -3,6 +3,8 @@ import getEvents from '@/lib/getEvents';
 import Client from './client';
 import { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 type metaProps = {
   params: { id: string }
   searchParams: { [key: string]: string | string[] | undefined }
